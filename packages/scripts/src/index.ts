@@ -5,35 +5,40 @@ import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, relea
 import { loadCliOptions } from './config';
 import type { Lang } from './locales';
 
+// CLI 命令类型（中文说明：soybean-admin 脚手架工具支持的子命令）
 type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release' | 'gen-route';
 
+// 命令 action 类型
 type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 
+// 命令表结构：command -> { desc, action }
 type CommandWithAction<A extends object = object> = Record<Command, { desc: string; action: CommandAction<A> }>;
 
+// CLI 参数类型（中文说明：cac 会把 option 注入到 args）
 interface CommandArg {
-  /** Execute additional command after bumping and before git commit. Defaults to 'pnpm sa changelog' */
+  /** 发布流程中：版本号更新后、git commit 前执行的额外命令 */
   execute?: string;
-  /** Indicates whether to push the git commit and tag. Defaults to true */
+  /** 是否推送 git commit 与 tag */
   push?: boolean;
-  /** Generate changelog by total tags */
+  /** 是否按全量 tag 生成 changelog */
   total?: boolean;
   /**
-   * The glob pattern of dirs to clean up
+   * 清理目录的 glob 模式
    *
-   * If not set, it will use the default value
+   * 未设置时使用默认值
    *
-   * Multiple values use "," to separate them
+   * 多个值用 "," 分隔
    */
   cleanupDir?: string;
   /**
-   * display lang of cli
+   * CLI 展示语言
    *
-   * @default 'en-us'
+   * @default en-us
    */
   lang?: Lang;
 }
 
+// 启动 CLI（中文说明：注册命令与选项并解析 argv）
 export async function setupCli() {
   const cliOptions = await loadCliOptions();
 
@@ -106,4 +111,5 @@ export async function setupCli() {
   cli.parse();
 }
 
+// 直接启动 CLI
 setupCli();

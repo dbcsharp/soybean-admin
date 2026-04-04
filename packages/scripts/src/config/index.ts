@@ -2,6 +2,7 @@ import process from 'node:process';
 import { loadConfig } from 'c12';
 import type { CliOption } from '../types';
 
+// CLI 默认配置（中文说明：支持 cleanup/update-pkg/changelog/git-commit-verify 等命令的默认参数）
 const defaultOptions: CliOption = {
   cwd: process.cwd(),
   cleanupDirs: [
@@ -26,6 +27,7 @@ const defaultOptions: CliOption = {
   ]
 };
 
+// 加载 CLI 配置（中文说明：优先读取 c12 配置/包内配置，并可通过 overrides 覆写）
 export async function loadCliOptions(overrides?: Partial<CliOption>, cwd = process.cwd()) {
   const { config } = await loadConfig<Partial<CliOption>>({
     name: 'soybean',

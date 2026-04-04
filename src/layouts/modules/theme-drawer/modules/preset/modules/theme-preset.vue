@@ -5,10 +5,12 @@ import { useThemeStore } from '@/store/modules/theme';
 import { themeSettings } from '@/theme/settings';
 import { $t } from '@/locales';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'ThemePreset'
 });
 
+// 主题预设结构（中文说明：从 ThemeSetting 中挑选可配置项，并追加 name/desc/version 等元信息）
 type ThemePreset = Pick<
   App.Theme.ThemeSetting,
   | 'themeScheme'
@@ -37,11 +39,14 @@ type ThemePreset = Pick<
   naiveui?: App.Theme.NaiveUIThemeOverride;
 };
 
+// 动态加载预设 JSON（eager：构建时直接打包进来）
 const presetModules = import.meta.glob('@/theme/preset/*.json', { eager: true, import: 'default' });
 
+// 获取主题状态（用于写入预设配置）
 const themeStore = useThemeStore();
 
 // Extract preset data
+// 提取预设列表（中文说明：根据文件名生成 id，并按 name 排序，default 置顶）
 const presets = computed(() =>
   Object.entries(presetModules)
     .map(([path, presetData]) => {
@@ -58,6 +63,7 @@ const presets = computed(() =>
     })
 );
 
+// 获取预设显示名称（中文说明：优先使用 i18nkey 翻译，否则回退到 preset.name）
 const getPresetName = (preset: ThemePreset): string => {
   if (!preset.i18nkey) return preset.name;
   try {
@@ -69,6 +75,7 @@ const getPresetName = (preset: ThemePreset): string => {
   }
 };
 
+// 获取预设描述（中文说明：优先使用 i18nkey 翻译，否则回退到 preset.desc）
 const getPresetDesc = (preset: ThemePreset): string => {
   if (!preset.i18nkey) return preset.desc;
   try {
@@ -80,16 +87,22 @@ const getPresetDesc = (preset: ThemePreset): string => {
   }
 };
 
+// 应用预设（中文说明：与默认 themeSettings 合并，再写入 themeStore，并同步 NaiveUI 覆盖配置）
 const applyPreset = (preset: ThemePreset): void => {
+  // 先与默认设置做深合并，补齐缺省字段
   const mergedPreset = defu(preset, themeSettings);
   const { themeScheme, grayscale, colourWeakness, layout, watermark, naiveui, ...rest } = mergedPreset;
+  // 设置主题模式/灰色/色弱
   themeStore.setThemeScheme(themeScheme);
   themeStore.setGrayscale(grayscale);
   themeStore.setColourWeakness(colourWeakness);
+  // 设置布局模式
   themeStore.setThemeLayout(layout.mode);
+  // 设置水印开关（用户名/时间）
   themeStore.setWatermarkEnableUserName(watermark.enableUserName);
   themeStore.setWatermarkEnableTime(watermark.enableTime);
 
+  // 批量写入其它配置（layout.scrollMode 需要合并到现有 layout）
   Object.assign(themeStore, {
     ...rest,
     layout: { ...themeStore.layout, scrollMode: layout.scrollMode },
@@ -103,13 +116,16 @@ const applyPreset = (preset: ThemePreset): void => {
   });
 
   // Apply NaiveUI theme overrides if present
+  // 设置 NaiveUI 主题覆盖（可选）
   themeStore.setNaiveThemeOverrides(naiveui);
 
+  // 提示应用成功
   window.$message?.success($t('theme.appearance.preset.applySuccess'));
 };
 </script>
 
 <template>
+  <!-- 主题预设：展示预设卡片列表，并支持一键应用 -->
   <NDivider>{{ $t('theme.appearance.preset.title') }}</NDivider>
 
   <div class="flex flex-col gap-3">
@@ -125,6 +141,7 @@ const applyPreset = (preset: ThemePreset): void => {
           </h5>
           <NBadge :value="`v${preset.version}`" type="info" size="small" class="flex-shrink-0 opacity-80" />
         </div>
+        <!-- 应用预设按钮 -->
         <NButton type="primary" size="tiny" ghost round class="ml-2 flex-shrink-0" @click="applyPreset(preset)">
           {{ $t('theme.appearance.preset.apply') }}
         </NButton>
@@ -133,6 +150,7 @@ const applyPreset = (preset: ThemePreset): void => {
       <p class="line-clamp-2 mb-3 text-xs text-gray-500 leading-4">{{ getPresetDesc(preset) }}</p>
 
       <div class="flex items-center justify-between">
+        <!-- 预设颜色预览 -->
         <div class="flex gap-1">
           <div
             v-for="(color, key) in { primary: preset.themeColor, ...preset.otherColor }"
@@ -143,6 +161,7 @@ const applyPreset = (preset: ThemePreset): void => {
             :title="key"
           />
         </div>
+        <!-- 预设状态预览：主题模式/灰度标识 -->
         <div class="flex items-center gap-1">
           <div class="text-lg">
             {{ preset.themeScheme === 'dark' ? '🌙' : '☀️' }}

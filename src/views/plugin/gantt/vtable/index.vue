@@ -5,21 +5,27 @@ import * as VTable_editors from '@visactor/vtable-editors';
 import { useThemeStore } from '@/store/modules/theme';
 import { basicGanttRecords, customGanttRecords, linkGanttRecords } from './data';
 
+// VTableGantt 示例：展示基础甘特图、依赖连线甘特图、自定义渲染甘特图，并支持暗黑模式切换
 const theme = useThemeStore();
 
+// 编辑器实例（用于任务列表表格单元格编辑）
 const input_editor = new VTable_editors.InputEditor();
 const date_input_editor = new VTable_editors.DateInputEditor();
+// 注册编辑器到 VTable（通过 name 引用）
 VTableGantt.VTable.register.editor('input', input_editor);
 VTableGantt.VTable.register.editor('date-input', date_input_editor);
 
+// 三个甘特图容器 DOM 引用
 const basicGanttDomRef = shallowRef<HTMLElement>();
 const linkGanttDomRef = shallowRef<HTMLElement>();
 const customGanttDomRef = shallowRef<HTMLElement>();
 
+// 三个甘特图实例引用（用于释放与重建）
 const basicGanttInstance = shallowRef<VTableGantt.Gantt>();
 const linkGanttInstance = shallowRef<VTableGantt.Gantt>();
 const customGanttInstance = shallowRef<VTableGantt.Gantt>();
 
+// 基础甘特图任务列表列定义
 const basicGanttColumns = [
   {
     field: 'title',
@@ -65,6 +71,7 @@ const basicGanttColumns = [
     editor: 'input'
   }
 ];
+// 基础甘特图配置
 const basicGanttOption: VTableGantt.GanttConstructorOptions = {
   overscrollBehavior: 'none',
   records: basicGanttRecords,
@@ -215,6 +222,7 @@ const basicGanttOption: VTableGantt.GanttConstructorOptions = {
   }
 };
 
+// 依赖连线甘特图任务列表列定义
 const linkGanttColumns = [
   {
     field: 'title',
@@ -254,6 +262,7 @@ const linkGanttColumns = [
     editor: 'input'
   }
 ];
+// 依赖连线甘特图配置（包含 dependency.links）
 const linkGanttOption: VTableGantt.GanttConstructorOptions = {
   records: linkGanttRecords,
   taskListTable: {
@@ -403,8 +412,10 @@ const linkGanttOption: VTableGantt.GanttConstructorOptions = {
   overscrollBehavior: 'none'
 };
 
+// 自定义任务条颜色池
 const barColors0 = ['#aecde6', '#c6a49a', '#ffb582', '#eec1de', '#b3d9b3', '#cccccc', '#e59a9c', '#d9d1a5', '#c9bede'];
 const barColors = ['#1f77b4', '#8c564b', '#ff7f0e', '#e377c2', '#2ca02c', '#7f7f7f', '#d62728', '#bcbd22', '#9467bd'];
+// 自定义甘特图任务列表列定义（自定义单元格布局）
 const customGanttColumns: VTableGantt.ColumnsDefine = [
   {
     field: 'title',
@@ -468,6 +479,7 @@ const customGanttColumns: VTableGantt.ColumnsDefine = [
     }
   }
 ];
+// 自定义甘特图配置（自定义 taskBar.layout 与 timelineHeader.layout）
 const customGanttOption: VTableGantt.GanttConstructorOptions = {
   records: customGanttRecords,
   taskListTable: {
@@ -734,6 +746,7 @@ const customGanttOption: VTableGantt.GanttConstructorOptions = {
   }
 };
 
+// 初始化三种甘特图实例
 function initVTableGantt() {
   basicGanttInstance.value = new VTableGantt.Gantt(basicGanttDomRef.value as HTMLElement, getOption(basicGanttOption));
   linkGanttInstance.value = new VTableGantt.Gantt(linkGanttDomRef.value as HTMLElement, getOption(linkGanttOption));
@@ -743,6 +756,7 @@ function initVTableGantt() {
   );
 }
 
+// 根据暗黑模式调整 option（中文说明：切换 taskListTable.theme 与背景色）
 function getOption(option: VTableGantt.GanttConstructorOptions) {
   const isDark = theme.darkMode;
   if (isDark) {
@@ -758,6 +772,7 @@ function getOption(option: VTableGantt.GanttConstructorOptions) {
   return option;
 }
 
+// 监听暗黑模式变化：释放旧实例并重建
 const stopHandle = watch(
   () => theme.darkMode,
   _newValue => {
@@ -769,26 +784,33 @@ const stopHandle = watch(
   }
 );
 
+// 组件挂载后初始化甘特图
 onMounted(() => {
   initVTableGantt();
 });
 
+// 组件卸载时停止监听（并由 watch 回调内释放实例）
 onUnmounted(() => {
   stopHandle();
 });
 </script>
 
 <template>
+  <!-- VTableGantt 示例页：三种甘特图展示 -->
   <NSpace vertical :size="16">
+    <!-- 资源链接卡片 -->
     <NCard :bordered="false" title="VTableGantt" class="h-full card-wrapper">
       <WebSiteLink label="More Demos: " link="https://www.visactor.com/vtable/example" />
     </NCard>
+    <!-- 基础甘特图 -->
     <NCard :bordered="false" class="h-full card-wrapper">
       <div ref="basicGanttDomRef" class="relative h-400px"></div>
     </NCard>
+    <!-- 依赖连线甘特图 -->
     <NCard :bordered="false" class="h-full card-wrapper">
       <div ref="linkGanttDomRef" class="relative h-400px"></div>
     </NCard>
+    <!-- 自定义渲染甘特图 -->
     <NCard :bordered="false" class="h-full card-wrapper">
       <div ref="customGanttDomRef" class="relative h-400px"></div>
     </NCard>

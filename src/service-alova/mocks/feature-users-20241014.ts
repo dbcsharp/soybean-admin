@@ -1,6 +1,6 @@
 import { defineMock } from '@sa/alova/mock';
 
-// you can separate the mock data into multiple files dependent on your project versions
+// Mock 数据：按业务模块拆分 mock 文件，便于按版本维护与扩展
 export default defineMock({
   '[POST]/systemManage/addUser': () => {
     return {

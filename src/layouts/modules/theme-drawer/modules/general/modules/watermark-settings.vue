@@ -5,29 +5,37 @@ import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
 import SettingItem from '../../../components/setting-item.vue';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'WatermarkSettings'
 });
 
+// 获取主题状态（水印配置）
 const themeStore = useThemeStore();
 
+// 是否显示水印文本输入（中文说明：水印开启且未启用用户名/时间时显示文本输入）
 const isWatermarkTextVisible = computed(
   () => themeStore.watermark.visible && !themeStore.watermark.enableUserName && !themeStore.watermark.enableTime
 );
 </script>
 
 <template>
+  <!-- 水印设置：显隐/用户名/时间/时间格式/自定义文本 -->
   <NDivider>{{ $t('theme.general.watermark.title') }}</NDivider>
   <TransitionGroup tag="div" name="setting-list" class="flex-col-stretch gap-12px">
+    <!-- 水印显隐 -->
     <SettingItem key="1" :label="$t('theme.general.watermark.visible')">
       <NSwitch v-model:value="themeStore.watermark.visible" />
     </SettingItem>
+    <!-- 用户名水印 -->
     <SettingItem v-if="themeStore.watermark.visible" key="2" :label="$t('theme.general.watermark.enableUserName')">
       <NSwitch :value="themeStore.watermark.enableUserName" @update:value="themeStore.setWatermarkEnableUserName" />
     </SettingItem>
+    <!-- 时间水印 -->
     <SettingItem v-if="themeStore.watermark.visible" key="3" :label="$t('theme.general.watermark.enableTime')">
       <NSwitch :value="themeStore.watermark.enableTime" @update:value="themeStore.setWatermarkEnableTime" />
     </SettingItem>
+    <!-- 时间格式：仅启用时间水印时显示 -->
     <SettingItem
       v-if="themeStore.watermark.visible && themeStore.watermark.enableTime"
       key="4"
@@ -40,6 +48,7 @@ const isWatermarkTextVisible = computed(
         class="w-210px"
       />
     </SettingItem>
+    <!-- 自定义水印文本：仅用户名/时间都关闭时显示 -->
     <SettingItem v-if="isWatermarkTextVisible" key="5" :label="$t('theme.general.watermark.text')">
       <NInput
         v-model:value="themeStore.watermark.text"

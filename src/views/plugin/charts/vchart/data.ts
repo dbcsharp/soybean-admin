@@ -9,12 +9,19 @@ import type {
   IWordCloudChartSpec
 } from '@visactor/vchart';
 
+// VChart 配置集合：包含词云/环形进度/水滴图/排行榜/面积图等示例配置
 export const shapeWordCloudSpec: IWordCloudChartSpec = {
+  // 图表类型：词云
   type: 'wordCloud',
+  // 蒙版形状图片（决定词云轮廓）
   maskShape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
+  // 文本字段
   nameField: 'challenge_name',
+  // 数值字段
   valueField: 'sum_count',
+  // 系列字段
   seriesField: 'challenge_name',
+  // 数据集
   data: [
     {
       name: 'data',
@@ -173,7 +180,9 @@ export const shapeWordCloudSpec: IWordCloudChartSpec = {
 };
 
 export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator: IIndicatorSpec } = {
+  // 图表类型：环形进度
   type: 'circularProgress',
+  // 数据集：三类业务类型的进度
   data: [
     {
       id: 'id0',
@@ -196,12 +205,19 @@ export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator:
       ]
     }
   ],
+  // 颜色数组
   color: ['rgb(255, 222, 0)', 'rgb(171, 205, 5)', 'rgb(0, 154, 68)'],
+  // 数值字段
   valueField: 'value',
+  // 类目字段
   categoryField: 'type',
+  // 系列字段
   seriesField: 'type',
+  // 外半径
   radius: 0.8,
+  // 内半径
   innerRadius: 0.4,
+  // 刻度蒙版配置（用于“齿轮”刻度效果）
   tickMask: {
     visible: true,
     angle: 10,
@@ -211,6 +227,7 @@ export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator:
       cornerRadius: 15
     }
   },
+  // 坐标轴配置（隐藏）
   axes: [
     {
       visible: false,
@@ -223,6 +240,7 @@ export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator:
       orient: 'radius'
     }
   ],
+  // 指示器配置（hover 时展示标题/数值）
   indicator: {
     visible: true,
     trigger: 'hover',
@@ -246,6 +264,7 @@ export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator:
       }
     ]
   },
+  // 图例配置
   legends: {
     visible: true,
     orient: 'bottom',
@@ -256,8 +275,11 @@ export const circularProgressTickSpec: ICircularProgressChartSpec & { indicator:
 };
 
 export const liquidChartSmartInvertSpec: ILiquidChartSpec & { indicator: IIndicatorSpec } = {
+  // 图表类型：水滴进度
   type: 'liquid',
+  // 数值字段
   valueField: 'value',
+  // 数据集：单值进度
   data: {
     id: 'data',
     values: [
@@ -266,10 +288,13 @@ export const liquidChartSmartInvertSpec: ILiquidChartSpec & { indicator: IIndica
       }
     ]
   },
+  // 蒙版形状：水滴
   maskShape: 'drop', // 水滴
   // maskShape: 'circle',
   // maskShape: 'star',
+  // 指示器智能反色（避免文字与背景冲突）
   indicatorSmartInvert: true,
+  // 指示器配置：标题与内容
   indicator: {
     visible: true,
     title: {
@@ -288,6 +313,7 @@ export const liquidChartSmartInvertSpec: ILiquidChartSpec & { indicator: IIndica
       }
     ]
   },
+  // 水滴背景样式
   liquidBackground: {
     style: {
       fill: 'blue'
@@ -408,6 +434,7 @@ const dataSpecs = Object.keys(goldenMedals).map(year => {
 const duration = 1000;
 const exchangeDuration = 600;
 
+// 排行榜柱状图配置（中文说明：Top10 奥运金牌数随年份动态播放）
 export const rankingBarSpec: IBarChartSpec = {
   type: 'bar',
   padding: {
@@ -545,6 +572,7 @@ export const rankingBarSpec: IBarChartSpec = {
   }
 };
 
+// 堆叠虚线面积图配置（中文说明：forecast=true 时使用虚线与纹理）
 export const stackedDashAreaSpec: IAreaChartSpec = {
   type: 'area',
   data: {
@@ -642,6 +670,7 @@ export const stackedDashAreaSpec: IAreaChartSpec = {
   }
 };
 
+// 柱状图 + 标注点配置（中文说明：包含 crosshair 与 markPoint 自定义文本）
 export const barMarkPointSpec: IBarChartSpec = {
   type: 'bar',
   height: 300,
@@ -776,6 +805,7 @@ export const barMarkPointSpec: IBarChartSpec = {
   ]
 };
 
+// 直方图配置（中文说明：不同分箱区间的 profit 值展示）
 export const histogramDifferentBinSpec: IHistogramChartSpec = {
   type: 'histogram',
   xField: 'from',

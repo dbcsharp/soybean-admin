@@ -2,35 +2,44 @@
 import { computed, shallowRef } from 'vue';
 import { $t } from '@/locales';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'ButtonAuthModal'
 });
 
+// 组件 Props：传入当前角色 id
 interface Props {
   /** the roleId */
   roleId: number;
 }
 
+// 声明 props
 const props = defineProps<Props>();
 
+// 弹窗显隐（v-model）
 const visible = defineModel<boolean>('visible', {
   default: false
 });
 
+// 关闭弹窗
 function closeModal() {
   visible.value = false;
 }
 
+// 弹窗标题
 const title = computed(() => $t('common.edit') + $t('page.manage.role.buttonAuth'));
 
+// 按钮权限配置结构（示例数据结构）
 type ButtonConfig = {
   id: number;
   label: string;
   code: string;
 };
 
+// 按钮树数据
 const tree = shallowRef<ButtonConfig[]>([]);
 
+// 获取所有按钮（中文说明：示例占位，实际应请求后端接口）
 async function getAllButtons() {
   // request
   tree.value = [
@@ -47,14 +56,17 @@ async function getAllButtons() {
   ];
 }
 
+// 当前勾选的按钮 id 列表
 const checks = shallowRef<number[]>([]);
 
+// 获取当前角色已授权的按钮 id（中文说明：示例占位，实际应请求后端接口）
 async function getChecks() {
   console.log(props.roleId);
   // request
   checks.value = [1, 2, 3, 4, 5];
 }
 
+// 提交按钮权限变更
 function handleSubmit() {
   console.log(checks.value, props.roleId);
   // request
@@ -64,6 +76,7 @@ function handleSubmit() {
   closeModal();
 }
 
+// 初始化：加载按钮树与勾选项
 function init() {
   getAllButtons();
   getChecks();
@@ -74,7 +87,9 @@ init();
 </script>
 
 <template>
+  <!-- 按钮权限配置弹窗：通过树形勾选配置角色按钮权限 -->
   <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
+    <!-- 按钮树：checked-keys 绑定 checks -->
     <NTree
       v-model:checked-keys="checks"
       :data="tree"

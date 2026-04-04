@@ -16,52 +16,52 @@ export interface RequestOption<
   State extends Record<string, unknown> = Record<string, unknown>
 > {
   /**
-   * The default state
+   * 默认共享状态（用于在请求实例上挂载可复用状态）
    */
   defaultState?: State;
   /**
-   * transform the response data to the api data
+   * 将 Axios 响应转换为业务数据
    *
-   * @param response Axios response
+   * @param response Axios 响应
    */
   transform: ResponseTransform<AxiosResponse<ResponseData>, ApiData>;
   /**
-   * transform the response data to the api data
+   * 将 Axios 响应转换为业务数据
    *
-   * @deprecated use `transform` instead, will be removed in the next major version v3
-   * @param response Axios response
+   * @deprecated 请使用 `transform`，将在下一个大版本 v3 移除
+   * @param response Axios 响应
    */
   transformBackendResponse: ResponseTransform<AxiosResponse<ResponseData>, ApiData>;
   /**
-   * The hook before request
+   * 请求发送前 Hook
    *
-   * For example: You can add header token in this hook
+   * 例如：可在此注入鉴权 token 到请求头
    *
-   * @param config Axios config
+   * @param config Axios 请求配置
    */
   onRequest: (config: InternalAxiosRequestConfig) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>;
   /**
-   * The hook to check backend response is success or not
+   * 判断后端响应是否成功的 Hook
    *
-   * @param response Axios response
+   * @param response Axios 响应
    */
   isBackendSuccess: (response: AxiosResponse<ResponseData>) => boolean;
   /**
-   * The hook after backend request fail
+   * 后端业务失败后的 Hook
    *
-   * For example: You can handle the expired token in this hook
+   * 例如：可在此处理 token 过期刷新并重试
    *
-   * @param response Axios response
-   * @param instance Axios instance
+   * @param response Axios 响应
+   * @param instance Axios 实例（可用于重试原请求）
    */
   onBackendFail: (
     response: AxiosResponse<ResponseData>,
     instance: AxiosInstance
   ) => Promise<AxiosResponse | null> | Promise<void>;
   /**
-   * The hook to handle error
+   * 错误处理 Hook
    *
-   * For example: You can show error message in this hook
+   * 例如：可在此统一提示错误消息或上报日志
    *
    * @param error
    */
@@ -87,16 +87,16 @@ export type CustomAxiosRequestConfig<R extends ResponseType = 'json'> = Omit<Axi
 
 export interface RequestInstanceCommon<State extends Record<string, unknown>> {
   /**
-   * cancel all request
+   * 取消全部请求
    *
-   * if the request provide abort controller sign from config, it will not collect in the abort controller map
+   * 如果请求配置中已提供 signal，则不会被收集进 AbortControllerMap
    */
   cancelAllRequest: () => void;
-  /** you can set custom state in the request instance */
+  /** 请求实例共享状态（业务侧可自行扩展/读写） */
   state: State;
 }
 
-/** The request instance */
+/** 请求实例类型：json 响应返回 transform 后的数据，非 json 返回原始 response.data 映射 */
 export interface RequestInstance<ApiData, State extends Record<string, unknown>> extends RequestInstanceCommon<State> {
   <T extends ApiData = ApiData, R extends ResponseType = 'json'>(
     config: CustomAxiosRequestConfig<R>

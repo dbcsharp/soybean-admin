@@ -1,3 +1,4 @@
+// VTableGantt 数据源：基础甘特图/依赖连线/自定义渲染的 records 集合
 export const basicGanttRecords = [
   {
     id: 1,

@@ -1,5 +1,6 @@
 import type { Task } from 'dhtmlx-gantt';
 
+// dhtmlxGantt 任务数据（中文说明：示例用项目/里程碑/任务树结构）
 export const ganttTasks: Task[] = [
   {
     id: 11,

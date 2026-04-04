@@ -1,150 +1,150 @@
-/** Header config */
+/** 头部配置 */
 interface AdminLayoutHeaderConfig {
   /**
-   * Whether header is visible
+   * 是否显示头部
    *
    * @default true
    */
   headerVisible?: boolean;
   /**
-   * Header height
+   * 头部高度
    *
    * @default 56px
    */
   headerHeight?: number;
 }
 
-/** Tab config */
+/** 标签页配置 */
 interface AdminLayoutTabConfig {
   /**
-   * Whether tab is visible
+   * 是否显示标签页
    *
    * @default true
    */
   tabVisible?: boolean;
   /**
-   * Tab class
+   * 标签页 class
    *
    * @default ''
    */
   tabClass?: string;
   /**
-   * Tab height
+   * 标签页高度
    *
    * @default 48px
    */
   tabHeight?: number;
 }
 
-/** Sider config */
+/** 侧边栏配置 */
 interface AdminLayoutSiderConfig {
   /**
-   * Whether sider is visible
+   * 是否显示侧边栏
    *
    * @default true
    */
   siderVisible?: boolean;
   /**
-   * Sider class
+   * 侧边栏 class
    *
    * @default ''
    */
   siderClass?: string;
   /**
-   * Mobile sider class
+   * 移动端侧边栏 class
    *
    * @default ''
    */
   mobileSiderClass?: string;
   /**
-   * Sider collapse status
+   * 侧边栏是否折叠
    *
    * @default false
    */
   siderCollapse?: boolean;
   /**
-   * Sider width when collapse is false
+   * 侧边栏宽度（未折叠）
    *
    * @default '220px'
    */
   siderWidth?: number;
   /**
-   * Sider width when collapse is true
+   * 侧边栏宽度（折叠）
    *
    * @default '64px'
    */
   siderCollapsedWidth?: number;
 }
 
-/** Content config */
+/** 内容区配置 */
 export interface AdminLayoutContentConfig {
   /**
-   * Content class
+   * 内容区 class
    *
    * @default ''
    */
   contentClass?: string;
   /**
-   * Whether content is full the page
+   * 内容区是否全屏
    *
-   * If true, other elements will be hidden by `display: none`
+   * 为 true 时，其他区域会通过 `display: none` 隐藏
    */
   fullContent?: boolean;
 }
 
-/** Footer config */
+/** 底部配置 */
 export interface AdminLayoutFooterConfig {
   /**
-   * Whether footer is visible
+   * 是否显示底部
    *
    * @default true
    */
   footerVisible?: boolean;
   /**
-   * Whether footer is fixed
+   * 底部是否固定
    *
    * @default true
    */
   fixedFooter?: boolean;
   /**
-   * Footer class
+   * 底部 class
    *
    * @default ''
    */
   footerClass?: string;
   /**
-   * Footer height
+   * 底部高度
    *
    * @default 48px
    */
   footerHeight?: number;
   /**
-   * Whether footer is on the right side
+   * 底部是否在右侧
    *
-   * When the layout is vertical, the footer is on the right side
+   * 当布局为 vertical 时，底部位于右侧
    */
   rightFooter?: boolean;
 }
 
 /**
- * Layout mode
+ * 布局模式
  *
- * - Horizontal
- * - Vertical
+ * - horizontal：顶部布局
+ * - vertical：侧边布局
  */
 export type LayoutMode = 'horizontal' | 'vertical';
 
 /**
- * The scroll mode when content overflow
+ * 内容溢出时的滚动模式
  *
- * - Wrapper: the layout component's wrapper element has a scrollbar
- * - Content: the layout component's content element has a scrollbar
+ * - wrapper：布局外层容器滚动
+ * - content：内容区域滚动
  *
- * @default 'wrapper'
+ * @default wrapper
  */
 export type LayoutScrollMode = 'wrapper' | 'content';
 
-/** Admin layout props */
+/** AdminLayout 组件 props */
 export interface AdminLayoutProps
   extends
     AdminLayoutHeaderConfig,
@@ -153,26 +153,26 @@ export interface AdminLayoutProps
     AdminLayoutContentConfig,
     AdminLayoutFooterConfig {
   /**
-   * Layout mode
+   * 布局模式
    *
    * - {@link LayoutMode}
    */
   mode?: LayoutMode;
-  /** Is mobile layout */
+  /** 是否移动端布局 */
   isMobile?: boolean;
   /**
-   * Scroll mode
+   * 滚动模式
    *
-   * - {@link ScrollMode}
+   * - {@link LayoutScrollMode}
    */
   scrollMode?: LayoutScrollMode;
   /**
-   * The id of the scroll element of the layout
+   * 布局滚动元素的 id
    *
-   * It can be used to get the corresponding Dom and scroll it
+   * 可用于获取对应 DOM 并控制滚动
    *
    * @example
-   *   use the default id by import
+   *   通过导入使用默认 id
    *   ```ts
    *   import { adminLayoutScrollElId } from '@sa/vue-materials';
    *   ```
@@ -183,28 +183,28 @@ export interface AdminLayoutProps
    * ```
    */
   scrollElId?: string;
-  /** The class of the scroll element */
+  /** 滚动元素的 class */
   scrollElClass?: string;
-  /** The class of the scroll wrapper element */
+  /** 滚动容器 wrapper 的 class */
   scrollWrapperClass?: string;
   /**
-   * The common class of the layout
+   * 布局通用 class
    *
-   * Is can be used to configure the transition animation
+   * 可用于配置过渡动画
    *
    * @default 'transition-all-300'
    */
   commonClass?: string;
   /**
-   * Whether fix the header and tab
+   * 是否固定头部与标签页
    *
    * @default true
    */
   fixedTop?: boolean;
   /**
-   * The max z-index of the layout
+   * 布局最大 z-index
    *
-   * The z-index of Header,Tab,Sider and Footer will not exceed this value
+   * Header/Tab/Sider/Footer 的 z-index 不会超过该值
    */
   maxZIndex?: number;
 }
@@ -233,46 +233,47 @@ export type LayoutCssVars = {
 };
 
 /**
- * The mode of the tab
+ * 标签页模式
  *
- * - Button: button style
- * - Chrome: chrome style
+ * - button：按钮风格
+ * - chrome：Chrome 风格
+ * - slider：滑块风格
  *
  * @default chrome
  */
 export type PageTabMode = 'button' | 'chrome' | 'slider';
 
 export interface PageTabProps {
-  /** Whether is dark mode */
+  /** 是否暗黑模式 */
   darkMode?: boolean;
   /**
-   * The mode of the tab
+   * 标签页模式
    *
-   * - {@link TabMode}
+   * - {@link PageTabMode}
    */
   mode?: PageTabMode;
   /**
-   * The common class of the layout
+   * 通用 class
    *
-   * Is can be used to configure the transition animation
+   * 可用于配置过渡动画
    *
    * @default 'transition-all-300'
    */
   commonClass?: string;
-  /** The class of the button tab */
+  /** button 模式的 class */
   buttonClass?: string;
-  /** The class of the chrome tab */
+  /** chrome 模式的 class */
   chromeClass?: string;
-  /** The class of the title tab */
+  /** slider 模式的 class */
   sliderClass?: string;
-  /** Whether the tab is active */
+  /** 是否激活 */
   active?: boolean;
-  /** The color of the active tab */
+  /** 激活颜色 */
   activeColor?: string;
   /**
-   * Whether the tab is closable
+   * 是否可关闭
    *
-   * Show the close icon when true
+   * 为 true 时显示关闭图标
    */
   closable?: boolean;
 }

@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { $t } from '@/locales';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({ name: 'SearchFooter' });
 </script>
 
 <template>
+  <!-- 快捷键提示：Enter 确认、上下键切换、Esc 关闭 -->
   <div class="h-44px flex-y-center gap-14px px-24px">
     <span class="flex-y-center">
       <icon-mdi-keyboard-return class="operate-shadow operate-item" />

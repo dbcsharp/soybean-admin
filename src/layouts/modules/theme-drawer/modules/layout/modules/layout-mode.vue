@@ -4,15 +4,19 @@ import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
 import LayoutModeCard from '../../../components/layout-mode-card.vue';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'LayoutMode'
 });
 
+// 获取应用状态（用于移动端禁用布局切换）
 const appStore = useAppStore();
+// 获取主题状态（用于读写 layout.mode）
 const themeStore = useThemeStore();
 </script>
 
 <template>
+  <!-- 布局模式选择：通过 LayoutModeCard 切换六种布局模式 -->
   <NDivider>{{ $t('theme.layout.layoutMode.title') }}</NDivider>
   <LayoutModeCard v-model:mode="themeStore.layout.mode" :disabled="appStore.isMobile">
     <template #vertical>

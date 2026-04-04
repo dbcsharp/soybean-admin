@@ -1,58 +1,61 @@
 /**
- * the color palette number
+ * 调色板梯度编号
  *
- * the main color number is 500
+ * 主色梯度为 500
  */
 export type ColorPaletteNumber = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
 
-/** the color palette */
+/** 调色板单色结构 */
 export type ColorPalette = {
-  /** the color hex value */
+  /** 颜色 hex 值 */
   hex: string;
   /**
-   * the color number
+   * 颜色梯度编号
    *
    * - 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
    */
   number: ColorPaletteNumber;
 };
 
-/** the color palette family */
+/** 调色板家族（一个颜色名称 + 多个梯度色） */
 export type ColorPaletteFamily = {
-  /** the color palette family name */
+  /** 颜色家族名称 */
   name: string;
-  /** the color palettes */
+  /** 梯度色列表 */
   palettes: ColorPalette[];
 };
 
-/** the color palette with delta */
+/** 带色差（deltaE）的调色板单色 */
 export type ColorPaletteWithDelta = ColorPalette & {
+  /** 与输入色的色差值 */
   delta: number;
 };
 
-/** the color palette family with nearest palette */
+/** 带最近色信息的调色板家族 */
 export type ColorPaletteFamilyWithNearestPalette = ColorPaletteFamily & {
+  /** 色差最近的梯度色 */
   nearestPalette: ColorPaletteWithDelta;
+  /** 亮度最接近的梯度色 */
   nearestLightnessPalette: ColorPaletteWithDelta;
 };
 
-/** the color palette match */
+/** 调色板匹配结果 */
 export type ColorPaletteMatch = ColorPaletteFamily & {
-  /** the color map of the palette */
+  /** 调色板映射：number -> palette */
   colorMap: Map<ColorPaletteNumber, ColorPalette>;
   /**
-   * the main color of the palette
+   * 主色（500 号梯度）
    *
-   * which number is 500
+   * number = 500
    */
   main: ColorPalette;
-  /** the match color of the palette */
+  /** 输入色命中的梯度色 */
   match: ColorPalette;
 };
 
 /**
- * The color index of color palette
+ * AntD 调色板 index
  *
- * From left to right, the color is from light to dark, 6 is main color
+ * 从浅到深依次为 1~11，其中 6 为主色
  */
 export type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;

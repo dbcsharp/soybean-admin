@@ -1,10 +1,12 @@
 <script setup lang="ts">
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'ChromeTabBg'
 });
 </script>
 
 <template>
+  <!-- Chrome Tab 背景：左右对称的 SVG 形状，用 currentColor 继承父级颜色 -->
   <svg class="size-full">
     <defs>
       <symbol id="geometry-left" viewBox="0 0 214 36">

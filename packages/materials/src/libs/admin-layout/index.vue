@@ -4,10 +4,12 @@ import type { AdminLayoutProps } from '../../types';
 import { LAYOUT_MAX_Z_INDEX, LAYOUT_SCROLL_EL_ID, createLayoutCssVars } from './shared';
 import style from './index.module.css';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'AdminLayout'
 });
 
+// 声明 props 并设置默认值（中文说明：提供常用布局默认参数）
 const props = withDefaults(defineProps<AdminLayoutProps>(), {
   mode: 'vertical',
   scrollMode: 'content',
@@ -33,10 +35,13 @@ interface Emits {
   (e: 'update:siderCollapse', collapse: boolean): void;
 }
 
+// 声明 emits
 const emit = defineEmits<Emits>();
 
+// 插槽函数类型
 type SlotFn = (props?: Record<string, unknown>) => any;
 
+// 插槽类型定义（中文说明：布局按区域暴露 header/tab/sider/footer 插槽）
 type Slots = {
   /** Main */
   default?: SlotFn;
@@ -52,26 +57,28 @@ type Slots = {
 
 const slots = defineSlots<Slots>();
 
+// CSS 变量：基于布局 props 计算（高度/z-index 等）
 const cssVars = computed(() => createLayoutCssVars(props));
 
-// config visible
+// 区域显隐控制（中文说明：仅在对应插槽存在且 visible=true 时显示）
 const showHeader = computed(() => Boolean(slots.header) && props.headerVisible);
 const showTab = computed(() => Boolean(slots.tab) && props.tabVisible);
 const showSider = computed(() => !props.isMobile && Boolean(slots.sider) && props.siderVisible);
 const showMobileSider = computed(() => props.isMobile && Boolean(slots.sider) && props.siderVisible);
 const showFooter = computed(() => Boolean(slots.footer) && props.footerVisible);
 
-// scroll mode
+// 滚动模式（wrapper/content）
 const isWrapperScroll = computed(() => props.scrollMode === 'wrapper');
 const isContentScroll = computed(() => props.scrollMode === 'content');
 
-// layout direction
+// 布局方向（vertical/horizontal）
 const isVertical = computed(() => props.mode === 'vertical');
 const isHorizontal = computed(() => props.mode === 'horizontal');
 
+// 头部与标签页是否固定（中文说明：fixedTop=true 或水平布局+wrapperScroll 时固定）
 const fixedHeaderAndTab = computed(() => props.fixedTop || (isHorizontal.value && isWrapperScroll.value));
 
-// css
+// 左侧空隙 class（中文说明：用于让内容区避开侧边栏宽度）
 const leftGapClass = computed(() => {
   if (!props.fullContent && showSider.value) {
     return props.siderCollapse ? style['left-gap_collapsed'] : style['left-gap'];
@@ -82,6 +89,7 @@ const leftGapClass = computed(() => {
 
 const headerLeftGapClass = computed(() => (isVertical.value ? leftGapClass.value : ''));
 
+// 底部左侧空隙（中文说明：按布局/滚动/右侧底部等条件决定是否需要避开侧边栏）
 const footerLeftGapClass = computed(() => {
   const condition1 = isVertical.value;
   const condition2 = isHorizontal.value && isWrapperScroll.value && !props.fixedFooter;
@@ -97,9 +105,11 @@ const footerLeftGapClass = computed(() => {
 const siderPaddingClass = computed(() => {
   let cls = '';
 
+  // 顶部 padding：当 header 显示且 header 未占用左侧空隙时，为 sider 留出空间
   if (showHeader.value && !headerLeftGapClass.value) {
     cls += style['sider-padding-top'];
   }
+  // 底部 padding：当 footer 显示且 footer 未占用左侧空隙时，为 sider 留出空间
   if (showFooter.value && !footerLeftGapClass.value) {
     cls += ` ${style['sider-padding-bottom']}`;
   }
@@ -107,6 +117,7 @@ const siderPaddingClass = computed(() => {
   return cls;
 });
 
+// 点击移动端遮罩：折叠侧边栏
 function handleClickMask() {
   emit('update:siderCollapse', true);
 }

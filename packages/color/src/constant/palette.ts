@@ -1,5 +1,6 @@
 import type { ColorPaletteFamily } from '../types';
 
+// 颜色调色板数据（中文说明：按颜色家族分类，每个家族包含多个 { number, hex } 梯度色）
 export const colorPalettes: ColorPaletteFamily[] = [
   {
     name: 'Slate',

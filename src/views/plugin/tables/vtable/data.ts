@@ -1,3 +1,4 @@
+// VTable 示例数据：用于 ListTable / GroupTable / PivotTable / PivotChart 等组件的 records
 export const listTableRecords = [
   {
     'Row ID': '7981',

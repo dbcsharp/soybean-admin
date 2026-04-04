@@ -2,20 +2,26 @@
 import { computed } from 'vue';
 import { getPaletteColorByNumber } from '@sa/color';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({ name: 'WaveBg' });
 
+// 组件 Props：主题色（用于生成渐变背景）
 interface Props {
   /** Theme color */
   themeColor: string;
 }
 
+// 声明 props
 const props = defineProps<Props>();
 
+// 浅色渐变色（取主题色 200 档）
 const lightColor = computed(() => getPaletteColorByNumber(props.themeColor, 200));
+// 深色渐变色（取主题色 500 档）
 const darkColor = computed(() => getPaletteColorByNumber(props.themeColor, 500));
 </script>
 
 <template>
+  <!-- 波浪背景：通过两个 svg path + 线性渐变生成装饰背景 -->
   <div class="absolute-lt z-1 size-full overflow-hidden">
     <div class="absolute -right-300px -top-900px lt-sm:(-right-100px -top-1170px)">
       <svg height="1337" width="1337">

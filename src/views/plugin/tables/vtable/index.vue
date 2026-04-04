@@ -21,23 +21,32 @@ import VChart from '@visactor/vchart';
 import { useThemeStore } from '@/store/modules/theme';
 import { customListRecords, listTableRecords, pivotChartColumns, pivotChartIndicators, pivotChartRows } from './data';
 
+// Vue-VTable 示例页：ListTable / GroupTable / PivotTable / PivotChart 与自定义渲染单元格示例
+// 注册 vchart 图表模块（用于 PivotChart 渲染）
 registerChartModule('vchart', VChart);
+// 分组标题背景色池（用于 groupTitleStyle）
 const titleColorPool = ['#3370ff', '#34c724', '#ff9f1a', '#ff4050', '#1f2329'];
 
+// 获取主题状态（用于切换 VTable 主题）
 const themeStore = useThemeStore();
 
 // list table
+// 普通列表表格引用
 const listTableRef = ref(null);
+// 列表表格配置（根据暗黑模式切换主题）
 const listOptions = computed(() => {
   const options = {
     theme: themeStore.darkMode ? VTable.themes.DARK : VTable.themes.DEFAULT
   };
   return options;
 });
+// 列表表格数据
 const listRecords = ref<Record<string, string | number>[]>(listTableRecords);
 
 // group table
+// 分组表格引用
 const groupTableRef = ref(null);
+// 分组表格配置（按 Category/Sub-Category 分组，并自定义分组标题背景色）
 const groupOptions = computed(() => {
   const options = {
     groupBy: ['Category', 'Sub-Category'],
@@ -60,7 +69,9 @@ const groupOptions = computed(() => {
 const groupRecords = ref<Record<string, string | number>[]>(listTableRecords);
 
 // pivot table
+// 透视表引用
 const pivotTableRef = ref(null);
+// 透视表配置（tooltip/排序规则/主题/空提示）
 const pivotTableOptions = computed(() => {
   return {
     tooltip: {
@@ -81,6 +92,7 @@ const pivotTableOptions = computed(() => {
     }
   };
 });
+// 透视表指标定义
 const pivotTableIndicators = ref([
   {
     indicatorKey: 'Quantity',
@@ -124,6 +136,7 @@ const pivotTableIndicators = ref([
     }
   }
 ]);
+// 透视表行维度定义
 const pivotTableRows = ref([
   {
     dimensionKey: 'City',
@@ -132,10 +145,13 @@ const pivotTableRows = ref([
     width: 'auto'
   }
 ]);
+// 透视表数据（mounted 时通过 fetch 异步加载）
 const pivotTableRecords = ref([]);
 
 // pivot chart
+// 透视图表引用
 const pivotChartRef = ref(null);
+// 透视图表配置（包含 rows/columns/indicators/legend/theme 等）
 const pivotChartOptions = computed(() => {
   return {
     rows: pivotChartRows,
@@ -185,7 +201,9 @@ const pivotChartOptions = computed(() => {
     }
   };
 });
+// 透视图表数据（mounted 时通过 fetch 异步加载）
 const pivotChartRecords = ref({} as any);
+// 图例点击处理（中文说明：通过 updateFilterRules 过滤 Segment-Indicator）
 const handleLegendItemClick = (args: { value: any }) => {
   (pivotChartRef?.value as any)?.vTableInstance.updateFilterRules([
     {
@@ -196,18 +214,23 @@ const handleLegendItemClick = (args: { value: any }) => {
 };
 
 // custom layout list table
+// 自定义渲染列表表引用
 const customLayoutListTableRef = ref(null);
+// 自定义渲染列表表配置（默认行高/主题）
 const customLayoutListTableOptions = computed(() => {
   return {
     defaultRowHeight: 80,
     theme: themeStore.darkMode ? VTable.themes.DARK : VTable.themes.DEFAULT
   };
 });
+// 自定义渲染列表数据
 const customLayoutListTableRecords = ref(customListRecords);
+// 自定义列样式
 const customLayoutListTableColumnStyle = ref({ fontFamily: 'Arial', fontSize: 12, fontWeight: 'bold' });
 
 onMounted(() => {
   // pivot tablt records
+  // 拉取透视表数据
   fetch('https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/North_American_Superstore_Pivot_data.json')
     .then(res => res.json())
     .then(jsonData => {
@@ -216,6 +239,7 @@ onMounted(() => {
     });
 
   // pivot chart records
+  // 拉取透视图表数据
   fetch('https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/North_American_Superstore_Pivot_Chart_data.json')
     .then(res => res.json())
     .then(data => {

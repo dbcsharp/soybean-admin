@@ -4,19 +4,23 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import type { SwiperOptions } from 'swiper/types';
 
+// 示例配置类型（中文说明：抽取常用 SwiperOptions 字段）
 type SwiperExampleOptions = Pick<
   SwiperOptions,
   'navigation' | 'pagination' | 'scrollbar' | 'slidesPerView' | 'slidesPerGroup' | 'spaceBetween' | 'direction' | 'loop'
 >;
 
+// 示例项结构（中文说明：id/标题/配置）
 interface SwiperExample {
   id: number;
   label: string;
   options: Partial<SwiperExampleOptions>;
 }
 
+// 注册 Swiper 模块（导航/分页）
 SwiperCore.use([Navigation, Pagination]);
 
+// Swiper 示例列表（中文说明：展示不同分页/导航/循环等配置）
 const swiperExample: SwiperExample[] = [
   { id: 0, label: 'Default', options: {} },
   {
@@ -86,6 +90,7 @@ const swiperExample: SwiperExample[] = [
 </script>
 
 <template>
+  <!-- Swiper 插件页：展示多种 Swiper 配置示例 -->
   <div>
     <NCard title="Swiper插件" :bordered="false" class="card-wrapper">
       <NSpace :vertical="true">

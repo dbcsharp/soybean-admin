@@ -9,11 +9,13 @@ import type { LastLevelRouteKey, RouteLayout } from "@elegant-router/types";
 import BaseLayout from "@/layouts/base-layout/index.vue";
 import BlankLayout from "@/layouts/blank-layout/index.vue";
 
+// 布局组件映射（中文说明：将 RouteLayout key 映射到对应布局组件）
 export const layouts: Record<RouteLayout, RouteComponent | (() => Promise<RouteComponent>)> = {
   base: BaseLayout,
   blank: BlankLayout,
 };
 
+// 页面组件映射（中文说明：将 LastLevelRouteKey 映射到对应页面组件的懒加载函数）
 export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<RouteComponent>)> = {
   403: () => import("@/views/_builtin/403/index.vue"),
   404: () => import("@/views/_builtin/404/index.vue"),

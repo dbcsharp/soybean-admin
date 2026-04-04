@@ -11,6 +11,7 @@ import {
   radarOptions
 } from './data';
 
+// ECharts 示例页：展示饼图、折线图、柱状图、雷达图、散点图、象形柱图与仪表盘
 const { domRef: pieRef } = useEcharts(() => pieOptions, { onRender() {} });
 const { domRef: lineRef } = useEcharts(() => lineOptions, { onRender() {} });
 const { domRef: barRef } = useEcharts(() => barOptions, { onRender() {} });
@@ -19,8 +20,10 @@ const { domRef: radarRef } = useEcharts(() => radarOptions, { onRender() {} });
 const { domRef: scatterRef } = useEcharts(() => getScatterOption(), { onRender() {} });
 const { domRef: gaugeRef, setOptions: setGaugeOptions } = useEcharts(() => gaugeOptions, { onRender() {} });
 
+// 仪表盘定时器 id（用于每秒更新时间指针）
 let intervalId: NodeJS.Timeout;
 
+// 初始化仪表盘：每秒更新时/分/秒指针数据
 function initGaugeChart() {
   intervalId = setInterval(() => {
     const date = new Date();
@@ -49,39 +52,52 @@ function initGaugeChart() {
       ]
     });
   }, 1000);
+  // initGaugeChart 函数结束
 }
 
+// 清理仪表盘：停止定时器
 function clearGaugeChart() {
   clearInterval(intervalId);
+  // clearGaugeChart 函数结束
 }
 
+// 启动仪表盘定时更新
 initGaugeChart();
 
+// 组件卸载时清理定时器，避免内存泄漏
 onUnmounted(() => {
   clearGaugeChart();
 });
 </script>
 
 <template>
+  <!-- ECharts 图表示例集合 -->
   <NSpace vertical :size="16">
+    <!-- 饼图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="pieRef" class="h-400px" />
     </NCard>
+    <!-- 折线图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="lineRef" class="h-400px" />
     </NCard>
+    <!-- 柱状图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="barRef" class="h-400px" />
     </NCard>
+    <!-- 雷达图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="radarRef" class="h-400px"></div>
     </NCard>
+    <!-- 散点图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="scatterRef" class="h-600px"></div>
     </NCard>
+    <!-- 象形柱图 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="pictorialBarRef" class="h-600px" />
     </NCard>
+    <!-- 仪表盘 -->
     <NCard :bordered="false" class="card-wrapper">
       <div ref="gaugeRef" class="h-640px" />
     </NCard>

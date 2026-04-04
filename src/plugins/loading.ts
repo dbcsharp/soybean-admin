@@ -5,25 +5,39 @@ import { localStg } from '@/utils/storage';
 import { toggleHtmlClass } from '@/utils/common';
 import { $t } from '@/locales';
 
+// 首屏 Loading：在应用挂载前注入 HTML，展示 Logo、动画与主题色，避免白屏
 export function setupLoading() {
+  // 从缓存读取主题色（没有则使用默认色）
   const themeColor = localStg.get('themeColor') || '#646cff';
+  // 从缓存读取暗黑模式标记（没有则默认 false）
   const darkMode = localStg.get('darkMode') || false;
+  // 生成主题色调色板（用于 SVG 渐变色）
   const palette = getColorPalette(themeColor);
 
+  // 将主题色转为 RGB，用于写入 CSS 变量
   const { r, g, b } = getRgb(themeColor);
 
+  // 主色 CSS 变量（用于 UnoCSS 的 bg-primary/text-primary）
   const primaryColor = `--primary-color: ${r} ${g} ${b}`;
 
+  // 生成 Logo 渐变所需的 CSS 变量（--logo-color-xxx）
   const svgCssVars = Array.from(palette.entries())
+    // 将 palette entries 映射为 css var 定义字符串
     .map(([key, value]) => `--logo-color-${key}: ${value}`)
+    // 拼接为一段 css 变量字符串
     .join(';');
 
+  // 合并主色与 logo 颜色变量
   const cssVars = `${primaryColor}; ${svgCssVars}`;
 
+  // 暗黑模式时提前给 html 添加暗黑 class，确保 loading 背景/主题一致
   if (darkMode) {
+    // 添加暗黑 class
     toggleHtmlClass(DARK_CLASS).add();
+    // if 分支结束
   }
 
+  // 4 个点的定位与延迟动画 class 集合（用于组成旋转脉冲动画）
   const loadingClasses = [
     'left-0 top-0',
     'left-0 bottom-0 animate-delay-500',
@@ -31,12 +45,18 @@ export function setupLoading() {
     'right-0 bottom-0 animate-delay-1500'
   ];
 
+  // 生成 4 个点的 HTML 字符串
   const dot = loadingClasses
+    // 映射为单个点的 div
     .map(item => {
+      // 返回点的 HTML
       return `<div class="absolute w-16px h-16px bg-primary rounded-8px animate-pulse ${item}"></div>`;
+      // map 回调结束
     })
+    // 用换行连接，便于阅读
     .join('\n');
 
+  // 生成 Loading 容器 HTML（包含 Logo、旋转动画与标题）
   const loading = `
 <div class="fixed-center flex-col bg-layout" style="${cssVars}">
   <div class="w-128px h-128px">
@@ -50,14 +70,21 @@ export function setupLoading() {
   <h2 class="text-28px font-500 text-primary">${$t('system.title')}</h2>
 </div>`;
 
+  // 获取应用挂载节点
   const app = document.getElementById('app');
 
+  // 节点存在时注入 Loading HTML
   if (app) {
+    // 写入 loading 内容
     app.innerHTML = loading;
+    // if 分支结束
   }
+  // setupLoading 函数结束
 }
 
+// 获取 Logo SVG 字符串（中文说明：SVG 内部通过 CSS 变量控制渐变颜色）
 function getLogoSvg() {
+  // Logo SVG 模板字符串
   const logoSvg = `<svg
         width="100%"
         height="100%"
@@ -206,5 +233,7 @@ function getLogoSvg() {
       </svg>
   `;
 
+  // 返回 SVG 字符串
   return logoSvg;
+  // getLogoSvg 函数结束
 }

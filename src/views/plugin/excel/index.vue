@@ -8,8 +8,10 @@ import { useAppStore } from '@/store/modules/app';
 import { isTableColumnHasKey, useNaiveTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
 
+// 获取应用状态（用于判断移动端并切换表格 flex-height）
 const appStore = useAppStore();
 
+// 查询参数（中文说明：一次性拉取较多数据用于导出）
 const searchParams: Api.SystemManage.UserSearchParams = reactive({
   current: 1,
   size: 999,
@@ -21,8 +23,11 @@ const searchParams: Api.SystemManage.UserSearchParams = reactive({
   userEmail: null
 });
 
+// 表格 Hook：负责数据获取与列配置
 const { columns, data, loading } = useNaiveTable({
+  // 数据接口：获取用户列表
   api: () => fetchGetUserList(searchParams),
+  // 数据转换：返回 records 列表
   transform: response => {
     const { data: list, error } = response;
 
@@ -32,6 +37,7 @@ const { columns, data, loading } = useNaiveTable({
 
     return [];
   },
+  // 列配置（中文说明：与用户管理页类似，用于展示并作为导出列来源）
   columns: () => [
     {
       type: 'selection',
@@ -112,28 +118,39 @@ const { columns, data, loading } = useNaiveTable({
   ]
 });
 
+// 导出 Excel（中文说明：从表格列与数据生成 sheet，并写入文件）
 function exportExcel() {
+  // 导出列：跳过 selection/index 两列
   const exportColumns = columns.value.slice(2);
 
+  // 将每行数据映射为二维数组（按列顺序）
   const excelList = data.value.map(item => exportColumns.map(col => getTableValue(col, item)));
 
+  // 表头行：从列 title 中提取
   const titleList = exportColumns.map(col => (isTableColumnHasTitle(col) && col.title) || null);
 
+  // 将表头插入到第一行
   excelList.unshift(titleList);
 
+  // 创建工作簿
   const workBook = utils.book_new();
 
+  // 创建工作表
   const workSheet = utils.aoa_to_sheet(excelList);
 
+  // 设置列宽（按表格列 width 缩放）
   workSheet['!cols'] = exportColumns.map(item => ({
     width: Math.round(Number(item.width) / 10 || 20)
   }));
 
+  // 追加工作表
   utils.book_append_sheet(workBook, workSheet, '用户列表');
 
+  // 写入文件
   writeFile(workBook, '用户数据.xlsx');
 }
 
+// 获取表格单元格值（中文说明：处理 roles/status/gender 等展示型字段）
 function getTableValue(col: NaiveUI.TableColumn<Api.SystemManage.User>, item: Api.SystemManage.User) {
   if (!isTableColumnHasKey(col)) {
     return null;
@@ -157,6 +174,7 @@ function getTableValue(col: NaiveUI.TableColumn<Api.SystemManage.User>, item: Ap
   return item[key] || null;
 }
 
+// 判断列是否包含 title（中文说明：用于提取表头文本）
 function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> & {
   title: string;
 } {
@@ -165,9 +183,11 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
 </script>
 
 <template>
+  <!-- Excel 导出示例页：展示用户表格并支持导出为 xlsx -->
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <NCard title="Excel导出" :bordered="false" size="small" class="card-wrapper sm:flex-1-hidden">
       <template #header-extra>
+        <!-- 导出按钮 -->
         <NSpace align="end" wrap justify="end" class="lt-sm:w-200px">
           <NButton size="small" ghost type="primary" @click="exportExcel">
             <template #icon>
@@ -178,6 +198,7 @@ function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is Nai
         </NSpace>
       </template>
 
+      <!-- 用户列表表格 -->
       <NDataTable
         :columns="columns"
         :data="data"

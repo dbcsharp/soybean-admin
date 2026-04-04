@@ -3,9 +3,13 @@
 import type { Preset } from '@unocss/core';
 import type { Theme } from '@unocss/preset-mini';
 
+// UnoCSS 预设：提供项目常用 shortcuts（flex/absolute/fixed/ellipsis 等）
 export function presetSoybeanAdmin(): Preset<Theme> {
+  // 预设对象
   const preset: Preset<Theme> = {
+    // 预设名称
     name: 'preset-soybean-admin',
+    // 快捷类集合（shortcuts）
     shortcuts: [
       {
         'flex-center': 'flex justify-center items-center',
@@ -49,7 +53,9 @@ export function presetSoybeanAdmin(): Preset<Theme> {
     ]
   };
 
+  // 返回预设
   return preset;
 }
 
+// 默认导出：便于直接在 uno.config.ts 中使用
 export default presetSoybeanAdmin;

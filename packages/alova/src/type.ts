@@ -4,49 +4,49 @@ export type CustomAlovaConfig<AG extends AlovaGenerics> = Omit<
   AlovaOptions<AG>,
   'statesHook' | 'beforeRequest' | 'responded' | 'requestAdapter'
 > & {
-  /** request adapter. all request of alova will be sent by it. */
+  /** 请求适配器：Alova 的所有请求都将通过该适配器发送 */
   requestAdapter?: AlovaRequestAdapter<AG['RequestConfig'], AG['Response'], AG['ResponseHeader']>;
 };
 
 export interface RequestOptions<AG extends AlovaGenerics> {
   /**
-   * The hook before request
+   * 请求发送前 Hook
    *
-   * For example: You can add header token in this hook
+   * 例如：可在此注入鉴权 token 到请求头
    *
-   * @param method alova Method Instance
+   * @param method Alova Method 实例
    */
   onRequest?: AlovaOptions<AG>['beforeRequest'];
   /**
-   * The hook to check backend response is success or not
+   * 判断后端响应是否成功
    *
-   * @param response alova response
+   * @param response Alova 响应
    */
   isBackendSuccess: (response: AG['Response']) => Promise<boolean>;
 
-  /** The config to refresh token */
+  /** 刷新 token 配置（可选） */
   tokenRefresher?: {
-    /** detect the token is expired */
+    /** 判断 token 是否过期 */
     isExpired(response: AG['Response'], Method: Method<AG>): Promise<boolean> | boolean;
-    /** refresh token handler */
+    /** 刷新 token 的处理函数 */
     handler(response: AG['Response'], Method: Method<AG>): Promise<void>;
   };
 
-  /** The hook after backend request complete */
+  /** 后端请求完成回调（可选） */
   onComplete?: ResponseCompleteHandler<AG>;
 
   /**
-   * The hook to handle error
+   * 错误处理 Hook
    *
-   * For example: You can show error message in this hook
+   * 例如：可在此统一提示错误消息或上报日志
    *
    * @param error
    */
   onError?: (error: any, response: AG['Response'] | null, methodInstance: Method<AG>) => any | Promise<any>;
   /**
-   * transform backend response when the responseType is json
+   * 转换后端响应（responseType 为 json 时使用）
    *
-   * @param response alova response
+   * @param response Alova 响应
    */
   transformBackendResponse: (response: AG['Response']) => any;
 }

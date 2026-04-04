@@ -1,9 +1,10 @@
 import { addColorAlpha, transformColorWithOpacity } from '@sa/color';
 import type { PageTabCssVars, PageTabCssVarsProps } from '../../types';
 
-/** The active color of the tab */
+// 标签页激活色（默认蓝色）
 export const ACTIVE_COLOR = '#1890ff';
 
+// 创建标签页 CSS 变量（内部方法）
 function createCssVars(props: PageTabCssVarsProps) {
   const cssVars: PageTabCssVars = {
     '--soy-primary-color': props.primaryColor,
@@ -17,6 +18,7 @@ function createCssVars(props: PageTabCssVarsProps) {
   return cssVars;
 }
 
+// 创建标签页 CSS 变量（中文说明：根据主色生成不同透明度/不同背景下的混合色）
 export function createTabCssVars(primaryColor: string) {
   const cssProps: PageTabCssVarsProps = {
     primaryColor,

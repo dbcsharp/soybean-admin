@@ -3,8 +3,11 @@ import type { ScatterSeriesOption } from 'echarts/charts';
 import type { SingleAxisComponentOption, TitleComponentOption } from 'echarts/components';
 import type { ECOption } from '@/hooks/common/echarts';
 
+// ECharts 配置集合：包含饼图/折线图/柱状图/象形柱图/散点图/雷达图/仪表盘等示例配置
 export const pieOptions: ECOption = {
+  // 图例配置
   legend: {},
+  // 工具栏配置（标注/数据视图/还原/保存图片）
   toolbox: {
     show: true,
     feature: {
@@ -14,6 +17,7 @@ export const pieOptions: ECOption = {
       saveAsImage: { show: true }
     }
   },
+  // 系列：南丁格尔玫瑰图
   series: [
     {
       name: 'Nightingale Chart',
@@ -39,6 +43,7 @@ export const pieOptions: ECOption = {
 };
 
 export const lineOptions: ECOption = {
+  // tooltip：轴触发 + 十字指示器
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -48,31 +53,38 @@ export const lineOptions: ECOption = {
       }
     }
   },
+  // 标题
   title: {
     text: 'Stacked Line'
   },
+  // 图例
   legend: {
     data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
   },
+  // grid：包含标签
   grid: {
     left: '3%',
     right: '4%',
     bottom: '3%',
     containLabel: true
   },
+  // 工具栏：保存图片
   toolbox: {
     feature: {
       saveAsImage: {}
     }
   },
+  // x 轴：类目
   xAxis: {
     type: 'category',
     boundaryGap: false,
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
+  // y 轴：数值
   yAxis: {
     type: 'value'
   },
+  // series：堆叠面积折线
   series: [
     {
       color: '#37a2da',
@@ -228,6 +240,7 @@ export const lineOptions: ECOption = {
 };
 
 export const barOptions: ECOption = {
+  // tooltip：轴触发
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -237,13 +250,16 @@ export const barOptions: ECOption = {
       }
     }
   },
+  // x 轴：类目
   xAxis: {
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
+  // y 轴：数值
   yAxis: {
     type: 'value'
   },
+  // series：柱状图
   series: [
     {
       data: [120, 200, 150, 80, 70, 110, 130],
@@ -262,11 +278,16 @@ export const barOptions: ECOption = {
 };
 
 export function getPictorialBarOption(): ECOption {
+  // x 轴类目列表
   const category: string[] = [];
+  // 基准时间戳（用于生成日期序列）
   let dottedBase = Number(new Date());
+  // 折线数据
   const lineData: number[] = [];
+  // 柱状数据
   const barData: number[] = [];
 
+  // 生成 20 天的随机数据
   for (let i = 0; i < 20; i += 1) {
     const date = new Date((dottedBase += 3600 * 24 * 1000));
     category.push([date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'));
@@ -276,6 +297,7 @@ export function getPictorialBarOption(): ECOption {
     lineData.push(d + b);
   }
 
+  // 象形柱图配置（中文说明：背景为深色，包含 line/bar/渐变叠加与点阵）
   const options: ECOption = {
     backgroundColor: '#0f375f',
     tooltip: {
@@ -360,6 +382,7 @@ export function getPictorialBarOption(): ECOption {
     ]
   };
 
+  // 返回配置对象
   return options;
 }
 
@@ -373,10 +396,14 @@ export function getScatterOption() {
   // prettier-ignore
   const data: [number, number, number][] = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],[1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],[2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],[3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],[4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],[5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],[6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
 
+  // 多行标题数组（每天一行）
   const title: TitleComponentOption[] = [];
+  // 单轴数组（每天一条 singleAxis）
   const singleAxis: SingleAxisComponentOption[] = [];
+  // 散点系列数组（每天一条 series）
   const series: ScatterSeriesOption[] = [];
 
+  // 为每一天创建 title/singleAxis/series 配置
   days.forEach((day, idx) => {
     title.push({
       textBaseline: 'middle',
@@ -405,10 +432,12 @@ export function getScatterOption() {
     });
   });
 
+  // 将原始数据按 day 分配到对应 series 中
   data.forEach(dataItem => {
     (series as any)[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
   });
 
+  // 返回散点图配置
   const option: ECOption = {
     tooltip: {
       position: 'top'
@@ -422,16 +451,20 @@ export function getScatterOption() {
 }
 
 export const radarOptions: ECOption = {
+  // 标题
   title: {
     text: 'Multiple Radar'
   },
+  // tooltip：轴触发
   tooltip: {
     trigger: 'axis'
   },
+  // 图例
   legend: {
     left: 'center',
     data: ['A Software', 'A Phone', 'Another Phone', 'Precipitation', 'Evaporation']
   },
+  // 多个 radar 坐标系
   radar: [
     {
       indicator: [
@@ -466,6 +499,7 @@ export const radarOptions: ECOption = {
       radius: 80
     }
   ],
+  // series：分别绑定到不同 radarIndex
   series: [
     {
       type: 'radar',
@@ -514,6 +548,7 @@ export const radarOptions: ECOption = {
 };
 
 export const gaugeOptions: ECOption = {
+  // series：时钟仪表盘（时/分/秒三条指针）
   series: [
     {
       name: 'hour',

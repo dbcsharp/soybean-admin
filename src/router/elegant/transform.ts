@@ -13,6 +13,7 @@ import type { RouteMap, RouteKey, RoutePath } from '@elegant-router/types';
  * @param layouts layout components
  * @param views view components
  */
+// 转换 elegant-router 常量路由为 vue-router 路由记录（中文说明：将 layout/view 字符串映射到真实组件）
 export function transformElegantRoutesToVueRoutes(
   routes: ElegantConstRoute[],
   layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
@@ -248,6 +249,7 @@ const routeMap: RouteMap = {
  * get route path by route name
  * @param name route name
  */
+// 通过路由 name 获取对应的 path（中文说明：从 routeMap 映射中查找）
 export function getRoutePath<T extends RouteKey>(name: T) {
   return routeMap[name];
 }
@@ -256,6 +258,7 @@ export function getRoutePath<T extends RouteKey>(name: T) {
  * get route name by route path
  * @param path route path
  */
+// 通过路由 path 获取对应的 name（中文说明：遍历 routeMap entries 查找匹配项）
 export function getRouteName(path: RoutePath) {
   const routeEntries = Object.entries(routeMap) as [RouteKey, RoutePath][];
 

@@ -1,4 +1,5 @@
 <template>
+  <!-- 系统 Logo：svg 渐变图形，颜色来自 CSS 变量（primary 色板） -->
   <div class="app-logo">
     <svg
       width="100%"

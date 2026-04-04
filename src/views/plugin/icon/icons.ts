@@ -1,3 +1,4 @@
+// iconify 图标列表（中文说明：用于 Icon 示例页展示与选择器数据源）
 export const icons = [
   'mdi:emoticon',
   'mdi:ab-testing',

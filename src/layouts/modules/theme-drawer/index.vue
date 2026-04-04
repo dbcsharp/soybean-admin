@@ -8,13 +8,17 @@ import GeneralSettings from './modules/general/index.vue';
 import ConfigOperation from './modules/config-operation.vue';
 import PresetSettings from './modules/preset/index.vue';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'ThemeDrawer'
 });
 
+// 获取应用状态（用于控制抽屉显隐与移动端宽度）
 const appStore = useAppStore();
+// 当前激活的 Tab key
 const activeTab = ref('appearance');
 
+// 抽屉宽度（中文说明：移动端使用 90vw，最大不超过 400px）
 const drawerWidth = computed(() => {
   const width = 400;
 
@@ -28,8 +32,10 @@ const drawerWidth = computed(() => {
 </script>
 
 <template>
+  <!-- 主题配置抽屉：外观/布局/通用/预设四个 Tab，并在底部提供复制/重置配置 -->
   <NDrawer v-model:show="appStore.themeDrawerVisible" display-directive="show" :width="drawerWidth">
     <NDrawerContent :title="$t('theme.themeDrawerTitle')" :native-scrollbar="false" closable>
+      <!-- Tab 切换：segment 风格 -->
       <NTabs v-model:value="activeTab" type="segment" size="medium" class="mb-16px">
         <NTab name="appearance" :tab="$t('theme.tabs.appearance')"></NTab>
         <NTab name="layout" :tab="$t('theme.tabs.layout')"></NTab>
@@ -37,6 +43,7 @@ const drawerWidth = computed(() => {
         <NTab name="preset" :tab="$t('theme.tabs.preset')"></NTab>
       </NTabs>
 
+      <!-- 内容区：KeepAlive 缓存各 Tab 组件状态 -->
       <div class="min-h-400px">
         <KeepAlive>
           <AppearanceSettings v-if="activeTab === 'appearance'" />
@@ -47,6 +54,7 @@ const drawerWidth = computed(() => {
       </div>
 
       <template #footer>
+        <!-- 底部操作：复制配置/重置配置 -->
         <ConfigOperation />
       </template>
     </NDrawerContent>

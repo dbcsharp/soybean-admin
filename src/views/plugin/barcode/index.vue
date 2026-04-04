@@ -3,8 +3,10 @@ import { onMounted } from 'vue';
 import JsBarcode from 'jsbarcode';
 import type { Options } from 'jsbarcode';
 
+// 示例文本
 const text = 'Soybean';
 
+// 条形码配置结构（中文说明：id/标题/内容/JsBarcode 选项）
 interface CodeConfig {
   id: string;
   title: string;
@@ -12,6 +14,7 @@ interface CodeConfig {
   options: Options;
 }
 
+// 条形码示例列表（中文说明：展示不同格式/样式配置）
 const codes: CodeConfig[] = [
   {
     id: 'code39',
@@ -83,21 +86,25 @@ const codes: CodeConfig[] = [
   }
 ];
 
+// 生成条形码（中文说明：遍历配置并调用 JsBarcode 渲染到对应 svg）
 function generateBarcode() {
   codes.forEach(code => {
     JsBarcode(`#${code.id}`, code.text, code.options);
   });
 }
 
+// 组件挂载后生成条形码
 onMounted(() => {
   generateBarcode();
 });
 </script>
 
 <template>
+  <!-- 条形码插件页：jsbarcode 示例 -->
   <div class="overflow-hidden">
     <NCard title="条形码" :bordered="false" class="h-full card-wrapper" content-class="overflow-hidden">
       <NScrollbar class="h-full">
+        <!-- 条形码网格 -->
         <NGrid cols="1 s:2 l:3" :x-gap="12" :y-gap="24" responsive="screen" item-responsive>
           <NGi v-for="item in codes" :key="item.id">
             <div class="flex-col-center">

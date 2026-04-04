@@ -5,20 +5,31 @@ import { useThemeStore } from '@/store/modules/theme';
 import { getNodeIcon, nodeStatus } from './status';
 import type { CustomEdgeData, CustomGraphData, CustomNodeData } from './types';
 
+// 流程图配置（中文说明：用于初始化 AntV G6 Graph）
 interface AntFlowConfig {
+  // 图容器（id/DOM/Canvas）
   container: string | HTMLElement | Canvas;
+  // 图数据（nodes/edges）
   data: CustomGraphData;
+  // 自定义行为列表（G6 behaviors）
   behaviors?: CustomBehaviorOption[];
+  // 自适应方式：fitView 或 fitCenter
   autoFit?: 'view' | 'center';
+  // AntFlowConfig 接口定义结束
 }
 
+// 创建流程图实例（中文说明：封装 AntV G6 Graph 初始化、样式与交互配置）
 export function useAntFlow(config: AntFlowConfig) {
+  // 获取主题状态（用于主题色与其他颜色）
   const themeStore = useThemeStore();
 
+  // 默认边/节点描边颜色
   const baseColor = 'rgb(158 163 171)';
 
+  // 解构配置并设置默认自适应方式
   const { container, autoFit = 'center', data, behaviors = [] } = config;
 
+  // 创建 Graph 实例
   const graph = new Graph({
     container,
     animation: false,
@@ -147,8 +158,10 @@ export function useAntFlow(config: AntFlowConfig) {
       }
     ]
   });
+  // 渲染图
   graph.render();
 
+  // 返回图实例
   return {
     graph
   };

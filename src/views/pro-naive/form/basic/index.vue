@@ -5,9 +5,12 @@ import { createProForm, zhCN } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 
+// 提交 loading 状态
 const submiting = ref(false);
+// Naive UI message 实例
 const message = useMessage();
 
+// ProForm 实例（中文说明：包含初始值、重置与提交回调）
 const form = createProForm({
   initialValues: {
     attributes: [
@@ -31,12 +34,14 @@ const form = createProForm({
   }
 });
 
+// 延迟工具（中文说明：模拟请求耗时）
 function delay(time: number) {
   return new Promise<void>(resolve => {
     setTimeout(resolve, time);
   });
 }
 
+// 填充表单值（中文说明：演示多种给 ProForm 回填值的方式）
 function fillValues() {
   const values = {
     appName: $t('page.proNaive.form.basic.appName'),
@@ -57,6 +62,7 @@ function fillValues() {
 </script>
 
 <template>
+  <!-- ProNaiveUI 表单示例：基础表单（含 ProFormList） -->
   <ConfigProvider :locale="zhCN">
     <ProForm
       :form="form"
@@ -69,6 +75,7 @@ function fillValues() {
     >
       <ProCard :title="$t('page.proNaive.form.basic.title')" :show-collapse="false">
         <template #header-extra>
+          <!-- 头部操作：填充值/重置/提交 -->
           <NFlex>
             <NButton @click="fillValues">{{ $t('page.proNaive.form.basic.fillValue') }}</NButton>
             <NButton attr-type="reset">{{ $t('page.proNaive.form.basic.reset') }}</NButton>
@@ -77,6 +84,7 @@ function fillValues() {
             </NButton>
           </NFlex>
         </template>
+        <!-- 表单内容：网格布局 -->
         <NGrid cols="1 s:2 l:3" :x-gap="16" responsive="screen">
           <NGi>
             <ProInput
@@ -104,6 +112,7 @@ function fillValues() {
             <ProDate :title="$t('page.proNaive.form.basic.responseDate')" path="responseDate" required />
           </NGi>
           <NGi :span="3">
+            <!-- ProFormList：规格信息（嵌套 FormList） -->
             <ProFormList
               :title="$t('page.proNaive.form.basic.specificationInfo')"
               path="attributes"

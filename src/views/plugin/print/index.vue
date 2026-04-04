@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import printJS from 'print-js';
 
+// 打印表格（中文说明：以 json 数据源打印表格）
 function printTable() {
   printJS({
     printable: [
@@ -11,6 +12,7 @@ function printTable() {
     type: 'json'
   });
 }
+// 打印图片（中文说明：传入图片 URL 数组进行打印）
 function printImage() {
   printJS({
     printable: [
@@ -25,11 +27,15 @@ function printImage() {
 </script>
 
 <template>
+  <!-- 打印插件页：print-js 示例（表格/图片） -->
   <div class="h-full">
     <NCard title="打印" :bordered="false" class="card-wrapper">
+      <!-- 打印表格 -->
       <NButton type="primary" class="mr-10px" @click="printTable">打印表格</NButton>
+      <!-- 打印图片 -->
       <NButton type="primary" @click="printImage">打印图片</NButton>
       <template #footer>
+        <!-- 项目地址 -->
         <GithubLink label="printJS：" link="https://github.com/crabbly/Print.js" class="mt-10px" />
       </template>
     </NCard>

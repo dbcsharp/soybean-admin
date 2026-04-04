@@ -15,12 +15,15 @@ import {
   transformLayoutAndPageToComponent
 } from './shared';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'MenuOperateModal'
 });
 
+// 操作类型：表格新增/编辑 + 新增子菜单
 export type OperateType = NaiveUI.TableOperateType | 'addChild';
 
+// 组件 Props：操作类型、当前行数据（编辑/新增子菜单）与全量页面列表
 interface Props {
   /** the type of operation */
   operateType: OperateType;
@@ -30,21 +33,28 @@ interface Props {
   allPages: string[];
 }
 
+// 声明 props
 const props = defineProps<Props>();
 
+// 组件事件：提交成功
 interface Emits {
   (e: 'submitted'): void;
 }
 
+// 声明 emits
 const emit = defineEmits<Emits>();
 
+// 弹窗显隐（v-model）
 const visible = defineModel<boolean>('visible', {
   default: false
 });
 
+// NaiveUI 表单引用与校验方法
 const { formRef, validate, restoreValidation } = useNaiveForm();
+// 表单规则：必填规则
 const { defaultRequiredRule } = useFormRules();
 
+// 弹窗标题：根据 operateType 动态生成
 const title = computed(() => {
   const titles: Record<OperateType, string> = {
     add: $t('page.manage.menu.addMenu'),
@@ -54,6 +64,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
+// 表单模型类型：基于 Menu 字段挑选，并补充 query/buttons/layout/page/pathParam
 type Model = Pick<
   Api.SystemManage.Menu,
   | 'menuType'
@@ -82,8 +93,10 @@ type Model = Pick<
   pathParam: string;
 };
 
+// 表单模型：用于 NForm :model
 const model = ref(createDefaultModel());
 
+// 创建默认表单模型
 function createDefaultModel(): Model {
   return {
     menuType: '1',
@@ -112,8 +125,10 @@ function createDefaultModel(): Model {
   };
 }
 
+// 校验规则字段 key
 type RuleKey = Extract<keyof Model, 'menuName' | 'status' | 'routeName' | 'routePath'>;
 
+// 表单校验规则
 const rules: Record<RuleKey, App.Global.FormRule> = {
   menuName: defaultRequiredRule,
   status: defaultRequiredRule,
@@ -121,8 +136,10 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   routePath: defaultRequiredRule
 };
 
+// 编辑模式下禁用菜单类型切换
 const disabledMenuType = computed(() => props.operateType === 'edit');
 
+// 本地图标列表与下拉选项（localIcon）
 const localIcons = getLocalIcons();
 const localIconOptions = localIcons.map<SelectOption>(item => ({
   label: () => (
@@ -134,10 +151,13 @@ const localIconOptions = localIcons.map<SelectOption>(item => ({
   value: item
 }));
 
+// 是否展示 layout 选择（仅一级菜单需要）
 const showLayout = computed(() => model.value.parentId === 0);
 
+// 是否展示 page 选择（menuType=2 代表页面菜单）
 const showPage = computed(() => model.value.menuType === '2');
 
+// 页面下拉选项：基于 allPages，并确保当前 routeName 在列表中
 const pageOptions = computed(() => {
   const allPages = [...props.allPages];
 
@@ -153,6 +173,7 @@ const pageOptions = computed(() => {
   return opts;
 });
 
+// 布局下拉选项：base/blank
 const layoutOptions: CommonType.Option[] = [
   {
     label: 'base',
@@ -165,8 +186,10 @@ const layoutOptions: CommonType.Option[] = [
 ];
 
 /** the enabled role options */
+// 角色下拉选项：用于权限角色选择（示例：这里仅加载并提供 options）
 const roleOptions = ref<CommonType.Option<string>[]>([]);
 
+// 获取可用角色列表并转换为下拉选项
 async function getRoleOptions() {
   const { error, data } = await fetchGetAllRoles();
 
@@ -180,6 +203,7 @@ async function getRoleOptions() {
   }
 }
 
+// 初始化表单模型：根据 operateType/rowData 填充 parentId、component 拆分、pathParam 拆分等
 function handleInitModel() {
   model.value = createDefaultModel();
 
@@ -208,10 +232,12 @@ function handleInitModel() {
   }
 }
 
+// 关闭弹窗
 function closeDrawer() {
   visible.value = false;
 }
 
+// 根据 routeName 自动生成 routePath
 function handleUpdateRoutePathByRouteName() {
   if (model.value.routeName) {
     model.value.routePath = getRoutePathByRouteName(model.value.routeName);
@@ -220,6 +246,7 @@ function handleUpdateRoutePathByRouteName() {
   }
 }
 
+// 根据 routeName 自动生成 i18nKey
 function handleUpdateI18nKeyByRouteName() {
   if (model.value.routeName) {
     model.value.i18nKey = `route.${model.value.routeName}` as App.I18n.I18nKey;
@@ -228,6 +255,7 @@ function handleUpdateI18nKeyByRouteName() {
   }
 }
 
+// 创建按钮权限项（用于 NDynamicInput on-create）
 function handleCreateButton() {
   const buttonItem: Api.SystemManage.MenuButton = {
     code: '',
@@ -237,6 +265,7 @@ function handleCreateButton() {
   return buttonItem;
 }
 
+// 组装提交参数（中文说明：把 layout/page 合成 component，把 pathParam 合成 routePath）
 function getSubmitParams() {
   const { layout, page, pathParam, ...params } = model.value;
 
@@ -249,6 +278,7 @@ function getSubmitParams() {
   return params;
 }
 
+// 提交表单（中文说明：校验通过后组装参数并提交，成功后关闭并触发 submitted）
 async function handleSubmit() {
   await validate();
 
@@ -262,6 +292,7 @@ async function handleSubmit() {
   emit('submitted');
 }
 
+// 监听弹窗打开：初始化表单、重置校验并加载角色选项
 watch(visible, () => {
   if (visible.value) {
     handleInitModel();
@@ -270,6 +301,7 @@ watch(visible, () => {
   }
 });
 
+// 监听 routeName 变化：同步更新 routePath 与 i18nKey
 watch(
   () => model.value.routeName,
   () => {
@@ -280,7 +312,9 @@ watch(
 </script>
 
 <template>
+  <!-- 菜单操作弹窗：新增/编辑/新增子菜单共用表单 -->
   <NModal v-model:show="visible" :title="title" preset="card" class="w-800px">
+    <!-- 内容区域：滚动容器 + 表单 -->
     <NScrollbar class="h-480px pr-20px">
       <NForm ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="100">
         <NGrid responsive="screen" item-responsive>

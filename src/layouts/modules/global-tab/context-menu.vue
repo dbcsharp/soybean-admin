@@ -5,10 +5,12 @@ import { useTabStore } from '@/store/modules/tab';
 import { useSvgIcon } from '@/hooks/common/icon';
 import { $t } from '@/locales';
 
+// 组件选项：设置组件名称（便于 Devtools 调试）
 defineOptions({
   name: 'ContextMenu'
 });
 
+// 组件 Props：右键菜单坐标/目标 tabId/排除项/禁用项
 interface Props {
   /** ClientX */
   x: number;
@@ -19,16 +21,21 @@ interface Props {
   disabledKeys?: App.Global.DropdownKey[];
 }
 
+// 声明 props 并设置默认值
 const props = withDefaults(defineProps<Props>(), {
   excludeKeys: () => [],
   disabledKeys: () => []
 });
 
+// 右键菜单显隐（v-model:visible）
 const visible = defineModel<boolean>('visible');
 
+// TabStore 操作方法（关闭/固定/清空等）
 const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain, homeTab } = useTabStore();
+// SvgIcon VNode 工具（用于 dropdown 图标）
 const { SvgIconVNode } = useSvgIcon();
 
+// Dropdown 选项结构
 type DropdownOption = {
   key: App.Global.DropdownKey;
   label: string;
@@ -36,6 +43,7 @@ type DropdownOption = {
   disabled?: boolean;
 };
 
+// 计算右键菜单选项（中文说明：基础关闭项 +（非首页）固定/取消固定 + 排除/禁用处理）
 const options = computed(() => {
   const opts: DropdownOption[] = [
     {
@@ -83,8 +91,10 @@ const options = computed(() => {
 
   const { excludeKeys, disabledKeys } = props;
 
+  // 过滤排除项
   const result = opts.filter(opt => !excludeKeys.includes(opt.key));
 
+  // 标记禁用项
   disabledKeys.forEach(key => {
     const opt = result.find(item => item.key === key);
 
@@ -96,10 +106,12 @@ const options = computed(() => {
   return result;
 });
 
+// 隐藏右键菜单
 function hideDropdown() {
   visible.value = false;
 }
 
+// 右键菜单动作映射
 const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
   closeCurrent() {
     removeTab(props.tabId);
@@ -124,6 +136,7 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
   }
 };
 
+// 选择菜单项：执行动作并隐藏菜单
 function handleDropdown(optionKey: App.Global.DropdownKey) {
   dropdownAction[optionKey]?.();
   hideDropdown();
@@ -131,6 +144,7 @@ function handleDropdown(optionKey: App.Global.DropdownKey) {
 </script>
 
 <template>
+  <!-- Tab 右键菜单：手动触发定位到 x/y -->
   <NDropdown
     :show="visible"
     placement="bottom-start"
