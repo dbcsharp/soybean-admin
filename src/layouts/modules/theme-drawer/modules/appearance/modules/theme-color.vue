@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
+import { useThemeStore } from '@/store/modules/theme';
 import SettingItem from '../../../components/setting-item.vue';
 
 // 组件选项：设置组件名称（便于 Devtools 调试）
@@ -76,15 +76,16 @@ const swatches: string[] = [
           {{ $t('theme.appearance.themeColor.followPrimary') }}
         </NCheckbox>
       </template>
-      <!-- 颜色选择器：info 且跟随主色时禁用 -->
-      <NColorPicker
-        class="w-90px"
-        :value="themeStore.themeColors[key]"
-        :disabled="key === 'info' && themeStore.isInfoFollowPrimary"
-        :show-alpha="false"
-        :swatches="swatches"
-        @update:value="handleUpdateColor($event, key)"
-      />
+      <div class="w-90px">
+        <!-- 颜色选择器：info 且跟随主色时禁用 -->
+        <NColorPicker
+          :value="themeStore.themeColors[key]"
+          :disabled="key === 'info' && themeStore.isInfoFollowPrimary"
+          :show-alpha="false"
+          :swatches="swatches"
+          @update:value="handleUpdateColor($event, key)"
+        />
+      </div>
     </SettingItem>
   </div>
 </template>

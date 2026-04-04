@@ -1,10 +1,10 @@
 // 路由权限守卫：负责初始化常量/权限路由、处理登录拦截、角色鉴权与外链跳转等逻辑
-import type { LocationQueryRaw, RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
-import type { RouteKey, RoutePath } from '@elegant-router/types';
+import { getRouteName } from '@/router/elegant/transform';
 import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
-import { getRouteName } from '@/router/elegant/transform';
+import type { RouteKey, RoutePath } from '@elegant-router/types';
+import type { LocationQueryRaw, RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
 
 /**
  * create route guard
@@ -59,9 +59,8 @@ export function createRouteGuard(router: Router) {
     // 不需要登录的路由允许直接访问
     if (!needLogin) {
       // 处理可能的外链跳转等特殊逻辑
-      handleRouteSwitch(to, from);
+      return handleRouteSwitch(to, from);
       // 显式 return，表示不拦截路由
-      return;
       // if 分支结束
     }
 
@@ -83,7 +82,7 @@ export function createRouteGuard(router: Router) {
 
     // switch route normally
     // 正常放行前处理外链跳转等逻辑
-    handleRouteSwitch(to, from);
+    return handleRouteSwitch(to, from);
     // beforeEach 回调结束
   });
   // createRouteGuard 函数结束

@@ -274,7 +274,7 @@ const local: App.I18n.Schema = {
         // 标签栏信息缓存
         cache: 'Tag Bar Info Cache',
         // 缓存提示文案
-        cacheTip: 'One-click to open/close global keepalive',
+        cacheTip: 'Keep the tab bar information after leaving the page',
         // 标签页高度
         height: 'Tab Height',
         // 标签页模式文案集合

@@ -268,7 +268,7 @@ const local: App.I18n.Schema = {
         // 标签栏信息缓存
         cache: '标签栏信息缓存',
         // 缓存提示文案
-        cacheTip: '一键开启/关闭全局 keepalive',
+        cacheTip: '离开页面后仍然保留标签栏信息',
         // 标签栏高度
         height: '标签栏高度',
         // 标签栏风格文案集合
