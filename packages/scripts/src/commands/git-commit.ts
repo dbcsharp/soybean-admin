@@ -73,7 +73,7 @@ export async function gitCommit(lang: Lang = 'en-us') {
   await execCommand('git', ['commit', '-m', commitMsg], { stdio: 'inherit' });
 }
 
-// 校验 git commit message（中文说明：用于 git hooks 校验提交信息是否符合规范）
+// 校验 git commit message（用于 git hooks 校验提交信息是否符合规范）
 export async function gitCommitVerify(lang: Lang = 'en-us', ignores: RegExp[] = []) {
   // 获取 git 根目录路径
   const gitPath = await execCommand('git', ['rev-parse', '--show-toplevel']);

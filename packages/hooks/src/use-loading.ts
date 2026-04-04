@@ -1,7 +1,7 @@
 import useBoolean from './use-boolean';
 
 /**
- * Loading Hook（中文说明：基于 useBoolean 封装 loading 状态与开始/结束方法）
+ * Loading Hook（基于 useBoolean 封装 loading 状态与开始/结束方法）
  *
  * @param initValue 初始值
  */

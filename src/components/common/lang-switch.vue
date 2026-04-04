@@ -30,7 +30,7 @@ type Emits = {
 // 声明 emits
 const emit = defineEmits<Emits>();
 
-// tooltip 文案（中文说明：showTooltip=false 时返回空字符串）
+// tooltip 文案（showTooltip=false 时返回空字符串）
 const tooltipContent = computed(() => {
   if (!props.showTooltip) return '';
 
@@ -38,7 +38,7 @@ const tooltipContent = computed(() => {
 });
 
 /** Add bottom margin to all options except the last one for proper visual separation */
-// 下拉选项（中文说明：除最后一项外增加 margin-bottom，提升视觉分隔）
+// 下拉选项（除最后一项外增加 margin-bottom，提升视觉分隔）
 const dropdownOptions = computed(() => {
   const lastIndex = props.langOptions.length - 1;
 

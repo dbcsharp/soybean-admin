@@ -33,14 +33,14 @@ const title = computed(() => $t('common.edit') + $t('page.manage.role.menuAuth')
 // 当前角色首页（routeName）
 const home = shallowRef('');
 
-// 获取当前角色首页（中文说明：示例占位，实际应请求后端接口）
+// 获取当前角色首页（示例占位，实际应请求后端接口）
 async function getHome() {
   console.log(props.roleId);
 
   home.value = 'home';
 }
 
-// 更新当前角色首页（中文说明：示例占位，实际应请求后端接口）
+// 更新当前角色首页（示例占位，实际应请求后端接口）
 async function updateHome(val: string) {
   // request
 
@@ -50,7 +50,7 @@ async function updateHome(val: string) {
 // 所有页面列表（用于首页下拉选择）
 const pages = shallowRef<string[]>([]);
 
-// 获取所有页面（中文说明：用于首页下拉选项）
+// 获取所有页面（用于首页下拉选项）
 async function getPages() {
   const { error, data } = await fetchGetAllPages();
 
@@ -72,7 +72,7 @@ const pageSelectOptions = computed(() => {
 // 菜单树数据
 const tree = shallowRef<Api.SystemManage.MenuTree[]>([]);
 
-// 获取菜单树（中文说明：用于授权勾选）
+// 获取菜单树（用于授权勾选）
 async function getTree() {
   const { error, data } = await fetchGetMenuTree();
 
@@ -84,7 +84,7 @@ async function getTree() {
 // 当前勾选的菜单 id 列表
 const checks = shallowRef<number[]>([]);
 
-// 获取当前角色已授权的菜单 id（中文说明：示例占位，实际应请求后端接口）
+// 获取当前角色已授权的菜单 id（示例占位，实际应请求后端接口）
 async function getChecks() {
   console.log(props.roleId);
   // request

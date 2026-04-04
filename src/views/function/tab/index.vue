@@ -12,16 +12,14 @@ const { routerPushByKey } = useRouterPush();
 // 自定义标签页标题输入值
 const tabLabel = ref('');
 
-// 修改当前标签页标题（中文说明：将输入值设置为 newLabel）
+// 修改当前标签页标题（将输入值设置为 newLabel）
 function changeTabLabel() {
   tabStore.setTabLabel(tabLabel.value);
-  // changeTabLabel 函数结束
 }
 
-// 重置当前标签页标题（中文说明：清空 newLabel，回退到 oldLabel/label）
+// 重置当前标签页标题（清空 newLabel，回退到 oldLabel/label）
 function resetTabLabel() {
   tabStore.resetTabLabel();
-  // resetTabLabel 函数结束
 }
 </script>
 

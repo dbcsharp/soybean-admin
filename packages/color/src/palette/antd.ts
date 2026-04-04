@@ -53,7 +53,7 @@ export function getAntDPaletteColorByIndex(color: AnyColor, index: ColorIndex): 
   return getHex(newHsv);
 }
 
-// 暗色模式混合映射（中文说明：按 index 与 opacity 将色板混合到暗背景）
+// 暗色模式混合映射（按 index 与 opacity 将色板混合到暗背景）
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
   { index: 6, opacity: 0.25 },

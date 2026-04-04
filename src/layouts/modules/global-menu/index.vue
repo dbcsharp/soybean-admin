@@ -34,7 +34,7 @@ const activeMenu = computed(() => {
   return menuMap[themeStore.layout.mode];
 });
 
-// vertical + 移动端时强制重渲染（中文说明：避免移动端切换时菜单残留状态）
+// vertical + 移动端时强制重渲染（避免移动端切换时菜单残留状态）
 const reRenderVertical = computed(() => themeStore.layout.mode === 'vertical' && appStore.isMobile);
 </script>
 

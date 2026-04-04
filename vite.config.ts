@@ -5,7 +5,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { setupVitePlugins } from './build/plugins';
 import { createViteProxy, getBuildTime } from './build/config';
 
-// 导出 Vite 配置（中文说明：通过 defineConfig 读取 mode/command 并返回配置对象）
+// 导出 Vite 配置（通过 defineConfig 读取 mode/command 并返回配置对象）
 export default defineConfig(configEnv => {
   // 加载当前模式的环境变量，并转换为 Env.ImportMeta 类型
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta;
@@ -68,6 +68,8 @@ export default defineConfig(configEnv => {
     },
     // 构建配置
     build: {
+      // 必须用 terser 才能删注释
+      minify: 'terser',
       // 不输出 gzip/brotli 体积报告（提升构建速度）
       reportCompressedSize: false,
       // 是否输出 sourcemap（由环境变量控制）
@@ -76,6 +78,20 @@ export default defineConfig(configEnv => {
       commonjsOptions: {
         // 不忽略 try/catch（保留对某些库的兼容）
         ignoreTryCatch: false
+      },
+      // 编译选项
+      terserOptions: {
+        compress: {
+          // 删除 console.log 等语句
+          drop_console: true,
+          // 删除 debugger 等语句
+          drop_debugger: true
+        },
+        // 格式化选项
+        format: {
+          // 删除所有注释
+          comments: false // 完全删除所有注释
+        }
       }
     }
   };

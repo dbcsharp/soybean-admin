@@ -1,7 +1,7 @@
 // 服务配置工具：根据当前环境变量生成接口 baseURL、其他服务 baseURL 与代理前缀
 import json5 from 'json5';
 
-// 创建服务配置（中文说明：解析 env 中的 baseURL 与其他服务配置，并组装为统一结构）
+// 创建服务配置（解析 env 中的 baseURL 与其他服务配置，并组装为统一结构）
 export function createServiceConfig(env: Env.ImportMeta) {
   // 从环境变量中读取默认服务 baseURL 与其他服务 baseURL 配置
   const { VITE_SERVICE_BASE_URL, VITE_OTHER_SERVICE_BASE_URL } = env;
@@ -60,10 +60,9 @@ export function createServiceConfig(env: Env.ImportMeta) {
 
   // 返回最终服务配置
   return config;
-  // createServiceConfig 函数结束
 }
 
-// 获取实际请求 baseURL（中文说明：根据 isProxy 决定返回代理前缀还是直连 baseURL）
+// 获取实际请求 baseURL（根据 isProxy 决定返回代理前缀还是直连 baseURL）
 export function getServiceBaseURL(env: Env.ImportMeta, isProxy: boolean) {
   // 获取服务配置（包含默认与其他服务配置）
   const { baseURL, other } = createServiceConfig(env);
@@ -86,10 +85,9 @@ export function getServiceBaseURL(env: Env.ImportMeta, isProxy: boolean) {
     otherBaseURL
     // 返回对象结束
   };
-  // getServiceBaseURL 函数结束
 }
 
-// 生成代理前缀（中文说明：默认服务使用 proxy-default，其他服务按 key 生成）
+// 生成代理前缀（默认服务使用 proxy-default，其他服务按 key 生成）
 function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   // 未传 key 时使用默认服务代理前缀
   if (!key) {
@@ -100,5 +98,4 @@ function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
 
   // 返回指定 key 的代理前缀
   return `/proxy-${key}`;
-  // createProxyPattern 函数结束
 }

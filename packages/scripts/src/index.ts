@@ -5,7 +5,7 @@ import { cleanup, genChangelog, generateRoute, gitCommit, gitCommitVerify, relea
 import { loadCliOptions } from './config';
 import type { Lang } from './locales';
 
-// CLI 命令类型（中文说明：soybean-admin 脚手架工具支持的子命令）
+// CLI 命令类型（soybean-admin 脚手架工具支持的子命令）
 type Command = 'cleanup' | 'update-pkg' | 'git-commit' | 'git-commit-verify' | 'changelog' | 'release' | 'gen-route';
 
 // 命令 action 类型
@@ -14,7 +14,7 @@ type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 // 命令表结构：command -> { desc, action }
 type CommandWithAction<A extends object = object> = Record<Command, { desc: string; action: CommandAction<A> }>;
 
-// CLI 参数类型（中文说明：cac 会把 option 注入到 args）
+// CLI 参数类型（cac 会把 option 注入到 args）
 interface CommandArg {
   /** 发布流程中：版本号更新后、git commit 前执行的额外命令 */
   execute?: string;
@@ -38,7 +38,7 @@ interface CommandArg {
   lang?: Lang;
 }
 
-// 启动 CLI（中文说明：注册命令与选项并解析 argv）
+// 启动 CLI（注册命令与选项并解析 argv）
 export async function setupCli() {
   const cliOptions = await loadCliOptions();
 

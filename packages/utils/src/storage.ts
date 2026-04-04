@@ -3,7 +3,7 @@ import localforage from 'localforage';
 // 存储类型：localStorage 或 sessionStorage
 export type StorageType = 'local' | 'session';
 
-// 创建同步 Storage（中文说明：封装 get/set/remove/clear，并统一加上 key 前缀）
+// 创建同步 Storage（封装 get/set/remove/clear，并统一加上 key 前缀）
 export function createStorage<T extends object>(type: StorageType, storagePrefix: string) {
   // 根据类型选择本地存储或会话存储
   const stg = type === 'session' ? window.sessionStorage : window.localStorage;
@@ -65,7 +65,7 @@ export function createStorage<T extends object>(type: StorageType, storagePrefix
   return storage;
 }
 
-// LocalForage 类型封装（中文说明：补齐 getItem/setItem/removeItem 的类型签名）
+// LocalForage 类型封装（补齐 getItem/setItem/removeItem 的类型签名）
 type LocalForage<T extends object> = Omit<typeof localforage, 'getItem' | 'setItem' | 'removeItem'> & {
   getItem<K extends keyof T>(key: K, callback?: (err: any, value: T[K] | null) => void): Promise<T[K] | null>;
 
@@ -77,7 +77,7 @@ type LocalForage<T extends object> = Omit<typeof localforage, 'getItem' | 'setIt
 // Localforage driver 类型
 type LocalforageDriver = 'local' | 'indexedDB' | 'webSQL';
 
-// 创建 localforage 实例（中文说明：按 driver 配置底层存储实现）
+// 创建 localforage 实例（按 driver 配置底层存储实现）
 export function createLocalforage<T extends object>(driver: LocalforageDriver) {
   // driver 映射（字符串 -> localforage 常量）
   const driverMap: Record<LocalforageDriver, string> = {

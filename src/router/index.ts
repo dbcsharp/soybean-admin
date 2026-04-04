@@ -24,7 +24,7 @@ const historyCreatorMap: Record<Env.RouterHistoryMode, (base?: string) => Router
   // historyCreatorMap 对象定义结束
 };
 
-// 创建全局 router 实例（中文说明：history 由环境变量决定，routes 使用内置路由）
+// 创建全局 router 实例（history 由环境变量决定，routes 使用内置路由）
 export const router = createRouter({
   // 创建 history 实例并传入 baseURL
   history: historyCreatorMap[VITE_ROUTER_HISTORY_MODE](VITE_BASE_URL),
@@ -34,7 +34,7 @@ export const router = createRouter({
 });
 
 /** Setup Vue Router */
-// 安装 Vue Router（中文说明：注册 router、挂载守卫，并等待 router 就绪）
+// 安装 Vue Router（注册 router、挂载守卫，并等待 router 就绪）
 export async function setupRouter(app: App) {
   // 将 router 安装到 Vue 应用
   app.use(router);
@@ -42,5 +42,4 @@ export async function setupRouter(app: App) {
   createRouterGuard(router);
   // 等待路由准备完成后再继续（确保异步路由/守卫初始化完成）
   await router.isReady();
-  // setupRouter 函数结束
 }

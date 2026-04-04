@@ -28,7 +28,7 @@ const model = defineModel<Api.SystemManage.UserSearchParams>('model', { required
 // 需要做格式校验的字段 key
 type RuleKey = Extract<keyof Api.SystemManage.UserSearchParams, 'userEmail' | 'userPhone'>;
 
-// 表单校验规则（中文说明：放在 computed 内，确保语言切换时文案可响应更新）
+// 表单校验规则（放在 computed 内，确保语言切换时文案可响应更新）
 const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
   const { patternRules } = useFormRules(); // inside computed to make locale reactive
 
@@ -38,10 +38,10 @@ const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
   };
 });
 
-// 默认表单模型快照（中文说明：用于重置）
+// 默认表单模型快照（用于重置）
 const defaultModel = jsonClone(toRaw(model.value));
 
-// 重置模型数据（中文说明：回填默认值）
+// 重置模型数据（回填默认值）
 function resetModel() {
   Object.assign(model.value, defaultModel);
 }

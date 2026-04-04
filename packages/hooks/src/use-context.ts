@@ -1,7 +1,7 @@
 import { inject, provide } from 'vue';
 
 /**
- * Context 工具（中文说明：封装 provide/inject，用于在组件树中共享组合式状态）
+ * Context 工具（封装 provide/inject，用于在组件树中共享组合式状态）
  *
  * @example
  *   ```ts
@@ -90,7 +90,7 @@ export default function useContext<Arguments extends Array<any>, T>(
     return value || null;
   };
 
-  // 提供 context 值（中文说明：执行 composable 得到 value，并通过 provide 注入）
+  // 提供 context 值（执行 composable 得到 value，并通过 provide 注入）
   const useProvide = (...args: Arguments) => {
     // 创建 context 值
     const value = composable(...args);

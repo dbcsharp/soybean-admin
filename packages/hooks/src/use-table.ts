@@ -3,7 +3,7 @@ import type { Ref, VNodeChild } from 'vue';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
 
-// 分页数据结构（中文说明：后端分页接口常见返回结构）
+// 分页数据结构（后端分页接口常见返回结构）
 export interface PaginationData<T> {
   // 当前页数据
   data: T[];
@@ -40,7 +40,7 @@ export type TableColumnCheck = {
   fixed: 'left' | 'right' | 'unFixed';
 };
 
-// useTable 入参配置（中文说明：注入 api/transform/columns 工厂以及列设置相关方法）
+// useTable 入参配置（注入 api/transform/columns 工厂以及列设置相关方法）
 export interface UseTableOptions<ResponseData, ApiData, Column, Pagination extends boolean> {
   /**
    * 请求表格数据的 API 方法
@@ -78,7 +78,7 @@ export interface UseTableOptions<ResponseData, ApiData, Column, Pagination exten
   immediate?: boolean;
 }
 
-// 表格 Hook（中文说明：封装 loading/empty/data/columns 以及列设置与数据拉取）
+// 表格 Hook（封装 loading/empty/data/columns 以及列设置与数据拉取）
 export default function useTable<ResponseData, ApiData, Column, Pagination extends boolean>(
   options: UseTableOptions<ResponseData, ApiData, Column, Pagination>
 ) {
@@ -99,7 +99,7 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
   // 最终 columns：由 columns 工厂 + columnChecks 派生
   const $columns = computed(() => getColumns(columns(), columnChecks.value));
 
-  // 重载 columns（中文说明：保持用户勾选与固定状态，刷新列定义）
+  // 重载 columns（保持用户勾选与固定状态，刷新列定义）
   function reloadColumns() {
     // 记录当前 checked/fixed 状态（key -> value）
     const checkMap = new Map(columnChecks.value.map(col => [col.key, col.checked]));
@@ -116,7 +116,7 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
     }));
   }
 
-  // 拉取表格数据（中文说明：startLoading/endLoading 包裹，finally 确保结束）
+  // 拉取表格数据（startLoading/endLoading 包裹，finally 确保结束）
   async function getData() {
     try {
       // 开始 loading

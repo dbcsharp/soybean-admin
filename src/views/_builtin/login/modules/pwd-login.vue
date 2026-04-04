@@ -27,13 +27,13 @@ interface FormModel {
   // FormModel 接口定义结束
 }
 
-// 表单数据模型（中文说明：这里预填默认账号用于演示）
+// 表单数据模型（这里预填默认账号用于演示）
 const model: FormModel = reactive({
   userName: 'Soybean',
   password: '123456'
 });
 
-// 表单校验规则（中文说明：放在 computed 内，确保语言切换时文案可响应更新）
+// 表单校验规则（放在 computed 内，确保语言切换时文案可响应更新）
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   // inside computed to make locale reactive, if not apply i18n, you can define it without computed
   const { formRules } = useFormRules();
@@ -44,19 +44,18 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   };
 });
 
-// 提交登录（中文说明：先校验表单，再调用登录接口）
+// 提交登录（先校验表单，再调用登录接口）
 async function handleSubmit() {
   // 校验表单
   await validate();
   // 执行登录
   await authStore.login(model.userName, model.password);
-  // handleSubmit 函数结束
 }
 
 // 快捷账号 key 类型
 type AccountKey = 'super' | 'admin' | 'user';
 
-// 快捷账号结构（中文说明：用于一键填充并登录）
+// 快捷账号结构（用于一键填充并登录）
 interface Account {
   // 账号标识
   key: AccountKey;
@@ -69,7 +68,7 @@ interface Account {
   // Account 接口定义结束
 }
 
-// 快捷账号列表（中文说明：使用 i18n 文案作为按钮 label）
+// 快捷账号列表（使用 i18n 文案作为按钮 label）
 const accounts = computed<Account[]>(() => [
   {
     key: 'super',
@@ -91,11 +90,10 @@ const accounts = computed<Account[]>(() => [
   }
 ]);
 
-// 使用快捷账号登录（中文说明：直接调用登录方法）
+// 使用快捷账号登录（直接调用登录方法）
 async function handleAccountLogin(account: Account) {
   // 执行登录
   await authStore.login(account.userName, account.password);
-  // handleAccountLogin 函数结束
 }
 </script>
 

@@ -434,7 +434,7 @@ const dataSpecs = Object.keys(goldenMedals).map(year => {
 const duration = 1000;
 const exchangeDuration = 600;
 
-// 排行榜柱状图配置（中文说明：Top10 奥运金牌数随年份动态播放）
+// 排行榜柱状图配置（Top10 奥运金牌数随年份动态播放）
 export const rankingBarSpec: IBarChartSpec = {
   type: 'bar',
   padding: {
@@ -572,7 +572,7 @@ export const rankingBarSpec: IBarChartSpec = {
   }
 };
 
-// 堆叠虚线面积图配置（中文说明：forecast=true 时使用虚线与纹理）
+// 堆叠虚线面积图配置（forecast=true 时使用虚线与纹理）
 export const stackedDashAreaSpec: IAreaChartSpec = {
   type: 'area',
   data: {
@@ -670,7 +670,7 @@ export const stackedDashAreaSpec: IAreaChartSpec = {
   }
 };
 
-// 柱状图 + 标注点配置（中文说明：包含 crosshair 与 markPoint 自定义文本）
+// 柱状图 + 标注点配置（包含 crosshair 与 markPoint 自定义文本）
 export const barMarkPointSpec: IBarChartSpec = {
   type: 'bar',
   height: 300,
@@ -805,7 +805,7 @@ export const barMarkPointSpec: IBarChartSpec = {
   ]
 };
 
-// 直方图配置（中文说明：不同分箱区间的 profit 值展示）
+// 直方图配置（不同分箱区间的 profit 值展示）
 export const histogramDifferentBinSpec: IHistogramChartSpec = {
   type: 'histogram',
   xField: 'from',

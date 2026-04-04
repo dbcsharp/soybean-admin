@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import printJS from 'print-js';
 
-// 打印表格（中文说明：以 json 数据源打印表格）
+// 打印表格（以 json 数据源打印表格）
 function printTable() {
   printJS({
     printable: [
@@ -12,7 +12,7 @@ function printTable() {
     type: 'json'
   });
 }
-// 打印图片（中文说明：传入图片 URL 数组进行打印）
+// 打印图片（传入图片 URL 数组进行打印）
 function printImage() {
   printJS({
     printable: [

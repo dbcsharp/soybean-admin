@@ -20,7 +20,7 @@ const tooltipRecord: Record<NaiveUI.TableColumnFixed, App.I18n.I18nKey> = {
   unFixed: 'datatable.fixed.left'
 };
 
-// 切换固定状态（中文说明：left -> right -> unFixed -> left 循环）
+// 切换固定状态（left -> right -> unFixed -> left 循环）
 function handleFixed(column: NaiveUI.TableColumnCheck) {
   const fixedOptions: NaiveUI.TableColumnFixed[] = ['left', 'right', 'unFixed'];
   const index = fixedOptions.findIndex(item => item === column.fixed);
@@ -28,7 +28,7 @@ function handleFixed(column: NaiveUI.TableColumnCheck) {
   column.fixed = fixedOptions[nextIndex];
 }
 
-// 可见列统计（中文说明：只统计 visible=true 的列）
+// 可见列统计（只统计 visible=true 的列）
 const visibleStats = computed(() => {
   let total = 0;
   let checked = 0;
@@ -57,7 +57,7 @@ const selectAllIndeterminate = computed(() => {
   return checked > 0 && checked < total;
 });
 
-// 切换全选（中文说明：仅对 visible=true 的列生效）
+// 切换全选（仅对 visible=true 的列生效）
 function toggleSelectAll(checked: boolean) {
   columns.value.forEach(column => {
     if (!column.visible) return;

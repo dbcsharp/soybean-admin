@@ -15,7 +15,7 @@ const { load } = useScriptTag(BAIDU_MAP_SDK_URL);
 // 地图容器 DOM 引用
 const domRef = ref<HTMLDivElement>();
 
-// 渲染百度地图（中文说明：等待 SDK 加载完成后初始化地图实例）
+// 渲染百度地图（等待 SDK 加载完成后初始化地图实例）
 async function renderMap() {
   // 加载 SDK（true 表示立即加载）
   await load(true);
@@ -29,7 +29,6 @@ async function renderMap() {
   map.centerAndZoom(point, 15);
   // 启用滚轮缩放
   map.enableScrollWheelZoom();
-  // renderMap 函数结束
 }
 
 // 组件挂载后渲染地图

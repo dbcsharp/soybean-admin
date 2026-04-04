@@ -11,7 +11,7 @@ defineOptions({
   name: 'AntvFLow'
 });
 
-// 组件 Props（中文说明：传入数据、交互行为、选中节点与自适应布局方式）
+// 组件 Props（传入数据、交互行为、选中节点与自适应布局方式）
 interface Props {
   // 自定义行为列表（G6 behavior）
   behaviors?: CustomBehaviorOption[];
@@ -35,14 +35,14 @@ const containerRef = useTemplateRef('containerRef');
 const graphRef = shallowRef<Graph | null>(null);
 
 // 监听容器尺寸变化，调整画布大小为图容器大小
-// 容器尺寸变化回调（中文说明：debounce 避免频繁 resize）
+// 容器尺寸变化回调（debounce 避免频繁 resize）
 const onContainerResize = useDebounceFn(() => {
   if (graphRef.value) {
     graphRef.value.resize();
   }
 }, 5);
 
-// 绘制流程图（中文说明：若已有实例先销毁，再创建新实例并设置选中）
+// 绘制流程图（若已有实例先销毁，再创建新实例并设置选中）
 async function draw() {
   if (graphRef.value) {
     graphRef.value.destroy();
@@ -57,7 +57,7 @@ async function draw() {
   await selectNode();
 }
 
-// 选中节点（中文说明：调用 G6 setElementState 设置 selected 状态）
+// 选中节点（调用 G6 setElementState 设置 selected 状态）
 async function selectNode() {
   if (props.selected && graphRef.value) {
     try {
@@ -97,7 +97,7 @@ watch(
   { deep: true }
 );
 
-// 暴露方法与 graph 引用（中文说明：父组件可调用 selectNode 或访问 graphRef）
+// 暴露方法与 graph 引用（父组件可调用 selectNode 或访问 graphRef）
 defineExpose({ selectNode, graph: graphRef });
 </script>
 

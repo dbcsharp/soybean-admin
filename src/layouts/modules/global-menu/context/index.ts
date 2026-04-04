@@ -9,7 +9,7 @@ import { useRouterPush } from '@/hooks/common/router';
 // 混合菜单上下文：为 mix/hybrid 等菜单模式提供一级/二级/子级菜单与激活状态管理
 export const [provideMixMenuContext, useMixMenuContext] = useContext('MixMenu', useMixMenu);
 
-// 创建混合菜单上下文的实现（中文说明：统一管理各层级菜单、激活 key、自动选中最深菜单等）
+// 创建混合菜单上下文的实现（统一管理各层级菜单、激活 key、自动选中最深菜单等）
 function useMixMenu() {
   // 当前路由（用于监听变化并同步激活 key）
   const route = useRoute();
@@ -25,7 +25,7 @@ function useMixMenu() {
   // 全量菜单树（一级菜单数组）
   const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
 
-  // 一级菜单列表（中文说明：从 menus 中剥离 children，仅用于顶部/侧栏一级展示）
+  // 一级菜单列表（从 menus 中剥离 children，仅用于顶部/侧栏一级展示）
   const firstLevelMenus = computed<App.Global.Menu[]>(() =>
     routeStore.menus.map(menu => {
       const { children: _, ...rest } = menu;
@@ -42,7 +42,7 @@ function useMixMenu() {
     activeFirstLevelMenuKey.value = key;
   }
 
-  // 从当前选中 key 推导激活一级菜单 key（中文说明：routeName 以 '_' 分隔层级）
+  // 从当前选中 key 推导激活一级菜单 key（routeName 以 '_' 分隔层级）
   function getActiveFirstLevelMenuKey() {
     const [firstLevelRouteName] = selectedKey.value.split('_');
 
@@ -60,7 +60,7 @@ function useMixMenu() {
     return Boolean(findItem?.children?.length);
   });
 
-  // 选择一级菜单（中文说明：如果没有子菜单则直接跳转，有子菜单则等待二级菜单选择）
+  // 选择一级菜单（如果没有子菜单则直接跳转，有子菜单则等待二级菜单选择）
   function handleSelectFirstLevelMenu(key: RouteKey) {
     setActiveFirstLevelMenuKey(key);
 
@@ -82,7 +82,7 @@ function useMixMenu() {
     activeSecondLevelMenuKey.value = key;
   }
 
-  // 从当前选中 key 推导激活二级菜单 key（中文说明：拼接 firstLevel + '_' + level2Suffix）
+  // 从当前选中 key 推导激活二级菜单 key（拼接 firstLevel + '_' + level2Suffix）
   function getActiveSecondLevelMenuKey() {
     const keys = selectedKey.value.split('_');
 
@@ -109,7 +109,7 @@ function useMixMenu() {
     return Boolean(findItem?.children?.length);
   });
 
-  // 选择二级菜单（中文说明：如果没有子菜单则直接跳转，有子菜单则等待子级菜单选择）
+  // 选择二级菜单（如果没有子菜单则直接跳转，有子菜单则等待子级菜单选择）
   function handleSelectSecondLevelMenu(key: RouteKey) {
     setActiveSecondLevelMenuKey(key);
 
@@ -126,7 +126,7 @@ function useMixMenu() {
   // 是否存在子级菜单
   const hasChildLevelMenus = computed(() => childLevelMenus.value.length > 0);
 
-  // 获取“最深层”的菜单 key（中文说明：用于 autoSelectFirstMenu=true 时自动跳转）
+  // 获取“最深层”的菜单 key（用于 autoSelectFirstMenu=true 时自动跳转）
   function getDeepestLevelMenuKey(): RouteKey | null {
     if (!secondLevelMenus.value.length || !themeStore.sider.autoSelectFirstMenu) {
       return null;
@@ -193,7 +193,7 @@ function useMixMenu() {
   };
 }
 
-// 菜单选中状态 Hook（中文说明：基于 route.name 与 meta.hideInMenu/activeMenu 计算当前选中 key）
+// 菜单选中状态 Hook（基于 route.name 与 meta.hideInMenu/activeMenu 计算当前选中 key）
 export function useMenu() {
   // 当前路由
   const route = useRoute();

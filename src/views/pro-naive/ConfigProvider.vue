@@ -6,7 +6,7 @@ import { useAppStore } from '@/store/modules/app';
 // 获取应用状态（用于读取当前语言）
 const appStore = useAppStore();
 
-// ProNaiveUI 的 locale 配置（中文说明：仅 zh-CN 时注入 zhCN，其它语言使用默认）
+// ProNaiveUI 的 locale 配置（仅 zh-CN 时注入 zhCN，其它语言使用默认）
 const locale = computed(() => {
   return appStore.locale === 'zh-CN' ? zhCN : undefined;
 });

@@ -1,7 +1,7 @@
 // 进度条守卫：在路由切换前后触发 NProgress 的 start/done
 import type { Router } from 'vue-router';
 
-// 创建进度条守卫（中文说明：beforeEach 开始进度条，afterEach 结束进度条）
+// 创建进度条守卫（beforeEach 开始进度条，afterEach 结束进度条）
 export function createProgressGuard(router: Router) {
   // 路由跳转前启动进度条
   router.beforeEach(() => {
@@ -17,5 +17,4 @@ export function createProgressGuard(router: Router) {
     window.NProgress?.done?.();
     // afterEach 回调结束
   });
-  // createProgressGuard 函数结束
 }

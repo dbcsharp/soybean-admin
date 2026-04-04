@@ -2,7 +2,7 @@ import { computed, onScopeDispose, ref } from 'vue';
 import { useRafFn } from '@vueuse/core';
 
 /**
- * 倒计时 Hook（中文说明：使用 requestAnimationFrame 实现更平滑/更准确的倒计时）
+ * 倒计时 Hook（使用 requestAnimationFrame 实现更平滑/更准确的倒计时）
  *
  * @param initialSeconds 初始倒计时总秒数
  */

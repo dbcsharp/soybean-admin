@@ -12,7 +12,7 @@ import RoleSearch from './modules/role-search.vue';
 // 获取应用状态（用于判断移动端并切换表格 flex-height 与分页）
 const appStore = useAppStore();
 
-// 角色列表查询参数（中文说明：分页参数 + 条件筛选字段）
+// 角色列表查询参数（分页参数 + 条件筛选字段）
 const searchParams: Api.SystemManage.RoleSearchParams = reactive({
   current: 1,
   size: 10,
@@ -32,7 +32,7 @@ const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagi
     searchParams.current = params.page;
     searchParams.size = params.pageSize;
   },
-  // 列配置（中文说明：包含选择列/序号/字段列/状态 Tag/操作列）
+  // 列配置（包含选择列/序号/字段列/状态 Tag/操作列）
   columns: () => [
     {
       type: 'selection',
@@ -126,7 +126,7 @@ const {
   // closeDrawer
 } = useTableOperate(data, 'id', getData);
 
-// 批量删除（中文说明：示例占位，真实项目应调用批量删除接口）
+// 批量删除（示例占位，真实项目应调用批量删除接口）
 async function handleBatchDelete() {
   // request
   console.log(checkedRowKeys.value);
@@ -134,7 +134,7 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-// 单条删除（中文说明：示例占位，真实项目应调用删除接口）
+// 单条删除（示例占位，真实项目应调用删除接口）
 function handleDelete(id: number) {
   // request
   console.log(id);
@@ -142,7 +142,7 @@ function handleDelete(id: number) {
   onDeleted();
 }
 
-// 编辑（中文说明：通过 id 查找行数据并打开抽屉）
+// 编辑（通过 id 查找行数据并打开抽屉）
 function edit(id: number) {
   handleEdit(id);
 }

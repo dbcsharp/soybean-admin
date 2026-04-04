@@ -1,6 +1,6 @@
 import type { EdgeData, GraphData, NodeData } from '@antv/g6';
 
-// 节点状态枚举（中文说明：用于流程节点的不同业务状态）
+// 节点状态枚举（用于流程节点的不同业务状态）
 export type NodeStatus =
   | 'MILESTONE'
   | 'NOT_STARTED'
@@ -11,7 +11,7 @@ export type NodeStatus =
   | 'COMPLETED_EARLY'
   | 'COMPLETED_LATE';
 
-// 自定义节点数据（中文说明：扩展 G6 NodeData，增加状态/删除/里程碑等字段）
+// 自定义节点数据（扩展 G6 NodeData，增加状态/删除/里程碑等字段）
 export interface CustomNodeData extends NodeData {
   // 是否延期（用于显示“延期”徽标）
   isDelayed?: boolean;
@@ -24,7 +24,7 @@ export interface CustomNodeData extends NodeData {
   // CustomNodeData 接口定义结束
 }
 
-// 自定义边数据（中文说明：扩展 G6 EdgeData，增加删除/延期等字段）
+// 自定义边数据（扩展 G6 EdgeData，增加删除/延期等字段）
 export interface CustomEdgeData extends EdgeData {
   // 是否延期
   isDelayed?: boolean;
@@ -33,7 +33,7 @@ export interface CustomEdgeData extends EdgeData {
   // CustomEdgeData 接口定义结束
 }
 
-// 自定义图数据（中文说明：明确 nodes/edges 类型为自定义结构）
+// 自定义图数据（明确 nodes/edges 类型为自定义结构）
 export interface CustomGraphData extends GraphData {
   // 节点列表
   nodes: CustomNodeData[];

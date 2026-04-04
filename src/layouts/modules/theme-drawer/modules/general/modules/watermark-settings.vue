@@ -13,7 +13,7 @@ defineOptions({
 // 获取主题状态（水印配置）
 const themeStore = useThemeStore();
 
-// 是否显示水印文本输入（中文说明：水印开启且未启用用户名/时间时显示文本输入）
+// 是否显示水印文本输入（水印开启且未启用用户名/时间时显示文本输入）
 const isWatermarkTextVisible = computed(
   () => themeStore.watermark.visible && !themeStore.watermark.enableUserName && !themeStore.watermark.enableTime
 );

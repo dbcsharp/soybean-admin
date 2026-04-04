@@ -10,17 +10,17 @@ defineOptions({
   name: 'CaptchaVerification'
 });
 
-// 验证码发送 Hook（中文说明：使用 actionDelegationMiddleware 实现跨组件触发）
+// 验证码发送 Hook（使用 actionDelegationMiddleware 实现跨组件触发）
 const { loading, send, countdown } = useCaptcha(sendCaptcha, {
   middleware: actionDelegationMiddleware('captcha:send')
 });
-// 验证码按钮文案（中文说明：倒计时中显示剩余秒数，否则显示“获取验证码”）
+// 验证码按钮文案（倒计时中显示剩余秒数，否则显示“获取验证码”）
 const label = computed(() => {
   return countdown.value > 0
     ? $t('page.login.codeLogin.reGetCode', { time: countdown.value })
     : $t('page.login.codeLogin.getCode');
 });
-// 表单提交 Hook（中文说明：提交手机号与验证码到校验接口）
+// 表单提交 Hook（提交手机号与验证码到校验接口）
 const {
   form,
   loading: submiting,
@@ -35,7 +35,7 @@ const {
 // 获取表单引用与校验方法（Naive UI Form）
 const { formRef, validate } = useNaiveForm();
 
-// 表单校验规则（中文说明：放在 computed 内，确保语言切换时文案可响应更新）
+// 表单校验规则（放在 computed 内，确保语言切换时文案可响应更新）
 const rules = computed<Record<keyof typeof form.value, App.Global.FormRule[]>>(() => {
   // 获取基础表单规则
   const { formRules } = useFormRules();
@@ -47,7 +47,7 @@ const rules = computed<Record<keyof typeof form.value, App.Global.FormRule[]>>((
   };
 });
 
-// 提交校验（中文说明：先校验表单，再提交验证码校验请求）
+// 提交校验（先校验表单，再提交验证码校验请求）
 async function handleSubmit() {
   // 校验表单
   await validate();
@@ -56,7 +56,6 @@ async function handleSubmit() {
   // request
   // 校验成功提示
   window.$message?.success($t('page.login.common.validateSuccess'));
-  // handleSubmit 函数结束
 }
 </script>
 

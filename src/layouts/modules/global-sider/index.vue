@@ -19,7 +19,7 @@ const themeStore = useThemeStore();
 const isTopHybridSidebarFirst = computed(() => themeStore.layout.mode === 'top-hybrid-sidebar-first');
 // 是否为“顶部混合-顶部优先”布局
 const isTopHybridHeaderFirst = computed(() => themeStore.layout.mode === 'top-hybrid-header-first');
-// 是否使用深色菜单（中文说明：非暗黑模式下，且非顶部混合布局，且 sider.inverted=true）
+// 是否使用深色菜单（非暗黑模式下，且非顶部混合布局，且 sider.inverted=true）
 const darkMenu = computed(
   () =>
     !themeStore.darkMode && !isTopHybridSidebarFirst.value && !isTopHybridHeaderFirst.value && themeStore.sider.inverted

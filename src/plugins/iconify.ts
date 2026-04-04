@@ -1,7 +1,7 @@
 import { addAPIProvider } from '@iconify/vue';
 
 /** Setup the iconify offline */
-// 初始化 Iconify 离线资源（中文说明：配置 Iconify API Provider 资源地址）
+// 初始化 Iconify 离线资源（配置 Iconify API Provider 资源地址）
 export function setupIconifyOffline() {
   // 从环境变量读取 Iconify 资源地址
   const { VITE_ICONIFY_URL } = import.meta.env;
@@ -12,5 +12,4 @@ export function setupIconifyOffline() {
     addAPIProvider('', { resources: [VITE_ICONIFY_URL] });
     // if 分支结束
   }
-  // setupIconifyOffline 函数结束
 }

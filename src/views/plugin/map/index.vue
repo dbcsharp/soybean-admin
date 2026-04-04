@@ -2,7 +2,7 @@
 import type { Component } from 'vue';
 import { BaiduMap, GaodeMap, TencentMap } from './components';
 
-// 地图 Tab 配置结构（中文说明：用于渲染不同地图组件的 Tabs）
+// 地图 Tab 配置结构（用于渲染不同地图组件的 Tabs）
 interface Map {
   // Tab 唯一 id
   id: string;
@@ -13,7 +13,7 @@ interface Map {
   // Map 接口定义结束
 }
 
-// 地图列表（中文说明：按顺序展示高德/腾讯/百度）
+// 地图列表（按顺序展示高德/腾讯/百度）
 const maps: Map[] = [
   { id: 'gaode', label: '高德地图', component: GaodeMap },
   { id: 'tencent', label: '腾讯地图', component: TencentMap },

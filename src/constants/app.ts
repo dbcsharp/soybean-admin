@@ -6,7 +6,7 @@ export const GLOBAL_HEADER_MENU_ID = '__GLOBAL_HEADER_MENU__';
 // 全局侧边菜单的内部标识（用于区分不同菜单容器）
 export const GLOBAL_SIDER_MENU_ID = '__GLOBAL_SIDER_MENU__';
 
-// 主题模式映射（中文说明：light/dark/auto -> 对应 i18n key）
+// 主题模式映射（light/dark/auto -> 对应 i18n key）
 export const themeSchemaRecord: Record<UnionKey.ThemeScheme, App.I18n.I18nKey> = {
   // 亮色模式
   light: 'theme.appearance.themeSchema.light',
@@ -20,7 +20,7 @@ export const themeSchemaRecord: Record<UnionKey.ThemeScheme, App.I18n.I18nKey> =
 // 主题模式选项数组
 export const themeSchemaOptions = transformRecordToOption(themeSchemaRecord);
 
-// 登录模块映射（中文说明：不同登录方式对应的 i18n key）
+// 登录模块映射（不同登录方式对应的 i18n key）
 export const loginModuleRecord: Record<UnionKey.LoginModule, App.I18n.I18nKey> = {
   // 密码登录
   'pwd-login': 'page.login.pwdLogin.title',
@@ -35,7 +35,7 @@ export const loginModuleRecord: Record<UnionKey.LoginModule, App.I18n.I18nKey> =
   // loginModuleRecord 对象定义结束
 };
 
-// 布局模式映射（中文说明：不同布局模式对应的 i18n key）
+// 布局模式映射（不同布局模式对应的 i18n key）
 export const themeLayoutModeRecord: Record<UnionKey.ThemeLayoutMode, App.I18n.I18nKey> = {
   // 左侧菜单模式
   vertical: 'theme.layout.layoutMode.vertical',
@@ -55,7 +55,7 @@ export const themeLayoutModeRecord: Record<UnionKey.ThemeLayoutMode, App.I18n.I1
 // 布局模式选项数组
 export const themeLayoutModeOptions = transformRecordToOption(themeLayoutModeRecord);
 
-// 内容滚动模式映射（中文说明：wrapper/content）
+// 内容滚动模式映射（wrapper/content）
 export const themeScrollModeRecord: Record<UnionKey.ThemeScrollMode, App.I18n.I18nKey> = {
   // 外层容器滚动
   wrapper: 'theme.layout.content.scrollMode.wrapper',
@@ -67,7 +67,7 @@ export const themeScrollModeRecord: Record<UnionKey.ThemeScrollMode, App.I18n.I1
 // 内容滚动模式选项数组
 export const themeScrollModeOptions = transformRecordToOption(themeScrollModeRecord);
 
-// 标签页模式映射（中文说明：chrome/button/slider）
+// 标签页模式映射（chrome/button/slider）
 export const themeTabModeRecord: Record<UnionKey.ThemeTabMode, App.I18n.I18nKey> = {
   // Chrome 风格
   chrome: 'theme.layout.tab.mode.chrome',
@@ -81,7 +81,7 @@ export const themeTabModeRecord: Record<UnionKey.ThemeTabMode, App.I18n.I18nKey>
 // 标签页模式选项数组
 export const themeTabModeOptions = transformRecordToOption(themeTabModeRecord);
 
-// 页面切换动画模式映射（中文说明：不同动画模式对应的 i18n key）
+// 页面切换动画模式映射（不同动画模式对应的 i18n key）
 export const themePageAnimationModeRecord: Record<UnionKey.ThemePageAnimateMode, App.I18n.I18nKey> = {
   // 渐隐滑动
   'fade-slide': 'theme.layout.content.page.mode.fade-slide',
@@ -106,7 +106,7 @@ export const themePageAnimationModeOptions = transformRecordToOption(themePageAn
 // 暗黑模式 class 名（用于挂载到 html）
 export const DARK_CLASS = 'dark';
 
-// 水印时间格式选项（中文说明：用于水印配置中的时间格式下拉）
+// 水印时间格式选项（用于水印配置中的时间格式下拉）
 export const watermarkTimeFormatOptions = [
   // 年-月-日 时:分
   { label: 'YYYY-MM-DD HH:mm', value: 'YYYY-MM-DD HH:mm' },

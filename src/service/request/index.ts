@@ -8,12 +8,12 @@ import { $t } from '@/locales';
 import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
-// 是否启用本地代理（中文说明：仅开发环境且 VITE_HTTP_PROXY=Y 时启用）
+// 是否启用本地代理（仅开发环境且 VITE_HTTP_PROXY=Y 时启用）
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 // 根据环境与代理开关计算默认服务 baseURL 与其他服务 baseURL
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
-// 主请求实例（中文说明：用于业务接口请求，统一处理 token、后端错误码与自动刷新 token）
+// 主请求实例（用于业务接口请求，统一处理 token、后端错误码与自动刷新 token）
 export const request = createFlatRequest(
   // 请求基础配置
   {
@@ -37,13 +37,12 @@ export const request = createFlatRequest(
       refreshTokenPromise: null
       // defaultState 对象结束
     } as RequestInstanceState,
-    // 响应转换（中文说明：从后端响应结构中提取 data.data）
+    // 响应转换（从后端响应结构中提取 data.data）
     transform(response: AxiosResponse<App.Service.Response<any>>) {
       // 返回业务数据
       return response.data.data;
-      // transform 函数结束
     },
-    // 请求发送前处理（中文说明：注入 Authorization 请求头）
+    // 请求发送前处理（注入 Authorization 请求头）
     async onRequest(config) {
       // 获取 Authorization 头
       const Authorization = getAuthorization();
@@ -52,30 +51,27 @@ export const request = createFlatRequest(
 
       // 返回处理后的 config
       return config;
-      // onRequest 函数结束
     },
-    // 判断后端是否成功（中文说明：按 VITE_SERVICE_SUCCESS_CODE 比较 response.data.code）
+    // 判断后端是否成功（按 VITE_SERVICE_SUCCESS_CODE 比较 response.data.code）
     isBackendSuccess(response) {
       // 后端响应码为 "0000"（默认）时视为成功，可通过 .env 中 VITE_SERVICE_SUCCESS_CODE 调整
       // 对 code 做字符串化比较，避免 number/string 类型差异
       return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
-      // isBackendSuccess 函数结束
     },
-    // 后端业务失败处理（中文说明：处理登出码、弹窗登出码、过期码刷新 token 并重试）
+    // 后端业务失败处理（处理登出码、弹窗登出码、过期码刷新 token 并重试）
     async onBackendFail(response, instance) {
       // 获取鉴权 Store（用于触发 resetStore 登出）
       const authStore = useAuthStore();
       // 将后端错误码转为字符串便于比较
       const responseCode = String(response.data.code);
 
-      // 执行登出（中文说明：重置鉴权状态）
+      // 执行登出（重置鉴权状态）
       function handleLogout() {
         // 重置鉴权状态并跳转登录等
         authStore.resetStore();
-        // handleLogout 函数结束
       }
 
-      // 登出并清理（中文说明：移除 beforeunload 防刷新拦截，并从 errMsgStack 移除当前消息）
+      // 登出并清理（移除 beforeunload 防刷新拦截，并从 errMsgStack 移除当前消息）
       function logoutAndCleanup() {
         // 执行登出
         handleLogout();
@@ -84,7 +80,6 @@ export const request = createFlatRequest(
 
         // 清理错误消息栈中的当前消息，避免重复弹窗
         request.state.errMsgStack = request.state.errMsgStack.filter(msg => msg !== response.data.msg);
-        // logoutAndCleanup 函数结束
       }
 
       // 命中 logoutCodes 时直接登出并跳转登录页
@@ -165,9 +160,8 @@ export const request = createFlatRequest(
 
       // 返回 null 表示不做额外处理
       return null;
-      // onBackendFail 函数结束
     },
-    // 网络/请求异常处理（中文说明：按错误码决定是否提示，避免与弹窗登出/过期重试冲突）
+    // 网络/请求异常处理（按错误码决定是否提示，避免与弹窗登出/过期重试冲突）
     onError(error) {
       // 请求失败时可在此统一提示错误消息
 
@@ -208,14 +202,13 @@ export const request = createFlatRequest(
 
       // 非上述情况则按去重策略展示错误消息
       showErrorMsg(request.state, message);
-      // onError 函数结束
     }
     // createFlatRequest 配置对象结束
   }
   // createFlatRequest 调用结束
 );
 
-// 示例请求实例（中文说明：用于 demo 服务示例，演示 createRequest 的使用方式）
+// 示例请求实例（用于 demo 服务示例，演示 createRequest 的使用方式）
 export const demoRequest = createRequest(
   // 请求基础配置
   {
@@ -225,13 +218,12 @@ export const demoRequest = createRequest(
   },
   // 请求实例行为配置
   {
-    // 响应转换（中文说明：提取 demoResponse.result）
+    // 响应转换（提取 demoResponse.result）
     transform(response: AxiosResponse<App.Service.DemoResponse>) {
       // 返回 result 数据
       return response.data.result;
-      // transform 函数结束
     },
-    // 请求发送前处理（中文说明：从本地读取 token 并设置 Authorization）
+    // 请求发送前处理（从本地读取 token 并设置 Authorization）
     async onRequest(config) {
       // 解构 headers
       const { headers } = config;
@@ -246,22 +238,19 @@ export const demoRequest = createRequest(
 
       // 返回处理后的 config
       return config;
-      // onRequest 函数结束
     },
-    // 判断后端是否成功（中文说明：demo 服务以 status==="200" 作为成功）
+    // 判断后端是否成功（demo 服务以 status==="200" 作为成功）
     isBackendSuccess(response) {
       // 后端响应码为 "200" 时视为成功（示例逻辑，可按实际后端约定调整）
       // 返回 demo 服务成功判断
       return response.data.status === '200';
-      // isBackendSuccess 函数结束
     },
-    // demo 服务后端失败处理（中文说明：示例占位，可实现刷新 token 等逻辑）
+    // demo 服务后端失败处理（示例占位，可实现刷新 token 等逻辑）
     async onBackendFail(_response) {
       // 后端响应码非 "200" 时视为失败（示例：可在此处理 token 过期刷新并重试等）
       // 当前暂无实现
-      // onBackendFail 函数结束
     },
-    // demo 服务错误处理（中文说明：提取后端 message 并提示）
+    // demo 服务错误处理（提取后端 message 并提示）
     onError(error) {
       // 请求失败时可在此统一提示错误消息（示例逻辑）
 
@@ -278,7 +267,6 @@ export const demoRequest = createRequest(
 
       // 弹出错误提示
       window.$message?.error(message);
-      // onError 函数结束
     }
     // createRequest 配置对象结束
   }

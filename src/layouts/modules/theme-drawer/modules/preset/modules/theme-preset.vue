@@ -10,7 +10,7 @@ defineOptions({
   name: 'ThemePreset'
 });
 
-// 主题预设结构（中文说明：从 ThemeSetting 中挑选可配置项，并追加 name/desc/version 等元信息）
+// 主题预设结构（从 ThemeSetting 中挑选可配置项，并追加 name/desc/version 等元信息）
 type ThemePreset = Pick<
   App.Theme.ThemeSetting,
   | 'themeScheme'
@@ -46,7 +46,7 @@ const presetModules = import.meta.glob('@/theme/preset/*.json', { eager: true, i
 const themeStore = useThemeStore();
 
 // Extract preset data
-// 提取预设列表（中文说明：根据文件名生成 id，并按 name 排序，default 置顶）
+// 提取预设列表（根据文件名生成 id，并按 name 排序，default 置顶）
 const presets = computed(() =>
   Object.entries(presetModules)
     .map(([path, presetData]) => {
@@ -63,7 +63,7 @@ const presets = computed(() =>
     })
 );
 
-// 获取预设显示名称（中文说明：优先使用 i18nkey 翻译，否则回退到 preset.name）
+// 获取预设显示名称（优先使用 i18nkey 翻译，否则回退到 preset.name）
 const getPresetName = (preset: ThemePreset): string => {
   if (!preset.i18nkey) return preset.name;
   try {
@@ -75,7 +75,7 @@ const getPresetName = (preset: ThemePreset): string => {
   }
 };
 
-// 获取预设描述（中文说明：优先使用 i18nkey 翻译，否则回退到 preset.desc）
+// 获取预设描述（优先使用 i18nkey 翻译，否则回退到 preset.desc）
 const getPresetDesc = (preset: ThemePreset): string => {
   if (!preset.i18nkey) return preset.desc;
   try {
@@ -87,7 +87,7 @@ const getPresetDesc = (preset: ThemePreset): string => {
   }
 };
 
-// 应用预设（中文说明：与默认 themeSettings 合并，再写入 themeStore，并同步 NaiveUI 覆盖配置）
+// 应用预设（与默认 themeSettings 合并，再写入 themeStore，并同步 NaiveUI 覆盖配置）
 const applyPreset = (preset: ThemePreset): void => {
   // 先与默认设置做深合并，补齐缺省字段
   const mergedPreset = defu(preset, themeSettings);

@@ -12,7 +12,7 @@ export const enableStatusRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKe
 // 启用状态选项数组
 export const enableStatusOptions = transformRecordToOption(enableStatusRecord);
 
-// 用户性别映射（中文说明：将性别枚举值映射为 i18n key）
+// 用户性别映射（将性别枚举值映射为 i18n key）
 export const userGenderRecord: Record<Api.SystemManage.UserGender, App.I18n.I18nKey> = {
   // 男
   '1': 'page.manage.user.gender.male',
@@ -24,7 +24,7 @@ export const userGenderRecord: Record<Api.SystemManage.UserGender, App.I18n.I18n
 // 用户性别选项数组
 export const userGenderOptions = transformRecordToOption(userGenderRecord);
 
-// 菜单类型映射（中文说明：目录/菜单）
+// 菜单类型映射（目录/菜单）
 export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey> = {
   // 目录
   '1': 'page.manage.menu.type.directory',
@@ -36,7 +36,7 @@ export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey>
 // 菜单类型选项数组
 export const menuTypeOptions = transformRecordToOption(menuTypeRecord);
 
-// 菜单图标类型映射（中文说明：Iconify 图标/本地图标）
+// 菜单图标类型映射（Iconify 图标/本地图标）
 export const menuIconTypeRecord: Record<Api.SystemManage.IconType, App.I18n.I18nKey> = {
   // Iconify 图标
   '1': 'page.manage.menu.iconType.iconify',

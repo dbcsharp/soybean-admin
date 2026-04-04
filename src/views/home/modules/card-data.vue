@@ -9,7 +9,7 @@ defineOptions({
   name: 'CardData'
 });
 
-// 卡片数据结构（中文说明：用于展示统计标题/数值/渐变背景与图标）
+// 卡片数据结构（用于展示统计标题/数值/渐变背景与图标）
 interface CardData {
   // 唯一 key（用于 v-for key）
   key: string;
@@ -32,7 +32,7 @@ interface CardData {
   // CardData 接口定义结束
 }
 
-// 卡片数据列表（中文说明：演示用静态数据，可替换为接口返回）
+// 卡片数据列表（演示用静态数据，可替换为接口返回）
 const cardData = computed<CardData[]>(() => [
   {
     key: 'visitCount',
@@ -80,7 +80,7 @@ const cardData = computed<CardData[]>(() => [
   }
 ]);
 
-// 渐变背景组件 Props（中文说明：通过 gradientColor 注入 backgroundImage）
+// 渐变背景组件 Props（通过 gradientColor 注入 backgroundImage）
 interface GradientBgProps {
   // 渐变背景字符串（linear-gradient）
   gradientColor: string;
@@ -97,7 +97,6 @@ const themeStore = useThemeStore();
 function getGradientColor(color: CardData['color']) {
   // 返回右下角渐变
   return `linear-gradient(to bottom right, ${color.start}, ${color.end})`;
-  // getGradientColor 函数结束
 }
 </script>
 

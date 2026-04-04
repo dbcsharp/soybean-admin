@@ -3,7 +3,7 @@ import type { App } from 'vue';
 import { NButton } from 'naive-ui';
 import { $t } from '@/locales';
 
-// 全局错误处理（中文说明：捕获 Vue 运行时错误并输出到控制台）
+// 全局错误处理（捕获 Vue 运行时错误并输出到控制台）
 export function setupAppErrorHandle(app: App) {
   // 注册 Vue 全局错误处理器
   app.config.errorHandler = (err, vm, info) => {
@@ -12,15 +12,14 @@ export function setupAppErrorHandle(app: App) {
     console.error(err, vm, info);
     // errorHandler 回调结束
   };
-  // setupAppErrorHandle 函数结束
 }
 
-// 应用版本更新提示（中文说明：定时拉取 index.html 的 buildTime meta，变化时弹出更新通知）
+// 应用版本更新提示（定时拉取 index.html 的 buildTime meta，变化时弹出更新通知）
 export function setupAppVersionNotification() {
   // 检测间隔（毫秒）
   const UPDATE_CHECK_INTERVAL = 3 * 60 * 1000;
 
-  // 是否启用自动检测更新（中文说明：仅生产环境且开关开启）
+  // 是否启用自动检测更新（仅生产环境且开关开启）
   const canAutoUpdateApp = import.meta.env.VITE_AUTOMATICALLY_DETECT_UPDATE === 'Y' && import.meta.env.PROD;
   // 未启用则直接返回
   if (!canAutoUpdateApp) return;
@@ -30,7 +29,7 @@ export function setupAppVersionNotification() {
   // 更新检查定时器引用
   let updateInterval: ReturnType<typeof setInterval> | undefined;
 
-  // 检查是否存在新版本（中文说明：拉取最新 buildTime 并与当前 BUILD_TIME 比较）
+  // 检查是否存在新版本（拉取最新 buildTime 并与当前 BUILD_TIME 比较）
   const checkForUpdates = async () => {
     // 已显示弹窗时不重复检查
     if (isShow) return;
@@ -98,7 +97,7 @@ export function setupAppVersionNotification() {
     // checkForUpdates 回调结束
   };
 
-  // 启动/重启更新检测定时器（中文说明：确保只存在一个 interval）
+  // 启动/重启更新检测定时器（确保只存在一个 interval）
   const startUpdateInterval = () => {
     // 已存在定时器时先清理
     if (updateInterval) {
@@ -130,10 +129,9 @@ export function setupAppVersionNotification() {
     startUpdateInterval();
     // if 分支结束
   }
-  // setupAppVersionNotification 函数结束
 }
 
-// 获取 index.html 中的 buildTime（中文说明：通过 fetch 拉取 html 并用正则提取 meta）
+// 获取 index.html 中的 buildTime（通过 fetch 拉取 html 并用正则提取 meta）
 async function getHtmlBuildTime(): Promise<string | null> {
   // 计算基础路径（用于兼容非根路径部署）
   const baseUrl = import.meta.env.VITE_BASE_URL || '/';
@@ -163,5 +161,4 @@ async function getHtmlBuildTime(): Promise<string | null> {
     return null;
     // catch 分支结束
   }
-  // getHtmlBuildTime 函数结束
 }

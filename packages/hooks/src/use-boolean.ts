@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
 /**
- * Boolean Hook（中文说明：封装布尔状态与常用操作方法）
+ * Boolean Hook（封装布尔状态与常用操作方法）
  *
  * @param initValue 初始值
  */

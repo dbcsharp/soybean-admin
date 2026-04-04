@@ -3,7 +3,7 @@ import { ref, shallowRef } from 'vue';
 import VuePdfEmbed from 'vue-pdf-embed';
 import { useLoading } from '@sa/hooks';
 
-// Loading 状态（中文说明：首次渲染 PDF 前显示骨架屏）
+// Loading 状态（首次渲染 PDF 前显示骨架屏）
 const { loading, endLoading } = useLoading(true);
 
 // PDF 组件实例引用（用于获取页数/打印/下载）
@@ -18,7 +18,7 @@ const currentPage = ref<undefined | number>(1);
 // 总页数
 const pageCount = ref(1);
 
-// PDF 渲染完成回调（中文说明：结束 loading 并读取总页数）
+// PDF 渲染完成回调（结束 loading 并读取总页数）
 function onPdfRendered() {
   endLoading();
 
@@ -27,7 +27,7 @@ function onPdfRendered() {
   }
 }
 
-// “显示所有页面”开关变化处理（中文说明：切换 currentPage 为 undefined/1）
+// “显示所有页面”开关变化处理（切换 currentPage 为 undefined/1）
 function showAllPagesChange() {
   currentPage.value = showAllPages.value ? undefined : 1;
 }
@@ -37,17 +37,17 @@ const rotations = [0, 90, 180, 270];
 // 当前旋转索引
 const currentRotation = ref(0);
 
-// 旋转处理（中文说明：循环切换旋转角度）
+// 旋转处理（循环切换旋转角度）
 function handleRotate() {
   currentRotation.value = (currentRotation.value + 1) % 4;
 }
 
-// 打印 PDF（中文说明：调用 VuePdfEmbed.print）
+// 打印 PDF（调用 VuePdfEmbed.print）
 async function handlePrint() {
   await pdfRef.value?.print(undefined, 'test.pdf', true);
 }
 
-// 下载 PDF（中文说明：调用 VuePdfEmbed.download）
+// 下载 PDF（调用 VuePdfEmbed.download）
 async function handleDownload() {
   await pdfRef.value?.download('test.pdf');
 }

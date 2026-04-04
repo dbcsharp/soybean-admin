@@ -7,14 +7,14 @@ const editor = ref<WangEditor>();
 // 编辑器挂载容器 DOM 引用
 const domRef = ref<HTMLElement>();
 
-// 渲染 WangEditor（中文说明：创建实例、设置配置并初始化编辑器）
+// 渲染 WangEditor（创建实例、设置配置并初始化编辑器）
 function renderWangEditor() {
   editor.value = new WangEditor(domRef.value);
   setEditorConfig();
   editor.value.create();
 }
 
-// 设置编辑器配置（中文说明：调整 zIndex，避免被抽屉/弹窗遮挡）
+// 设置编辑器配置（调整 zIndex，避免被抽屉/弹窗遮挡）
 function setEditorConfig() {
   if (editor.value?.config?.zIndex) {
     editor.value.config.zIndex = 10;
@@ -46,6 +46,7 @@ onMounted(() => {
   background: inherit !important;
   border-color: #999 !important;
 }
+
 :deep(.w-e-text-container) {
   background: inherit;
   border-color: #999 !important;

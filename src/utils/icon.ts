@@ -12,5 +12,4 @@ export function getLocalIcons() {
 
   // 返回最终图标 key 列表
   return keys;
-  // getLocalIcons 函数结束
 }

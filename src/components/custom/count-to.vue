@@ -52,7 +52,7 @@ const outputValue = useTransition(source, {
 // 格式化后的展示值
 const value = computed(() => formatValue(outputValue.value));
 
-// 格式化数值（中文说明：支持小数位、千分位分隔符、前后缀等）
+// 格式化数值（支持小数位、千分位分隔符、前后缀等）
 function formatValue(num: number) {
   const { decimals, decimal, separator, suffix, prefix } = props;
 

@@ -55,7 +55,6 @@ async function setupApp() {
 
   // 挂载应用到 #app
   app.mount('#app');
-  // setupApp 函数结束
 }
 
 // 执行应用初始化

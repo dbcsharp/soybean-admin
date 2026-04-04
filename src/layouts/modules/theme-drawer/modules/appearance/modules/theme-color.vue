@@ -16,7 +16,7 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
   themeStore.updateThemeColors(key, color);
 }
 
-// 预设色板（中文说明：ColorPicker 的可选色列表）
+// 预设色板（ColorPicker 的可选色列表）
 const swatches: string[] = [
   '#3b82f6',
   '#6366f1',

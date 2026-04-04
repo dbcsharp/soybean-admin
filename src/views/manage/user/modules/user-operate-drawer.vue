@@ -40,7 +40,7 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 // 获取默认必填规则
 const { defaultRequiredRule } = useFormRules();
 
-// 抽屉标题（中文说明：根据操作类型切换“新增/编辑”）
+// 抽屉标题（根据操作类型切换“新增/编辑”）
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
     add: $t('page.manage.user.addUser'),
@@ -55,10 +55,10 @@ type Model = Pick<
   'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
 >;
 
-// 表单模型（中文说明：在抽屉打开时初始化）
+// 表单模型（在抽屉打开时初始化）
 const model = ref(createDefaultModel());
 
-// 创建默认模型（中文说明：新增时的初始值）
+// 创建默认模型（新增时的初始值）
 function createDefaultModel(): Model {
   return {
     userName: '',
@@ -74,17 +74,17 @@ function createDefaultModel(): Model {
 // 需要必填校验的字段 key
 type RuleKey = Extract<keyof Model, 'userName' | 'status'>;
 
-// 表单校验规则（中文说明：仅对用户名与状态做必填校验）
+// 表单校验规则（仅对用户名与状态做必填校验）
 const rules: Record<RuleKey, App.Global.FormRule> = {
   userName: defaultRequiredRule,
   status: defaultRequiredRule
 };
 
 /** the enabled role options */
-// 可用角色选项（中文说明：从接口获取角色列表，供多选使用）
+// 可用角色选项（从接口获取角色列表，供多选使用）
 const roleOptions = ref<CommonType.Option<string>[]>([]);
 
-// 获取角色选项（中文说明：并补齐 mock 数据缺失的 roleCode）
+// 获取角色选项（并补齐 mock 数据缺失的 roleCode）
 async function getRoleOptions() {
   const { error, data } = await fetchGetAllRoles();
 
@@ -108,7 +108,7 @@ async function getRoleOptions() {
   }
 }
 
-// 初始化表单模型（中文说明：新增时用默认值，编辑时克隆 rowData）
+// 初始化表单模型（新增时用默认值，编辑时克隆 rowData）
 function handleInitModel() {
   model.value = createDefaultModel();
 
@@ -122,7 +122,7 @@ function closeDrawer() {
   visible.value = false;
 }
 
-// 提交表单（中文说明：校验通过后执行请求，并通知父组件刷新）
+// 提交表单（校验通过后执行请求，并通知父组件刷新）
 async function handleSubmit() {
   await validate();
   // request

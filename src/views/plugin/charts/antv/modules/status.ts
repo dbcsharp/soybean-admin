@@ -3,7 +3,7 @@ import { NTag } from 'naive-ui';
 import type { TagProps } from 'naive-ui';
 import type { CustomNodeData, NodeStatus } from './types';
 
-// 节点状态配置结构（中文说明：包含文案/颜色/图标 base64）
+// 节点状态配置结构（包含文案/颜色/图标 base64）
 interface NodeStatusConfig {
   // 状态名称文案
   type: string;
@@ -18,7 +18,7 @@ interface NodeStatusConfig {
   // NodeStatusConfig 接口定义结束
 }
 
-// 节点状态映射表（中文说明：用于图例、tooltip 与节点图标生成）
+// 节点状态映射表（用于图例、tooltip 与节点图标生成）
 export const nodeStatus: Record<NodeStatus, NodeStatusConfig> = {
   MILESTONE: {
     type: '里程碑',
@@ -78,7 +78,7 @@ export const nodeStatus: Record<NodeStatus, NodeStatusConfig> = {
   }
 };
 
-// 获取节点图标（中文说明：里程碑使用 flag64，其它使用 base64）
+// 获取节点图标（里程碑使用 flag64，其它使用 base64）
 export function getNodeIcon(node: CustomNodeData) {
   // 无状态时返回空字符串
   if (!node.status) return '';
@@ -90,7 +90,7 @@ export function getNodeIcon(node: CustomNodeData) {
   return nodeStatus[node.status][type];
 }
 
-// 获取节点状态 Tag（中文说明：用于在表格/列表中渲染状态标签）
+// 获取节点状态 Tag（用于在表格/列表中渲染状态标签）
 export function getNodeStatusTag(state: NodeStatus, tagProperty?: TagProps) {
   // 解构状态配置
   const { textColor, color, type } = nodeStatus[state] || {};

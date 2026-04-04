@@ -3,7 +3,7 @@ import { bgRed, green, red, yellow } from 'kolorist';
 // CLI 语言类型
 export type Lang = 'zh-cn' | 'en-us';
 
-// CLI 文案与选项本地化（中文说明：用于 git-commit 交互与 commit message 校验提示）
+// CLI 文案与选项本地化（用于 git-commit 交互与 commit message 校验提示）
 export const locales = {
   'zh-cn': {
     gitCommitMessages: {

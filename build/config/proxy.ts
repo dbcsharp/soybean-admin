@@ -3,7 +3,7 @@ import { bgRed, bgYellow, green, lightBlue } from 'kolorist';
 import { consola } from 'consola';
 import { createServiceConfig } from '../../src/utils/service';
 
-// 创建 Vite 代理配置（中文说明：根据 env 中的 baseURL/other 服务生成 proxy 规则，并可选输出代理日志）
+// 创建 Vite 代理配置（根据 env 中的 baseURL/other 服务生成 proxy 规则，并可选输出代理日志）
 export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
   // 是否启用代理：外部 enable 为 true 且 VITE_HTTP_PROXY=Y
   const isEnableHttpProxy = enable && env.VITE_HTTP_PROXY === 'Y';
@@ -29,10 +29,9 @@ export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
 
   // 返回完整 proxy 配置
   return proxy;
-  // createViteProxy 函数结束
 }
 
-// 创建单个服务的 proxy 配置项（中文说明：包含 target、rewrite 与可选的代理日志输出）
+// 创建单个服务的 proxy 配置项（包含 target、rewrite 与可选的代理日志输出）
 function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean) {
   // proxy 映射对象（key 为 proxyPattern）
   const proxy: Record<string, ProxyOptions> = {};
@@ -75,5 +74,4 @@ function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean
 
   // 返回单个服务的 proxy 配置映射
   return proxy;
-  // createProxyItem 函数结束
 }

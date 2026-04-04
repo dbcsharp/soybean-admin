@@ -10,7 +10,7 @@ const submiting = ref(false);
 // Naive UI message 实例
 const message = useMessage();
 
-// ProForm 实例（中文说明：包含初始值、重置与提交回调）
+// ProForm 实例（包含初始值、重置与提交回调）
 const form = createProForm({
   initialValues: {
     attributes: [
@@ -34,14 +34,14 @@ const form = createProForm({
   }
 });
 
-// 延迟工具（中文说明：模拟请求耗时）
+// 延迟工具（模拟请求耗时）
 function delay(time: number) {
   return new Promise<void>(resolve => {
     setTimeout(resolve, time);
   });
 }
 
-// 填充表单值（中文说明：演示多种给 ProForm 回填值的方式）
+// 填充表单值（演示多种给 ProForm 回填值的方式）
 function fillValues() {
   const values = {
     appName: $t('page.proNaive.form.basic.appName'),

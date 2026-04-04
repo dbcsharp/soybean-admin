@@ -35,7 +35,7 @@ function handleColourWeaknessChange(value: boolean) {
   themeStore.setColourWeakness(value);
 }
 
-// 是否显示“深色侧边栏”开关（中文说明：仅亮色模式 + vertical 布局显示）
+// 是否显示“深色侧边栏”开关（仅亮色模式 + vertical 布局显示）
 const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layout.mode.includes('vertical'));
 </script>
 

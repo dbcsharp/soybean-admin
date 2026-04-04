@@ -46,7 +46,7 @@ export interface HookRequestInstance<
 }
 
 /**
- * 创建 Hook 请求实例（中文说明：基于 createFlatRequest，返回带 loading/data/error 的组合式调用）
+ * 创建 Hook 请求实例（基于 createFlatRequest，返回带 loading/data/error 的组合式调用）
  *
  * @param axiosConfig Axios 默认配置
  * @param options 请求 options（transform/onRequest/onError 等）

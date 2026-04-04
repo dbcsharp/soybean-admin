@@ -3,7 +3,7 @@ import type { Router } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 import { $t } from '@/locales';
 
-// 创建文档标题守卫（中文说明：afterEach 读取 meta 并设置标题）
+// 创建文档标题守卫（afterEach 读取 meta 并设置标题）
 export function createDocumentTitleGuard(router: Router) {
   // 在路由切换结束后更新标题
   router.afterEach(to => {
@@ -17,5 +17,4 @@ export function createDocumentTitleGuard(router: Router) {
     useTitle(documentTitle);
     // afterEach 回调结束
   });
-  // createDocumentTitleGuard 函数结束
 }

@@ -203,7 +203,7 @@ const pivotChartOptions = computed(() => {
 });
 // 透视图表数据（mounted 时通过 fetch 异步加载）
 const pivotChartRecords = ref({} as any);
-// 图例点击处理（中文说明：通过 updateFilterRules 过滤 Segment-Indicator）
+// 图例点击处理（通过 updateFilterRules 过滤 Segment-Indicator）
 const handleLegendItemClick = (args: { value: any }) => {
   (pivotChartRef?.value as any)?.vTableInstance.updateFilterRules([
     {

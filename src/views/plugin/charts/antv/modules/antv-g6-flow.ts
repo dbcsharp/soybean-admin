@@ -5,7 +5,7 @@ import { useThemeStore } from '@/store/modules/theme';
 import { getNodeIcon, nodeStatus } from './status';
 import type { CustomEdgeData, CustomGraphData, CustomNodeData } from './types';
 
-// 流程图配置（中文说明：用于初始化 AntV G6 Graph）
+// 流程图配置（用于初始化 AntV G6 Graph）
 interface AntFlowConfig {
   // 图容器（id/DOM/Canvas）
   container: string | HTMLElement | Canvas;
@@ -18,7 +18,7 @@ interface AntFlowConfig {
   // AntFlowConfig 接口定义结束
 }
 
-// 创建流程图实例（中文说明：封装 AntV G6 Graph 初始化、样式与交互配置）
+// 创建流程图实例（封装 AntV G6 Graph 初始化、样式与交互配置）
 export function useAntFlow(config: AntFlowConfig) {
   // 获取主题状态（用于主题色与其他颜色）
   const themeStore = useThemeStore();

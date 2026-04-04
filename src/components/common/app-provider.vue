@@ -11,7 +11,7 @@ defineOptions({
 const ContextHolder = defineComponent({
   name: 'ContextHolder',
   setup() {
-    // 注册全局实例（中文说明：在 Naive Provider 内调用 hooks 才能生效）
+    // 注册全局实例（在 Naive Provider 内调用 hooks 才能生效）
     function register() {
       window.$loadingBar = useLoadingBar();
       window.$dialog = useDialog();

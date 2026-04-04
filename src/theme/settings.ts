@@ -1,4 +1,4 @@
-// 默认主题配置（中文说明：用于初始化主题 store，并作为预设合并的基准）
+// 默认主题配置（用于初始化主题 store，并作为预设合并的基准）
 export const themeSettings: App.Theme.ThemeSetting = {
   // 主题模式：light/dark/auto
   themeScheme: 'light',
@@ -162,5 +162,5 @@ export const themeSettings: App.Theme.ThemeSetting = {
  *
  * If publish new version, use `overrideThemeSettings` to override certain theme settings
  */
-// 主题配置覆盖（中文说明：发布新版本时可在此覆写部分默认配置）
+// 主题配置覆盖（发布新版本时可在此覆写部分默认配置）
 export const overrideThemeSettings: Partial<App.Theme.ThemeSetting> = {};

@@ -24,17 +24,17 @@ const themeStore = useThemeStore();
 // 注入混合菜单上下文（用于二级/子级菜单的计算）
 const { secondLevelMenus, childLevelMenus, isActiveFirstLevelMenuHasChildren } = provideMixMenuContext();
 
-// GlobalMenu 使用异步组件加载（中文说明：减少首屏 bundle）
+// GlobalMenu 使用异步组件加载（减少首屏 bundle）
 const GlobalMenu = defineAsyncComponent(() => import('../modules/global-menu/index.vue'));
 
-// 计算 AdminLayout 的布局模式（中文说明：主题 mode 包含 vertical 则为 vertical，否则为 horizontal）
+// 计算 AdminLayout 的布局模式（主题 mode 包含 vertical 则为 vertical，否则为 horizontal）
 const layoutMode = computed(() => {
   const vertical: LayoutMode = 'vertical';
   const horizontal: LayoutMode = 'horizontal';
   return themeStore.layout.mode.includes(vertical) ? vertical : horizontal;
 });
 
-// 头部组件参数（中文说明：不同布局模式下控制 logo/menu/menu-toggler 的显示）
+// 头部组件参数（不同布局模式下控制 logo/menu/menu-toggler 的显示）
 const headerProps = computed(() => {
   const { mode } = themeStore.layout;
 
@@ -74,7 +74,7 @@ const headerProps = computed(() => {
   return headerPropsConfig[mode];
 });
 
-// 是否显示侧边栏（中文说明：横向布局不显示侧边栏）
+// 是否显示侧边栏（横向布局不显示侧边栏）
 const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal');
 
 // 是否为“左侧混合”布局
@@ -89,10 +89,10 @@ const isTopHybridSidebarFirst = computed(() => themeStore.layout.mode === 'top-h
 // 是否为“顶部混合-顶部优先”布局
 const isTopHybridHeaderFirst = computed(() => themeStore.layout.mode === 'top-hybrid-header-first');
 
-// 侧边栏展开宽度（中文说明：根据布局模式与 mixSiderFixed/菜单层级动态计算）
+// 侧边栏展开宽度（根据布局模式与 mixSiderFixed/菜单层级动态计算）
 const siderWidth = computed(() => getSiderAndCollapsedWidth(false));
 
-// 侧边栏折叠宽度（中文说明：根据布局模式与 mixSiderFixed/菜单层级动态计算）
+// 侧边栏折叠宽度（根据布局模式与 mixSiderFixed/菜单层级动态计算）
 const siderCollapsedWidth = computed(() => getSiderAndCollapsedWidth(true));
 
 // 根据是否折叠计算侧边栏最终宽度

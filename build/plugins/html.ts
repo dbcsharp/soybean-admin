@@ -1,7 +1,7 @@
 // HTML 插件：构建阶段向 index.html 注入 buildTime meta（用于版本更新检测）
 import type { Plugin } from 'vite';
 
-// 创建 HTML 注入插件（中文说明：仅在 build 时生效，替换 <head> 注入 meta）
+// 创建 HTML 注入插件（仅在 build 时生效，替换 <head> 注入 meta）
 export function setupHtmlPlugin(buildTime: string) {
   // Vite 插件对象
   const plugin: Plugin = {
@@ -20,5 +20,4 @@ export function setupHtmlPlugin(buildTime: string) {
 
   // 返回插件对象
   return plugin;
-  // setupHtmlPlugin 函数结束
 }

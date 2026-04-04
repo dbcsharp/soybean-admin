@@ -10,7 +10,7 @@ const appStore = useAppStore();
 // 描述列表列数：移动端 1 列，非移动端 2 列
 const column = computed(() => (appStore.isMobile ? 1 : 2));
 
-// package.json 数据结构类型（中文说明：用于展示项目名称、版本与依赖信息）
+// package.json 数据结构类型（用于展示项目名称、版本与依赖信息）
 interface PkgJson {
   // 项目名称
   name: string;
@@ -23,7 +23,7 @@ interface PkgJson {
   // PkgJson 接口定义结束
 }
 
-// 依赖项结构（中文说明：展示 name/version）
+// 依赖项结构（展示 name/version）
 interface PkgVersionInfo {
   // 依赖名称
   name: string;
@@ -44,10 +44,9 @@ function transformVersionData(tuple: [string, string]): PkgVersionInfo {
     name: $name,
     version: $version
   };
-  // transformVersionData 函数结束
 }
 
-// 标准化后的 package.json 数据（中文说明：将 dependencies/devDependencies 转为数组便于 v-for 渲染）
+// 标准化后的 package.json 数据（将 dependencies/devDependencies 转为数组便于 v-for 渲染）
 const pkgJson: PkgJson = {
   name,
   version,

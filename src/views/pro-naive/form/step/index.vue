@@ -14,7 +14,7 @@ const message = useMessage();
 // 第一步表单实例
 const form = createProForm();
 
-// 第二步表单实例（中文说明：提交时合并两步表单值）
+// 第二步表单实例（提交时合并两步表单值）
 const form2 = createProForm({
   onSubmit: async values => {
     submiting.value = true;
@@ -36,7 +36,7 @@ function toNextStepAfterValidated() {
   });
 }
 
-// 延迟工具（中文说明：模拟请求耗时）
+// 延迟工具（模拟请求耗时）
 function delay(time: number) {
   return new Promise<void>(resolve => {
     setTimeout(resolve, time);

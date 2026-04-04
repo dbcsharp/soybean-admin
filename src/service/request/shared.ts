@@ -4,7 +4,7 @@ import { localStg } from '@/utils/storage';
 import { fetchRefreshToken } from '../api';
 import type { RequestInstanceState } from './type';
 
-// 获取 Authorization 头（中文说明：从本地 token 生成 Bearer Token）
+// 获取 Authorization 头（从本地 token 生成 Bearer Token）
 export function getAuthorization() {
   // 从本地缓存读取 token
   const token = localStg.get('token');
@@ -13,11 +13,10 @@ export function getAuthorization() {
 
   // 返回 Authorization
   return Authorization;
-  // getAuthorization 函数结束
 }
 
 /** refresh token */
-// 刷新 token（中文说明：调用 refreshToken 接口，成功则更新本地 token，否则重置鉴权状态）
+// 刷新 token（调用 refreshToken 接口，成功则更新本地 token，否则重置鉴权状态）
 async function handleRefreshToken() {
   // 获取 resetStore 方法（用于刷新失败时退出登录）
   const { resetStore } = useAuthStore();
@@ -42,10 +41,9 @@ async function handleRefreshToken() {
 
   // 返回刷新失败
   return false;
-  // handleRefreshToken 函数结束
 }
 
-// 处理 token 过期请求（中文说明：复用同一个 refreshTokenPromise，刷新成功后由调用方重试请求）
+// 处理 token 过期请求（复用同一个 refreshTokenPromise，刷新成功后由调用方重试请求）
 export async function handleExpiredRequest(state: RequestInstanceState) {
   // 没有刷新中的 Promise 时创建一个
   if (!state.refreshTokenPromise) {
@@ -66,10 +64,9 @@ export async function handleExpiredRequest(state: RequestInstanceState) {
 
   // 返回刷新是否成功
   return success;
-  // handleExpiredRequest 函数结束
 }
 
-// 展示错误消息（中文说明：使用 errMsgStack 去重，避免短时间重复弹出同一错误）
+// 展示错误消息（使用 errMsgStack 去重，避免短时间重复弹出同一错误）
 export function showErrorMsg(state: RequestInstanceState, message: string) {
   // errMsgStack 不存在时初始化为空数组
   if (!state.errMsgStack?.length) {
@@ -105,5 +102,4 @@ export function showErrorMsg(state: RequestInstanceState, message: string) {
     });
     // if 分支结束
   }
-  // showErrorMsg 函数结束
 }

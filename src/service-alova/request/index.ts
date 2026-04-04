@@ -9,7 +9,7 @@ import featureUsers20241014 from '../mocks/feature-users-20241014';
 import { getAuthorization, handleRefreshToken, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
-// 是否启用本地代理（中文说明：仅开发环境且 VITE_HTTP_PROXY=Y 时启用）
+// 是否启用本地代理（仅开发环境且 VITE_HTTP_PROXY=Y 时启用）
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 // 根据环境与代理开关计算默认服务 baseURL
 const { baseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
@@ -20,7 +20,7 @@ const state: RequestInstanceState = {
   errMsgStack: []
   // state 对象结束
 };
-// mock 适配器（中文说明：命中 mock 时返回 mock 响应，未命中则走 fetch）
+// mock 适配器（命中 mock 时返回 mock 响应，未命中则走 fetch）
 const mockAdapter = createAlovaMockAdapter([featureUsers20241014], {
   // 未命中 mock 时使用 fetch 适配器
   httpAdapter: adapterFetch(),
@@ -34,7 +34,7 @@ const mockAdapter = createAlovaMockAdapter([featureUsers20241014], {
   matchMode: 'methodurl'
   // mockAdapter 配置对象结束
 });
-// 创建 Alova 请求实例（中文说明：统一处理鉴权头、后端成功判断、token 刷新与错误提示）
+// 创建 Alova 请求实例（统一处理鉴权头、后端成功判断、token 刷新与错误提示）
 export const alova = createAlovaRequest(
   {
     // 服务 baseURL
@@ -43,7 +43,7 @@ export const alova = createAlovaRequest(
     requestAdapter: import.meta.env.DEV ? mockAdapter : adapterFetch()
   },
   {
-    // 请求发送前处理（中文说明：注入 Authorization 与 apifoxToken）
+    // 请求发送前处理（注入 Authorization 与 apifoxToken）
     onRequest({ config }) {
       // 获取 Authorization 头
       const Authorization = getAuthorization();
@@ -53,7 +53,7 @@ export const alova = createAlovaRequest(
       config.headers.apifoxToken = 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2';
       // onRequest 回调结束
     },
-    // token 刷新器配置（中文说明：命中 token 过期错误码时自动刷新 token）
+    // token 刷新器配置（命中 token 过期错误码时自动刷新 token）
     tokenRefresher: {
       // 判断是否 token 过期
       async isExpired(response) {
@@ -73,7 +73,7 @@ export const alova = createAlovaRequest(
       }
       // tokenRefresher 对象结束
     },
-    // 判断后端是否成功（中文说明：按 VITE_SERVICE_SUCCESS_CODE 比较 response.code）
+    // 判断后端是否成功（按 VITE_SERVICE_SUCCESS_CODE 比较 response.code）
     async isBackendSuccess(response) {
       // 后端响应码为 "0000"（默认）时视为成功，可通过 .env 中 VITE_SERVICE_SUCCESS_CODE 调整
       // 克隆响应，避免读取 body 后影响后续流程
@@ -84,13 +84,13 @@ export const alova = createAlovaRequest(
       return String(data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
       // isBackendSuccess 回调结束
     },
-    // 转换后端响应（中文说明：提取响应中的 data 字段作为最终数据）
+    // 转换后端响应（提取响应中的 data 字段作为最终数据）
     async transformBackendResponse(response) {
       // 返回响应 data 字段
       return (await response.clone().json()).data;
       // transformBackendResponse 回调结束
     },
-    // 统一错误处理（中文说明：处理登出码/弹窗登出码，并做错误提示去重）
+    // 统一错误处理（处理登出码/弹窗登出码，并做错误提示去重）
     async onError(error, response) {
       // 获取鉴权 Store（用于触发 resetStore）
       const authStore = useAuthStore();
@@ -110,16 +110,15 @@ export const alova = createAlovaRequest(
         // if 分支结束
       }
 
-      // 登出处理（中文说明：先提示错误，再重置鉴权状态）
+      // 登出处理（先提示错误，再重置鉴权状态）
       function handleLogout() {
         // 提示错误消息（去重）
         showErrorMsg(state, message);
         // 重置鉴权状态（会清理缓存并跳转登录）
         authStore.resetStore();
-        // handleLogout 函数结束
       }
 
-      // 登出并清理（中文说明：移除 beforeunload 防刷新拦截，并清理消息栈中的当前消息）
+      // 登出并清理（移除 beforeunload 防刷新拦截，并清理消息栈中的当前消息）
       function logoutAndCleanup() {
         // 执行登出
         handleLogout();
@@ -127,7 +126,6 @@ export const alova = createAlovaRequest(
         window.removeEventListener('beforeunload', handleLogout);
         // 从消息栈移除当前消息
         state.errMsgStack = state.errMsgStack.filter(msg => msg !== message);
-        // logoutAndCleanup 函数结束
       }
 
       // 命中 logoutCodes 时直接登出并跳转登录页

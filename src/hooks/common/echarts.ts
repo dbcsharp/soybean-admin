@@ -114,12 +114,12 @@ interface ChartHooks {
 }
 
 /**
- * 创建并管理 ECharts 实例（中文说明：支持暗黑主题、容器尺寸变化自适应、配置更新与销毁清理）
+ * 创建并管理 ECharts 实例（支持暗黑主题、容器尺寸变化自适应、配置更新与销毁清理）
  * use echarts
  *
- * @param optionsFactory 中文说明：ECharts option 工厂函数，用于初始化与增量更新时生成 option
+ * @param optionsFactory ECharts option 工厂函数，用于初始化与增量更新时生成 option
  * @param optionsFactory echarts options factory function
- * @param hooks 中文说明：图表生命周期钩子（渲染/更新/销毁）
+ * @param hooks 图表生命周期钩子（渲染/更新/销毁）
  * @param darkMode dark mode
  */
 export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: ChartHooks = {}) {
@@ -178,18 +178,17 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
   } = hooks;
 
   /** is chart rendered */
-  // 判断图表是否已渲染（中文说明：DOM 与 chart 实例同时存在）
+  // 判断图表是否已渲染（DOM 与 chart 实例同时存在）
   function isRendered() {
     // 同时具备 DOM 与 chart 实例时认为已渲染
     return Boolean(domRef.value && chart.value);
-    // isRendered 函数结束
   }
 
   /**
-   * 更新图表 options（中文说明：通过回调生成增量配置并合并到现有 options，再 setOption 到图表）
+   * 更新图表 options（通过回调生成增量配置并合并到现有 options，再 setOption 到图表）
    * update chart options
    *
-   * @param callback 中文说明：回调接收当前 options 与 optionsFactory，用于返回新的 option 配置
+   * @param callback 回调接收当前 options 与 optionsFactory，用于返回新的 option 配置
    * @param callback callback function
    */
   async function updateOptions(callback: (opts: T, optsFactory: () => T) => ECOption = () => chartOptions) {
@@ -217,18 +216,16 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
 
     // 触发更新完成回调
     await onUpdated?.(chart.value!);
-    // updateOptions 函数结束
   }
 
-  // 直接设置新的 options（中文说明：不做合并与清空逻辑，适用于整体替换）
+  // 直接设置新的 options（不做合并与清空逻辑，适用于整体替换）
   function setOptions(options: T) {
     // 将新 options 更新到图表实例
     chart.value?.setOption(options);
-    // setOptions 函数结束
   }
 
   /** render chart */
-  // 渲染图表（中文说明：按主题初始化实例，并设置初始 option）
+  // 渲染图表（按主题初始化实例，并设置初始 option）
   async function render() {
     // 已渲染时直接返回，避免重复 init
     if (isRendered()) return;
@@ -244,19 +241,17 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
 
     // 触发首次渲染完成回调
     await onRender?.(chart.value!);
-    // render 函数结束
   }
 
   /** resize chart */
-  // 调整图表尺寸（中文说明：在容器尺寸变化时调用）
+  // 调整图表尺寸（在容器尺寸变化时调用）
   function resize() {
     // 调用 ECharts resize 以适配容器尺寸
     chart.value?.resize();
-    // resize 函数结束
   }
 
   /** destroy chart */
-  // 销毁图表（中文说明：触发 onDestroy 回调并 dispose 实例）
+  // 销毁图表（触发 onDestroy 回调并 dispose 实例）
   async function destroy() {
     // chart 不存在时无需处理
     if (!chart.value) return;
@@ -267,11 +262,10 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     chart.value?.dispose();
     // 清空实例引用，标记为未渲染状态
     chart.value = null;
-    // destroy 函数结束
   }
 
   /** change chart theme */
-  // 切换图表主题（中文说明：销毁旧实例后按新主题重新渲染）
+  // 切换图表主题（销毁旧实例后按新主题重新渲染）
   async function changeTheme() {
     // 先销毁旧实例，避免主题残留
     await destroy();
@@ -279,16 +273,15 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     await render();
     // 主题切换后视作一次更新，触发更新回调
     await onUpdated?.(chart.value!);
-    // changeTheme 函数结束
   }
 
   /**
-   * 按尺寸渲染图表（中文说明：已渲染则 resize，否则创建并渲染）
+   * 按尺寸渲染图表（已渲染则 resize，否则创建并渲染）
    * render chart by size
    *
-   * @param w 中文说明：容器宽度
+   * @param w 容器宽度
    * @param w width
-   * @param h 中文说明：容器高度
+   * @param h 容器高度
    * @param h height
    */
   async function renderChartBySize(w: number, h: number) {
@@ -318,7 +311,6 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
       await onUpdated?.(chart.value);
       // chart.value 条件分支结束
     }
-    // renderChartBySize 函数结束
   }
 
   // 在独立 scope 内注册 watch，便于统一停止与释放
@@ -368,5 +360,4 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     setOptions
     // 返回对象定义结束
   };
-  // useEcharts 函数结束
 }

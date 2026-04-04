@@ -31,10 +31,10 @@ const routeStore = useRouteStore();
 // 获取 Tab 状态（用于生成组件 key）
 const tabStore = useTabStore();
 
-// 页面切换过渡动画名称（中文说明：animate=false 时禁用过渡）
+// 页面切换过渡动画名称（animate=false 时禁用过渡）
 const transitionName = computed(() => (themeStore.page.animate ? themeStore.page.animateMode : ''));
 
-// 切换路由后重置滚动位置（中文说明：回到顶部）
+// 切换路由后重置滚动位置（回到顶部）
 function resetScroll() {
   const el = document.querySelector(`#${LAYOUT_SCROLL_EL_ID}`);
 

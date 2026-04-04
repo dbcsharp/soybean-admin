@@ -1,11 +1,11 @@
 import CryptoJS from 'crypto-js';
 
-// AES 加解密工具类（中文说明：将对象序列化为 JSON 后进行 AES 加密/解密）
+// AES 加解密工具类（将对象序列化为 JSON 后进行 AES 加密/解密）
 export class Crypto<T extends object> {
   // 密钥
   secret: string;
 
-  // 创建加密器（中文说明：secret 用于 AES 密钥）
+  // 创建加密器（secret 用于 AES 密钥）
   constructor(secret: string) {
     this.secret = secret;
   }

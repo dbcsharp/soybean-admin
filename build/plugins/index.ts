@@ -10,7 +10,7 @@ import { setupUnplugin } from './unplugin';
 import { setupHtmlPlugin } from './html';
 import { setupDevtoolsPlugin } from './devtools';
 
-// 组装 Vite 插件（中文说明：按顺序注册核心插件与构建期插件，并传入环境变量与 buildTime）
+// 组装 Vite 插件（按顺序注册核心插件与构建期插件，并传入环境变量与 buildTime）
 export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
   // 插件数组（PluginOption 可为 Plugin 或 Plugin[]）
   const plugins: PluginOption = [
@@ -37,5 +37,4 @@ export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
 
   // 返回插件数组
   return plugins;
-  // setupVitePlugins 函数结束
 }

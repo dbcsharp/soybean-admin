@@ -8,7 +8,7 @@ import { localStg } from '@/utils/storage';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 
-// 初始化主题设置（中文说明：开发环境直接用默认配置；生产环境优先从本地缓存读取，并按 overrideThemeSettings 做版本覆盖）
+// 初始化主题设置（开发环境直接用默认配置；生产环境优先从本地缓存读取，并按 overrideThemeSettings 做版本覆盖）
 export function initThemeSettings() {
   // 判断是否生产环境
   const isProd = import.meta.env.PROD;
@@ -37,10 +37,9 @@ export function initThemeSettings() {
 
   // 返回最终主题设置
   return settings;
-  // initThemeSettings 函数结束
 }
 
-// 创建主题 Token（中文说明：根据主题色与 token 配置生成亮/暗两套 CSS Vars Token）
+// 创建主题 Token（根据主题色与 token 配置生成亮/暗两套 CSS Vars Token）
 export function createThemeToken(
   colors: App.Theme.ThemeColor,
   tokens?: App.Theme.ThemeSetting['tokens'],
@@ -100,10 +99,9 @@ export function createThemeToken(
     darkThemeTokens
     // 返回对象定义结束
   };
-  // createThemeToken 函数结束
 }
 
-// 生成调色板颜色变量（中文说明：为每个主题色生成 -50/-100...等色阶，并保留 500 色阶作为主色）
+// 生成调色板颜色变量（为每个主题色生成 -50/-100...等色阶，并保留 500 色阶作为主色）
 function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = false) {
   // 获取主题色 key 列表
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
@@ -129,10 +127,9 @@ function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = fa
 
   // 返回调色板变量对象
   return colorPaletteVar;
-  // createThemePaletteColors 函数结束
 }
 
-// 根据 Token 生成 CSS 变量字符串（中文说明：遍历 themeVars，将 token 值填入对应 CSS 变量）
+// 根据 Token 生成 CSS 变量字符串（遍历 themeVars，将 token 值填入对应 CSS 变量）
 function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   // CSS 样式片段列表
   const styles: string[] = [];
@@ -141,14 +138,12 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   function removeVarPrefix(value: string) {
     // 去掉 var( 与 )，返回变量名
     return value.replace('var(', '').replace(')', '');
-    // removeVarPrefix 函数结束
   }
 
   // 移除 rgb(...) 包装，得到 rgb 变量名
   function removeRgbPrefix(value: string) {
     // 去掉 rgb( 与 )，返回变量名
     return value.replace('rgb(', '').replace(')', '');
-    // removeRgbPrefix 函数结束
   }
 
   // 遍历 themeVars：key 为 tokens 的分组（colors/boxShadow 等）
@@ -183,10 +178,9 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 
   // 返回 CSS 变量字符串
   return styleStr;
-  // getCssVarByTokens 函数结束
 }
 
-// 将主题变量注入到全局（中文说明：生成 :root 与 html.dark 的 CSS，并写入/更新 style 标签）
+// 将主题变量注入到全局（生成 :root 与 html.dark 的 CSS，并写入/更新 style 标签）
 export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
   // 生成亮色 CSS 变量字符串
   const cssVarStr = getCssVarByTokens(tokens);
@@ -221,10 +215,9 @@ export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: Ap
 
   // 将 style 标签追加到 head（若已存在则移动到末尾）
   document.head.appendChild(style);
-  // addThemeVarsToGlobal 函数结束
 }
 
-// 切换 CSS 暗黑模式（中文说明：通过 html class 控制暗黑变量生效）
+// 切换 CSS 暗黑模式（通过 html class 控制暗黑变量生效）
 export function toggleCssDarkMode(darkMode = false) {
   // 获取 html class 的 add/remove 方法
   const { add, remove } = toggleHtmlClass(DARK_CLASS);
@@ -238,7 +231,6 @@ export function toggleCssDarkMode(darkMode = false) {
     remove();
     // darkMode 分支结束
   }
-  // toggleCssDarkMode 函数结束
 }
 
 /**
@@ -247,7 +239,7 @@ export function toggleCssDarkMode(darkMode = false) {
  * @param grayscaleMode
  * @param colourWeakness
  */
-// 切换辅助色彩模式（中文说明：通过 html filter 组合实现灰度/反色）
+// 切换辅助色彩模式（通过 html filter 组合实现灰度/反色）
 export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness = false) {
   // 获取 html 根元素
   const htmlElement = document.documentElement;
@@ -257,7 +249,6 @@ export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness 
     .filter(Boolean)
     // 拼接为一个 filter 字符串
     .join(' ');
-  // toggleAuxiliaryColorModes 函数结束
 }
 
 type NaiveColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active';
@@ -268,7 +259,7 @@ interface NaiveColorAction {
   handler: (color: string) => string;
 }
 
-// 生成 NaiveUI 主题颜色（中文说明：为每个主题色生成基础/悬浮/按下/激活等场景颜色）
+// 生成 NaiveUI 主题颜色（为每个主题色生成基础/悬浮/按下/激活等场景颜色）
 function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) {
   // 场景色处理器列表（根据 scene 生成不同色值）
   const colorActions: NaiveColorAction[] = [
@@ -308,10 +299,9 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor, recommended = false) 
 
   // 返回 NaiveUI 主题色对象
   return themeColors;
-  // getNaiveThemeColors 函数结束
 }
 
-// 获取 NaiveUI 主题配置（中文说明：按主题色与设置生成默认 theme，并合并 overrides）
+// 获取 NaiveUI 主题配置（按主题色与设置生成默认 theme，并合并 overrides）
 export function getNaiveTheme(
   colors: App.Theme.ThemeColor,
   settings: App.Theme.ThemeSetting,
@@ -347,5 +337,4 @@ export function getNaiveTheme(
 
   // overrides 优先级更高，存在时合并覆盖
   return overrides ? defu(overrides, theme) : theme;
-  // getNaiveTheme 函数结束
 }

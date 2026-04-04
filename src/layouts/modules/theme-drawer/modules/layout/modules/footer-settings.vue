@@ -14,9 +14,9 @@ const themeStore = useThemeStore();
 
 // 当前布局模式
 const layoutMode = computed(() => themeStore.layout.mode);
-// 是否为 wrapper 滚动模式（中文说明：wrapper 模式下才支持固定 footer）
+// 是否为 wrapper 滚动模式（wrapper 模式下才支持固定 footer）
 const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wrapper');
-// 是否为顶部混合布局（中文说明：支持 footer 右对齐）
+// 是否为顶部混合布局（支持 footer 右对齐）
 const isMixHorizontalMode = computed(() =>
   ['top-hybrid-sidebar-first', 'top-hybrid-header-first'].includes(layoutMode.value)
 );

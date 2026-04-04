@@ -43,7 +43,7 @@ type DropdownOption = {
   disabled?: boolean;
 };
 
-// 计算右键菜单选项（中文说明：基础关闭项 +（非首页）固定/取消固定 + 排除/禁用处理）
+// 计算右键菜单选项（基础关闭项 +（非首页）固定/取消固定 + 排除/禁用处理）
 const options = computed(() => {
   const opts: DropdownOption[] = [
     {

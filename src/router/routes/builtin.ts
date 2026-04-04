@@ -3,7 +3,7 @@ import type { CustomRoute } from '@elegant-router/types';
 import { layouts, views } from '../elegant/imports';
 import { getRoutePath, transformElegantRoutesToVueRoutes } from '../elegant/transform';
 
-// 根路由（中文说明：默认重定向到 VITE_ROUTE_HOME 对应路径）
+// 根路由（默认重定向到 VITE_ROUTE_HOME 对应路径）
 export const ROOT_ROUTE: CustomRoute = {
   // 路由 name
   name: 'root',
@@ -22,7 +22,7 @@ export const ROOT_ROUTE: CustomRoute = {
   // ROOT_ROUTE 对象结束
 };
 
-// 兜底 404 路由（中文说明：匹配所有未命中的路径）
+// 兜底 404 路由（匹配所有未命中的路径）
 const NOT_FOUND_ROUTE: CustomRoute = {
   // 路由 name
   name: 'not-found',
@@ -42,13 +42,12 @@ const NOT_FOUND_ROUTE: CustomRoute = {
 };
 
 /** builtin routes, it must be constant and setup in vue-router */
-// 内置常量路由数组（中文说明：必须在 createRouter 时传入）
+// 内置常量路由数组（必须在 createRouter 时传入）
 const builtinRoutes: CustomRoute[] = [ROOT_ROUTE, NOT_FOUND_ROUTE];
 
 /** create builtin vue routes */
-// 创建内置 Vue Router 路由记录（中文说明：将 Elegant 路由转换为 vue-router routes）
+// 创建内置 Vue Router 路由记录（将 Elegant 路由转换为 vue-router routes）
 export function createBuiltinVueRoutes() {
   // 将内置路由转换为 vue-router 路由数组
   return transformElegantRoutesToVueRoutes(builtinRoutes, layouts, views);
-  // createBuiltinVueRoutes 函数结束
 }

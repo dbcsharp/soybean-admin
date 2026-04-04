@@ -4,7 +4,7 @@ import { localStg } from '@/utils/storage';
 import { fetchRefreshToken } from '../api';
 import type { RequestInstanceState } from './type';
 
-// 获取 Authorization 头（中文说明：从本地 token 生成 Bearer Token）
+// 获取 Authorization 头（从本地 token 生成 Bearer Token）
 export function getAuthorization() {
   // 从本地缓存读取 token
   const token = localStg.get('token');
@@ -13,11 +13,10 @@ export function getAuthorization() {
 
   // 返回 Authorization
   return Authorization;
-  // getAuthorization 函数结束
 }
 
 /** refresh token */
-// 刷新 token（中文说明：调用 refreshToken 接口，成功则更新本地 token，否则重置鉴权状态并抛出错误）
+// 刷新 token（调用 refreshToken 接口，成功则更新本地 token，否则重置鉴权状态并抛出错误）
 export async function handleRefreshToken() {
   // 获取 resetStore 方法（用于刷新失败时退出登录）
   const { resetStore } = useAuthStore();
@@ -46,10 +45,9 @@ export async function handleRefreshToken() {
     throw error;
     // catch 分支结束
   }
-  // handleRefreshToken 函数结束
 }
 
-// 展示错误消息（中文说明：使用 errMsgStack 去重，避免短时间重复弹出同一错误）
+// 展示错误消息（使用 errMsgStack 去重，避免短时间重复弹出同一错误）
 export function showErrorMsg(state: RequestInstanceState, message: string) {
   // errMsgStack 不存在时初始化为空数组
   if (!state.errMsgStack?.length) {
@@ -85,5 +83,4 @@ export function showErrorMsg(state: RequestInstanceState, message: string) {
     });
     // if 分支结束
   }
-  // showErrorMsg 函数结束
 }

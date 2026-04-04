@@ -46,7 +46,7 @@ interface MixMenuItemProps {
 // 创建可复用模板：DefineMixMenuItem 用于定义，MixMenuItem 用于使用
 const [DefineMixMenuItem, MixMenuItem] = createReusableTemplate<MixMenuItemProps>();
 
-// 选中背景色（中文说明：根据主题色 + 模式混合透明度，兼容暗黑/亮色）
+// 选中背景色（根据主题色 + 模式混合透明度，兼容暗黑/亮色）
 const selectedBgColor = computed(() => {
   const { darkMode, themeColor } = props;
 

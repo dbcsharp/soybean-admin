@@ -12,7 +12,7 @@ import Register from './modules/register.vue';
 import ResetPwd from './modules/reset-pwd.vue';
 import BindWechat from './modules/bind-wechat.vue';
 
-// 组件 Props（中文说明：通过路由可选参数指定默认登录模块）
+// 组件 Props（通过路由可选参数指定默认登录模块）
 interface Props {
   /** The login module */
   module?: UnionKey.LoginModule;
@@ -27,7 +27,7 @@ const appStore = useAppStore();
 // 获取主题状态（暗黑模式/主题色/动画模式等）
 const themeStore = useThemeStore();
 
-// 登录模块配置类型（中文说明：label 用于标题显示，component 为对应模块组件）
+// 登录模块配置类型（label 用于标题显示，component 为对应模块组件）
 interface LoginModule {
   // i18n key（用于显示模块标题）
   label: App.I18n.I18nKey;
@@ -36,7 +36,7 @@ interface LoginModule {
   // LoginModule 接口定义结束
 }
 
-// 登录模块映射（中文说明：将模块 key 映射到标题 i18nKey 与组件）
+// 登录模块映射（将模块 key 映射到标题 i18nKey 与组件）
 const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
   'pwd-login': { label: loginModuleRecord['pwd-login'], component: PwdLogin },
   'code-login': { label: loginModuleRecord['code-login'], component: CodeLogin },
@@ -45,15 +45,15 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
   'bind-wechat': { label: loginModuleRecord['bind-wechat'], component: BindWechat }
 };
 
-// 当前激活的登录模块（中文说明：默认使用 pwd-login）
+// 当前激活的登录模块（默认使用 pwd-login）
 const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
 
-// 背景波浪的主题色（中文说明：暗黑模式使用更深色阶，亮色模式使用主色）
+// 背景波浪的主题色（暗黑模式使用更深色阶，亮色模式使用主色）
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getPaletteColorByNumber(themeStore.themeColor, 600) : themeStore.themeColor
 );
 
-// 登录页背景色（中文说明：将白色与主题色按比例混合，暗黑模式比例更高）
+// 登录页背景色（将白色与主题色按比例混合，暗黑模式比例更高）
 const bgColor = computed(() => {
   // 白色基底
   const COLOR_WHITE = '#ffffff';

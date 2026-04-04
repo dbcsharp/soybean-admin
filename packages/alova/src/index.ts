@@ -8,7 +8,7 @@ import type { FetchRequestInit } from 'alova/fetch';
 import { BACKEND_ERROR_CODE } from './constant';
 import type { CustomAlovaConfig, RequestOptions } from './type';
 
-// 创建 Alova 请求实例（中文说明：封装 token 刷新、请求前 hook、后端成功判断与统一错误处理）
+// 创建 Alova 请求实例（封装 token 刷新、请求前 hook、后端成功判断与统一错误处理）
 export const createAlovaRequest = <
   RequestConfig = FetchRequestInit,
   ResponseType = Response,
@@ -55,7 +55,7 @@ export const createAlovaRequest = <
     // 响应处理：支持 token 过期刷新与成功/失败统一转换
     responded: onResponseRefreshToken({
       onSuccess: async (response, method) => {
-        // 判断后端是否成功（中文说明：由 options.isBackendSuccess 决定）
+        // 判断后端是否成功（由 options.isBackendSuccess 决定）
         let error: any = null;
         let transformedData: any = null;
         try {

@@ -3,7 +3,7 @@ import type { RouteMeta } from 'vue-router';
 import ElegantVueRouter from '@elegant-router/vue/vite';
 import type { RouteKey } from '@elegant-router/types';
 
-// 创建 elegant-router 插件（中文说明：扫描约定目录生成 routes/imports/transform 等文件）
+// 创建 elegant-router 插件（扫描约定目录生成 routes/imports/transform 等文件）
 export function setupElegantRouter() {
   // 返回 Vite 插件实例
   return ElegantVueRouter({
@@ -33,7 +33,7 @@ export function setupElegantRouter() {
         'document_alova'
       ]
     },
-    // 路由路径转换器（中文说明：可按路由 name 自定义 path 规则）
+    // 路由路径转换器（可按路由 name 自定义 path 规则）
     routePathTransformer(routeName, routePath) {
       // 将 routeName 强转为 RouteKey
       const key = routeName as RouteKey;
@@ -54,7 +54,7 @@ export function setupElegantRouter() {
       return routePath;
       // routePathTransformer 回调结束
     },
-    // 生成默认路由 meta（中文说明：title 使用 route key，i18nKey 使用 route.xxx）
+    // 生成默认路由 meta（title 使用 route key，i18nKey 使用 route.xxx）
     onRouteMetaGen(routeName) {
       // 将 routeName 强转为 RouteKey
       const key = routeName as RouteKey;
@@ -82,5 +82,4 @@ export function setupElegantRouter() {
       // onRouteMetaGen 回调结束
     }
   });
-  // setupElegantRouter 函数结束
 }

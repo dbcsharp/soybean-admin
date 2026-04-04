@@ -52,7 +52,7 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
   const { onRender, onUpdated, onDestroy } = hooks;
 
   /**
-   * 是否允许渲染图表（中文说明：DOM 就绪且尺寸有效才允许创建实例）
+   * 是否允许渲染图表（DOM 就绪且尺寸有效才允许创建实例）
    * whether can render chart
    *
    * when domRef is ready and initialSize is valid
@@ -60,21 +60,19 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
   function canRender() {
     // DOM 存在且宽高都大于 0 时认为满足渲染条件
     return domRef.value && initialSize.width > 0 && initialSize.height > 0;
-    // canRender 函数结束
   }
 
   /** is chart rendered */
   function isRendered() {
     // 同时具备 DOM 与 chart 实例时认为已渲染
     return Boolean(domRef.value && chart);
-    // isRendered 函数结束
   }
 
   /**
-   * 更新图表 spec（中文说明：通过回调生成增量配置并合并到现有 spec，再更新到图表）
+   * 更新图表 spec（通过回调生成增量配置并合并到现有 spec，再更新到图表）
    * update chart spec
    *
-   * @param callback 中文说明：回调接收当前 spec 与 specFactory，用于返回新的 spec 配置
+   * @param callback 回调接收当前 spec 与 specFactory，用于返回新的 spec 配置
    * @param callback callback function
    */
   async function updateSpec(callback: (opts: T, optsFactory: () => T) => ISpec = () => spec) {
@@ -99,14 +97,12 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
 
     // 触发更新完成回调
     await onUpdated?.(chart!);
-    // updateSpec 函数结束
   }
 
-  // 直接设置新的 spec（中文说明：不做合并与释放逻辑，适用于整体替换）
+  // 直接设置新的 spec（不做合并与释放逻辑，适用于整体替换）
   function setSpec(newSpec: T) {
     // 将新 spec 更新到图表实例
     chart?.updateSpec(newSpec);
-    // setSpec 函数结束
   }
 
   /** render chart */
@@ -133,14 +129,12 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
       // 触发首次渲染完成回调
       await onRender?.(chart);
     }
-    // render 函数结束
   }
 
   /** resize chart */
   function resize() {
     // 尺寸变化时的重绘入口（当前实现为占位，按需启用 chart.resize）
     // chart?.resize();
-    // resize 函数结束
   }
 
   /** destroy chart */
@@ -154,7 +148,6 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
     chart?.release();
     // 清空实例引用，标记为未渲染状态
     chart = null;
-    // destroy 函数结束
   }
 
   /** change chart theme */
@@ -165,16 +158,15 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
     await render();
     // 主题切换后视作一次更新，触发更新回调
     await onUpdated?.(chart!);
-    // changeTheme 函数结束
   }
 
   /**
-   * 按尺寸渲染图表（中文说明：先更新尺寸，再根据渲染条件决定销毁/重绘/创建）
+   * 按尺寸渲染图表（先更新尺寸，再根据渲染条件决定销毁/重绘/创建）
    * render chart by size
    *
-   * @param w 中文说明：容器宽度
+   * @param w 容器宽度
    * @param w width
-   * @param h 中文说明：容器高度
+   * @param h 容器高度
    * @param h height
    */
   async function renderChartBySize(w: number, h: number) {
@@ -205,7 +197,6 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
     // render chart
     // 未渲染时创建并渲染图表
     await render();
-    // renderChartBySize 函数结束
   }
 
   // 在独立 scope 内注册 watch，便于统一停止与释放
@@ -245,5 +236,4 @@ export function useVChart<T extends ISpec>(specFactory: () => T, hooks: ChartHoo
     setSpec
     // 返回对象定义结束
   };
-  // useVChart 函数结束
 }

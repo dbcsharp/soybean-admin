@@ -1,4 +1,4 @@
-// 生成色板 CSS 变量映射（中文说明：把 primary/info/success/warning/error 的多个梯度拼成变量表）
+// 生成色板 CSS 变量映射（把 primary/info/success/warning/error 的多个梯度拼成变量表）
 function createColorPaletteVars() {
   // 主题色 key 列表
   const colors: App.Theme.ThemeColorKey[] = ['primary', 'info', 'success', 'warning', 'error'];
@@ -22,10 +22,10 @@ function createColorPaletteVars() {
   return colorPaletteVar;
 }
 
-// 预先生成色板变量（中文说明：后续 themeVars 直接展开使用）
+// 预先生成色板变量（后续 themeVars 直接展开使用）
 const colorPaletteVars = createColorPaletteVars();
 
-// 主题 Token 的 CSS 变量表（中文说明：统一提供 colors 与 boxShadow 的 CSS var 映射）
+// 主题 Token 的 CSS 变量表（统一提供 colors 与 boxShadow 的 CSS var 映射）
 export const themeVars: App.Theme.ThemeTokenCSSVars = {
   // 颜色相关 CSS 变量
   colors: {

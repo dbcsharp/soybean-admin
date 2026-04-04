@@ -47,7 +47,7 @@ const data: TimeData[] = [
   }
 ];
 
-// 初始化甘特图（中文说明：设置 gantt.config、加载数据并初始化 zoom levels）
+// 初始化甘特图（设置 gantt.config、加载数据并初始化 zoom levels）
 function initGantt() {
   if (!ganttRef.value) return;
 
@@ -182,7 +182,7 @@ function initGantt() {
   gantt.ext.zoom.setLevel(timeType.value);
 }
 
-// 切换时间粒度（中文说明：更新 timeType 并调用 zoom.setLevel）
+// 切换时间粒度（更新 timeType 并调用 zoom.setLevel）
 function changeTime(value: TimeType) {
   timeType.value = value;
   gantt.ext.zoom.setLevel(value);

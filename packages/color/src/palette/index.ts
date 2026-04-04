@@ -5,7 +5,7 @@ import { getRecommendedColorPalette } from './recommend';
 import { getAntDColorPalette } from './antd';
 
 /**
- * 获取颜色调色板（中文说明：按给定颜色生成 50~950 梯度色映射）
+ * 获取颜色调色板（按给定颜色生成 50~950 梯度色映射）
  *
  * @param color 颜色（colord AnyColor）
  * @param recommended 是否启用推荐算法（输入色可能不是 500 主色）

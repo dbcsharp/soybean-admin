@@ -44,7 +44,7 @@ const icons: Record<UnionKey.ThemeScheme, string> = {
 // 当前图标
 const icon = computed(() => icons[props.themeSchema]);
 
-// tooltip 文案（中文说明：showTooltip=false 时返回空字符串）
+// tooltip 文案（showTooltip=false 时返回空字符串）
 const tooltipContent = computed(() => {
   if (!props.showTooltip) return '';
 

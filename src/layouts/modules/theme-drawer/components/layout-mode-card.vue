@@ -28,7 +28,7 @@ interface Emits {
 // 声明 emits
 const emit = defineEmits<Emits>();
 
-// 布局卡片配置结构（中文说明：不同布局模式下 tooltip 位置与卡片内部结构 class）
+// 布局卡片配置结构（不同布局模式下 tooltip 位置与卡片内部结构 class）
 type LayoutConfig = Record<
   UnionKey.ThemeLayoutMode,
   {
@@ -38,7 +38,7 @@ type LayoutConfig = Record<
   }
 >;
 
-// 各布局模式的卡片配置（中文说明：menuClass/mainClass 用于描述布局示意图比例）
+// 各布局模式的卡片配置（menuClass/mainClass 用于描述布局示意图比例）
 const layoutConfig: LayoutConfig = {
   vertical: {
     placement: 'bottom',

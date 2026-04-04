@@ -26,7 +26,7 @@ export type UseNaiveTableOptions<ResponseData, ApiData, Pagination extends boole
    *
    * @returns true if the column is visible, false otherwise
    */
-  // 获取列是否可见（中文说明：用于决定列在列选择面板/渲染时的默认可见性）
+  // 获取列是否可见（用于决定列在列选择面板/渲染时的默认可见性）
   getColumnVisible?: (column: NaiveUI.TableColumn<ApiData>) => boolean;
   // UseNaiveTableOptions 类型扩展结束
 };
@@ -37,7 +37,7 @@ const SELECTION_KEY = '__selection__';
 // expand 列在列检查映射中的内部 key（用于区分非 key 列）
 const EXPAND_KEY = '__expand__';
 
-// 非分页表格 Hook（中文说明：基于 useTable 封装列显隐检查与横向滚动宽度计算）
+// 非分页表格 Hook（基于 useTable 封装列显隐检查与横向滚动宽度计算）
 export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptions<ResponseData, ApiData, false>) {
   // 创建独立的副作用作用域，便于在 hook 销毁时统一停止 watch
   const scope = effectScope();
@@ -56,7 +56,7 @@ export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptio
   });
 
   // calculate the total width of the table this is used for horizontal scrolling
-  // 计算表格横向滚动宽度（中文说明：根据列宽汇总得到 scrollX，用于水平滚动）
+  // 计算表格横向滚动宽度（根据列宽汇总得到 scrollX，用于水平滚动）
   const scrollX = computed(() => getScrollX(result.columns.value));
 
   // 在独立 scope 内注册 watch，便于统一停止与释放
@@ -91,7 +91,6 @@ export function useNaiveTable<ResponseData, ApiData>(options: UseNaiveTableOptio
     scrollX
     // 返回对象定义结束
   };
-  // useNaiveTable 函数结束
 }
 
 // 分页参数类型：只包含 page 与 pageSize
@@ -106,14 +105,14 @@ type UseNaivePaginatedTableOptions<ResponseData, ApiData> = UseNaiveTableOptions
    *
    * @default true
    */
-  // 是否展示总条数（中文说明：控制分页组件 prefix 的显示）
+  // 是否展示总条数（控制分页组件 prefix 的显示）
   showTotal?: boolean;
-  // 分页参数变化回调（中文说明：page/pageSize 变化时触发，可用于同步到请求参数）
+  // 分页参数变化回调（page/pageSize 变化时触发，可用于同步到请求参数）
   onPaginationParamsChange?: (params: PaginationParams) => void | Promise<void>;
   // UseNaivePaginatedTableOptions 类型定义结束
 };
 
-// 分页表格 Hook（中文说明：封装 NaiveUI PaginationProps 与 useTable 的分页联动）
+// 分页表格 Hook（封装 NaiveUI PaginationProps 与 useTable 的分页联动）
 export function useNaivePaginatedTable<ResponseData, ApiData>(
   // 分页表格配置
   options: UseNaivePaginatedTableOptions<ResponseData, ApiData>
@@ -164,7 +163,7 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
   }) as PaginationProps;
 
   // this is for mobile, if the system does not support mobile, you can use `pagination` directly
-  // 移动端分页计算值（中文说明：移动端缩小页码槽位，并按需隐藏 prefix）
+  // 移动端分页计算值（移动端缩小页码槽位，并按需隐藏 prefix）
   const mobilePagination = computed(() => {
     // 构造最终提供给组件的分页属性对象
     const p: PaginationProps = {
@@ -182,7 +181,7 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
     // mobilePagination 计算回调结束
   });
 
-  // 分页参数计算值（中文说明：抽取 page/pageSize，用于 watch 触发请求）
+  // 分页参数计算值（抽取 page/pageSize，用于 watch 触发请求）
   const paginationParams = computed(() => {
     // 解构当前分页参数
     const { page, pageSize } = pagination;
@@ -222,7 +221,7 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
   // 计算表格横向滚动宽度（用于水平滚动）
   const scrollX = computed(() => getScrollX(result.columns.value));
 
-  // 按指定页码获取数据（中文说明：页码变化时只更新页码，由 watch 触发拉取；同页码则主动拉取）
+  // 按指定页码获取数据（页码变化时只更新页码，由 watch 触发拉取；同页码则主动拉取）
   async function getDataByPage(page: number = 1) {
     // 当目标页码与当前页码不一致时，先更新页码并提前返回
     if (page !== pagination.page) {
@@ -236,7 +235,6 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
 
     // 页码未变化时，直接主动拉取一次数据
     await result.getData();
-    // getDataByPage 函数结束
   }
 
   // 在独立 scope 内注册 watch，便于统一停止与释放
@@ -287,10 +285,9 @@ export function useNaivePaginatedTable<ResponseData, ApiData>(
     mobilePagination
     // 返回对象定义结束
   };
-  // useNaivePaginatedTable 函数结束
 }
 
-// 表格操作 Hook（中文说明：封装新增/编辑抽屉、编辑数据、勾选行与删除成功后的统一提示/刷新）
+// 表格操作 Hook（封装新增/编辑抽屉、编辑数据、勾选行与删除成功后的统一提示/刷新）
 export function useTableOperate<TableData>(
   // 表格数据源引用
   data: Ref<TableData[]>,
@@ -306,20 +303,19 @@ export function useTableOperate<TableData>(
   // 当前操作类型（新增/编辑）
   const operateType = shallowRef<NaiveUI.TableOperateType>('add');
 
-  // 触发新增操作（中文说明：设置操作类型为 add 并打开抽屉）
+  // 触发新增操作（设置操作类型为 add 并打开抽屉）
   function handleAdd() {
     // 设置操作类型为新增
     operateType.value = 'add';
     // 打开抽屉
     openDrawer();
-    // handleAdd 函数结束
   }
 
   /** the editing row data */
   // 当前编辑行的数据副本（用于在抽屉内编辑，不直接污染表格数据源）
   const editingData = shallowRef<TableData | null>(null);
 
-  // 触发编辑操作（中文说明：根据 id 找到行数据，克隆后写入 editingData 并打开抽屉）
+  // 触发编辑操作（根据 id 找到行数据，克隆后写入 editingData 并打开抽屉）
   function handleEdit(id: TableData[keyof TableData]) {
     // 设置操作类型为编辑
     operateType.value = 'edit';
@@ -330,7 +326,6 @@ export function useTableOperate<TableData>(
 
     // 打开抽屉
     openDrawer();
-    // handleEdit 函数结束
   }
 
   /** the checked row keys of table */
@@ -338,7 +333,7 @@ export function useTableOperate<TableData>(
   const checkedRowKeys = shallowRef<string[]>([]);
 
   /** the hook after the batch delete operation is completed */
-  // 批量删除完成后的钩子（中文说明：提示成功、清空勾选并刷新数据）
+  // 批量删除完成后的钩子（提示成功、清空勾选并刷新数据）
   async function onBatchDeleted() {
     // 提示删除成功
     window.$message?.success($t('common.deleteSuccess'));
@@ -348,18 +343,16 @@ export function useTableOperate<TableData>(
 
     // 重新拉取表格数据
     await getData();
-    // onBatchDeleted 函数结束
   }
 
   /** the hook after the delete operation is completed */
-  // 单条删除完成后的钩子（中文说明：提示成功并刷新数据）
+  // 单条删除完成后的钩子（提示成功并刷新数据）
   async function onDeleted() {
     // 提示删除成功
     window.$message?.success($t('common.deleteSuccess'));
 
     // 重新拉取表格数据
     await getData();
-    // onDeleted 函数结束
   }
 
   // 对外暴露操作相关状态与方法
@@ -386,10 +379,9 @@ export function useTableOperate<TableData>(
     onDeleted
     // 返回对象定义结束
   };
-  // useTableOperate 函数结束
 }
 
-// 默认分页响应转换器（中文说明：把后端分页结构扁平化为 PaginationData）
+// 默认分页响应转换器（把后端分页结构扁平化为 PaginationData）
 export function defaultTransform<ApiData>(
   // 接口响应数据（包含 data 与 error）
   response: FlatResponseData<any, Api.Common.PaginatingQueryRecord<ApiData>>
@@ -430,10 +422,9 @@ export function defaultTransform<ApiData>(
     total: 0
     // 返回对象结束
   };
-  // defaultTransform 函数结束
 }
 
-// 生成列勾选配置（中文说明：从 columns 中提取 key/title/fixed/visible，用于列显示控制）
+// 生成列勾选配置（从 columns 中提取 key/title/fixed/visible，用于列显示控制）
 function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
   // 列定义数组
   cols: Column[],
@@ -501,10 +492,9 @@ function getColumnChecks<Column extends NaiveUI.TableColumn<any>>(
 
   // 返回列勾选配置数组
   return checks;
-  // getColumnChecks 函数结束
 }
 
-// 根据勾选配置生成最终列数组（中文说明：按勾选项顺序过滤列，并同步 fixed 设置）
+// 根据勾选配置生成最终列数组（按勾选项顺序过滤列，并同步 fixed 设置）
 function getColumns<Column extends NaiveUI.TableColumn<any>>(cols: Column[], checks: TableColumnCheck[]) {
   // 将列定义映射到 Map（便于通过 key 快速取回列对象）
   const columnMap = new Map<string, Column>();
@@ -547,17 +537,15 @@ function getColumns<Column extends NaiveUI.TableColumn<any>>(cols: Column[], che
 
   // 返回最终列数组
   return filteredColumns;
-  // getColumns 函数结束
 }
 
-// 判断列是否包含 key（中文说明：用于区分普通列与 selection/expand 等特殊列）
+// 判断列是否包含 key（用于区分普通列与 selection/expand 等特殊列）
 export function isTableColumnHasKey<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> {
   // 通过断言读取 key 并转换为布尔值
   return Boolean((column as NaiveUI.TableColumnWithKey<T>).key);
-  // isTableColumnHasKey 函数结束
 }
 
-// 计算横向滚动宽度（中文说明：累加每列 width/minWidth，作为表格 scrollX）
+// 计算横向滚动宽度（累加每列 width/minWidth，作为表格 scrollX）
 function getScrollX<T>(columns: NaiveUI.TableColumn<T>[], minWidth: number = 120) {
   // 通过 reduce 累加每一列的宽度，得到总宽度
   return columns.reduce((acc, column) => {
@@ -565,5 +553,4 @@ function getScrollX<T>(columns: NaiveUI.TableColumn<T>[], minWidth: number = 120
     return acc + Number(column.width ?? column.minWidth ?? minWidth);
     // reduce 单次迭代结束
   }, 0);
-  // getScrollX 函数结束
 }

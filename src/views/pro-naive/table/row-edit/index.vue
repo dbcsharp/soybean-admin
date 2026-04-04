@@ -6,7 +6,7 @@ import { createProForm } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 
-// 数据源行结构（中文说明：用于可编辑表格示例）
+// 数据源行结构（用于可编辑表格示例）
 interface DataSourceType {
   id: string;
   title?: string;
@@ -19,7 +19,7 @@ const message = useMessage();
 // 当前处于编辑态的行 id 列表
 const editableKeys = ref<string[]>([]);
 
-// ProForm 实例（中文说明：表格作为表单字段 list，通过 submit 获取整表数据）
+// ProForm 实例（表格作为表单字段 list，通过 submit 获取整表数据）
 const form = createProForm({
   initialValues: {
     list: [
@@ -48,12 +48,12 @@ const form = createProForm({
   }
 });
 
-// 取消某行编辑态（中文说明：从 editableKeys 中移除该 id）
+// 取消某行编辑态（从 editableKeys 中移除该 id）
 function cancelEditable(id: string) {
   editableKeys.value = editableKeys.value.filter(key => key !== id);
 }
 
-// 可编辑表格列配置（中文说明：输入/日期时间/评分 + 操作列）
+// 可编辑表格列配置（输入/日期时间/评分 + 操作列）
 const columns = computed<ProEditDataTableColumns<DataSourceType>>(() => {
   return [
     {

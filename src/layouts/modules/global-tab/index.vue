@@ -47,7 +47,7 @@ type TabNamedNodeMap = NamedNodeMap & {
   [TAB_DATA_ID]: Attr;
 };
 
-// 将滚动条移动到当前激活的 tab（中文说明：取 tab 中心点对齐容器中心）
+// 将滚动条移动到当前激活的 tab（取 tab 中心点对齐容器中心）
 async function scrollToActiveTab() {
   await nextTick();
   if (!tabRef.value) return;
@@ -87,7 +87,7 @@ function scrollByClientX(clientX: number) {
   }
 }
 
-// 获取右键菜单禁用项（中文说明：首页等保留 tab 禁用“关闭当前/关闭左侧”）
+// 获取右键菜单禁用项（首页等保留 tab 禁用“关闭当前/关闭左侧”）
 function getContextMenuDisabledKeys(tabId: string) {
   const disabledKeys: App.Global.DropdownKey[] = [];
 
@@ -99,7 +99,7 @@ function getContextMenuDisabledKeys(tabId: string) {
   return disabledKeys;
 }
 
-// 关闭 tab（中文说明：从 tabStore 中移除指定 tab）
+// 关闭 tab（从 tabStore 中移除指定 tab）
 function handleCloseTab(tab: App.Global.Tab) {
   tabStore.removeTab(tab.id);
 }
@@ -119,14 +119,14 @@ function handleMousedown(e: MouseEvent, tab: App.Global.Tab) {
   handleCloseTab(tab);
 }
 
-// 切换 tab（中文说明：过滤中键/右键，左键触发路由切换）
+// 切换 tab（过滤中键/右键，左键触发路由切换）
 function switchTab(e: MouseEvent, tab: App.Global.Tab) {
   if ([MIDDLE_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON].includes(e.button)) return;
 
   tabStore.switchRouteByTab(tab);
 }
 
-// 刷新页面（中文说明：触发 appStore.reloadPage，强制重新渲染 RouterView）
+// 刷新页面（触发 appStore.reloadPage，强制重新渲染 RouterView）
 async function refresh() {
   appStore.reloadPage(500);
 }
@@ -139,7 +139,7 @@ interface DropdownConfig {
   tabId: string;
 }
 
-// 右键菜单状态（中文说明：控制 ContextMenu 的显示/位置/目标 tab）
+// 右键菜单状态（控制 ContextMenu 的显示/位置/目标 tab）
 const dropdown: DropdownConfig = reactive({
   visible: false,
   x: 0,
@@ -155,14 +155,14 @@ function setDropdown(config: Partial<DropdownConfig>) {
 // 是否处于“点击右键菜单”过程（用于避免 visible 被外部 update 覆盖）
 let isClickContextMenu = false;
 
-// 右键菜单显隐变化处理（中文说明：非右键触发场景才同步 visible）
+// 右键菜单显隐变化处理（非右键触发场景才同步 visible）
 function handleDropdownVisible(visible: boolean | undefined) {
   if (!isClickContextMenu) {
     setDropdown({ visible });
   }
 }
 
-// 触发右键菜单（中文说明：先隐藏再延迟显示，避免位置更新不生效）
+// 触发右键菜单（先隐藏再延迟显示，避免位置更新不生效）
 async function handleContextMenu(e: MouseEvent, tabId: string) {
   e.preventDefault();
 
@@ -185,12 +185,12 @@ async function handleContextMenu(e: MouseEvent, tabId: string) {
   }, DURATION);
 }
 
-// 初始化 TabStore（中文说明：创建首页等保留 tab）
+// 初始化 TabStore（创建首页等保留 tab）
 function init() {
   tabStore.initTabStore(route);
 }
 
-// 移除焦点（中文说明：用于移动端点击空白处收起输入焦点）
+// 移除焦点（用于移动端点击空白处收起输入焦点）
 function removeFocus() {
   (document.activeElement as HTMLElement)?.blur();
 }

@@ -12,7 +12,7 @@ defineOptions({
 // 获取应用状态（用于监听语言变化）
 const appStore = useAppStore();
 
-// 初始化 ECharts（中文说明：通过 useEcharts 创建实例，并提供 domRef 与 updateOptions）
+// 初始化 ECharts（通过 useEcharts 创建实例，并提供 domRef 与 updateOptions）
 const { domRef, updateOptions } = useEcharts(() => ({
   // tooltip 配置：项触发
   tooltip: {
@@ -57,7 +57,7 @@ const { domRef, updateOptions } = useEcharts(() => ({
   ]
 }));
 
-// 模拟接口数据（中文说明：延迟 1s 后写入饼图数据）
+// 模拟接口数据（延迟 1s 后写入饼图数据）
 async function mockData() {
   // 模拟请求耗时
   await new Promise(resolve => {
@@ -77,10 +77,9 @@ async function mockData() {
     // 返回更新后的 opts
     return opts;
   });
-  // mockData 函数结束
 }
 
-// 更新语言相关的图例名称与数据 label（中文说明：语言切换时重写 series.name 与 data.name）
+// 更新语言相关的图例名称与数据 label（语言切换时重写 series.name 与 data.name）
 function updateLocale() {
   updateOptions((opts, factory) => {
     // 重新生成一份“原始配置”（带最新 i18n 文案）
@@ -100,14 +99,12 @@ function updateLocale() {
     // 返回更新后的 opts
     return opts;
   });
-  // updateLocale 函数结束
 }
 
-// 初始化（中文说明：加载模拟数据）
+// 初始化（加载模拟数据）
 async function init() {
   // 拉取并写入数据
   mockData();
-  // init 函数结束
 }
 
 // 监听语言变化：更新图表文案

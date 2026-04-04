@@ -52,13 +52,11 @@ function initGaugeChart() {
       ]
     });
   }, 1000);
-  // initGaugeChart 函数结束
 }
 
 // 清理仪表盘：停止定时器
 function clearGaugeChart() {
   clearInterval(intervalId);
-  // clearGaugeChart 函数结束
 }
 
 // 启动仪表盘定时更新

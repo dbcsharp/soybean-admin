@@ -51,7 +51,7 @@ function handleSelectMenu(key: RouteKey) {
   activeDeepestLevelMenuKey();
 }
 
-// 更新展开项（中文说明：折叠状态或无选中项时清空，否则展开选中路径）
+// 更新展开项（折叠状态或无选中项时清空，否则展开选中路径）
 function updateExpandedKeys() {
   if (appStore.siderCollapse || !selectedKey.value) {
     expandedKeys.value = [];

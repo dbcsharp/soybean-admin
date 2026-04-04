@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
-// 获取构建时间（中文说明：使用上海时区输出 YYYY-MM-DD HH:mm:ss）
+// 获取构建时间（使用上海时区输出 YYYY-MM-DD HH:mm:ss）
 export function getBuildTime() {
   // 注册 utc 插件
   dayjs.extend(utc);
@@ -15,5 +15,4 @@ export function getBuildTime() {
 
   // 返回构建时间字符串
   return buildTime;
-  // getBuildTime 函数结束
 }

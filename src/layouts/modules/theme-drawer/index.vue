@@ -18,7 +18,7 @@ const appStore = useAppStore();
 // 当前激活的 Tab key
 const activeTab = ref('appearance');
 
-// 抽屉宽度（中文说明：移动端使用 90vw，最大不超过 400px）
+// 抽屉宽度（移动端使用 90vw，最大不超过 400px）
 const drawerWidth = computed(() => {
   const width = 400;
 

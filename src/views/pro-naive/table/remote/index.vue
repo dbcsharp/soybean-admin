@@ -12,7 +12,7 @@ import {
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 
-// 模拟远程列表请求（中文说明：根据分页/筛选/排序参数与表单 values 返回数据）
+// 模拟远程列表请求（根据分页/筛选/排序参数与表单 values 返回数据）
 function fetchList(params: any, values: any) {
   console.log(params, values);
   return new Promise<{ total: number; list: any[] }>(resolve => {
@@ -51,7 +51,7 @@ function fetchList(params: any, values: any) {
   });
 }
 
-// 表格列配置（中文说明：复制文本/标签/日期格式化/图片展示）
+// 表格列配置（复制文本/标签/日期格式化/图片展示）
 const columns = computed<ProDataTableColumns<{ src: any; title: string; now: number }>>(() => {
   return [
     {
@@ -77,7 +77,7 @@ const columns = computed<ProDataTableColumns<{ src: any; title: string; now: num
   ];
 });
 
-// 搜索表单列配置（中文说明：用于 ProSearchForm 渲染筛选条件）
+// 搜索表单列配置（用于 ProSearchForm 渲染筛选条件）
 const searchColumns = computed<
   ProSearchFormColumns<{
     name: string;
@@ -109,14 +109,14 @@ const searchColumns = computed<
   ];
 });
 
-// 搜索表单实例（中文说明：设置初始值）
+// 搜索表单实例（设置初始值）
 const searchForm = createProSearchForm({
   initialValues: {
     responseTime: Date.now()
   }
 });
 
-// useNDataTable：将 ProSearchForm 与 ProDataTable 做远程联动（中文说明：tableProps/proSearchFormProps）
+// useNDataTable：将 ProSearchForm 与 ProDataTable 做远程联动（tableProps/proSearchFormProps）
 const {
   table: { tableProps },
   search: { proSearchFormProps }

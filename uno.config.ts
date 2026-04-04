@@ -3,7 +3,7 @@ import { defineConfig, transformerDirectives, transformerVariantGroup, presetWin
 import { presetSoybeanAdmin } from '@sa/uno-preset';
 import { themeVars } from './src/theme/vars';
 
-// 导出 UnoCSS 配置（中文说明：扫描内容、合并主题变量并注册预设/转换器）
+// 导出 UnoCSS 配置（扫描内容、合并主题变量并注册预设/转换器）
 export default defineConfig({
   // 内容扫描配置（用于生成按需的原子类）
   content: {
@@ -31,7 +31,7 @@ export default defineConfig({
       'icon-xl': '2rem'
     }
   },
-  // 快捷类（中文说明：自定义组合 class，减少重复写法）
+  // 快捷类（自定义组合 class，减少重复写法）
   shortcuts: {
     // 卡片容器快捷类：圆角 + 阴影
     'card-wrapper': 'rd-8px shadow-sm'

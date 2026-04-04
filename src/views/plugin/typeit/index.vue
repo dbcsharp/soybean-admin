@@ -7,7 +7,7 @@ import type { El } from 'typeit/dist/types';
 // 文本容器引用（TypeIt 会在该元素内执行打字动画）
 const textRef = shallowRef<El>();
 
-// 初始化 TypeIt（中文说明：创建实例并启动动画）
+// 初始化 TypeIt（创建实例并启动动画）
 function init() {
   if (!textRef.value) return;
 

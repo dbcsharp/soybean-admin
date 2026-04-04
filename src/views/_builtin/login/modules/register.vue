@@ -38,7 +38,7 @@ const model: FormModel = reactive({
   confirmPassword: ''
 });
 
-// 表单校验规则（中文说明：放在 computed 内，确保语言切换时文案可响应更新）
+// 表单校验规则（放在 computed 内，确保语言切换时文案可响应更新）
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   // 获取基础规则与确认密码规则工厂方法
   const { formRules, createConfirmPwdRule } = useFormRules();
@@ -53,14 +53,13 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   // rules 计算回调结束
 });
 
-// 提交注册（中文说明：先校验表单，再模拟请求成功提示）
+// 提交注册（先校验表单，再模拟请求成功提示）
 async function handleSubmit() {
   // 校验表单
   await validate();
   // request to register
   // 这里仅做演示提示，实际项目中应调用注册接口
   window.$message?.success($t('page.login.common.validateSuccess'));
-  // handleSubmit 函数结束
 }
 </script>
 

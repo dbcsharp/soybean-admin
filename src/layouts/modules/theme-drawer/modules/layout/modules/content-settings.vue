@@ -14,7 +14,7 @@ defineOptions({
 // 获取主题状态（滚动模式/页面切换动画/固定头部与标签栏等）
 const themeStore = useThemeStore();
 
-// 是否为 wrapper 滚动模式（中文说明：wrapper 模式下才支持固定 header+tab）
+// 是否为 wrapper 滚动模式（wrapper 模式下才支持固定 header+tab）
 const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wrapper');
 </script>
 

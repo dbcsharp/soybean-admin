@@ -12,7 +12,7 @@ interface PromptObject {
   routeParams: string;
 }
 
-// 生成路由页面文件（中文说明：按约定在 src/views 下创建目录与 index.vue/[param].vue）
+// 生成路由页面文件（按约定在 src/views 下创建目录与 index.vue/[param].vue）
 export async function generateRoute() {
   // 交互式输入路由名称与是否添加 params
   const result = await prompt<PromptObject>([

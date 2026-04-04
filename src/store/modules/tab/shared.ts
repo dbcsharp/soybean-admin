@@ -9,7 +9,7 @@ import { getRoutePath } from '@/router/elegant/transform';
  * @param tabs Tabs
  * @param homeTab Home tab
  */
-// 获取全部 Tabs（中文说明：按“首页 + 固定 Tabs + 其他 Tabs”排序，并应用新旧 label 覆盖逻辑）
+// 获取全部 Tabs（按“首页 + 固定 Tabs + 其他 Tabs”排序，并应用新旧 label 覆盖逻辑）
 export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
   // 没有首页 tab 时直接返回空数组
   if (!homeTab) {
@@ -32,7 +32,6 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
 
   // 返回应用 label 覆盖后的 Tabs 列表
   return updateTabsLabel(allTabs);
-  // getAllTabs 函数结束
 }
 
 /**
@@ -40,11 +39,10 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
  *
  * @param tab
  */
-// 判断是否为固定 Tab（中文说明：fixedIndex 不为 undefined/null 即视为固定）
+// 判断是否为固定 Tab（fixedIndex 不为 undefined/null 即视为固定）
 function isFixedTab(tab: App.Global.Tab) {
   // 返回 fixedIndex 是否已设置
   return tab.fixedIndex !== undefined && tab.fixedIndex !== null;
-  // isFixedTab 函数结束
 }
 
 /**
@@ -52,7 +50,7 @@ function isFixedTab(tab: App.Global.Tab) {
  *
  * @param route
  */
-// 根据路由生成 Tab 唯一 id（中文说明：非多开 tab 直接用 path，多开 tab 会按 query 生成唯一 id）
+// 根据路由生成 Tab 唯一 id（非多开 tab 直接用 path，多开 tab 会按 query 生成唯一 id）
 export function getTabIdByRoute(route: App.Global.TabRoute) {
   // 解构路由信息（query 默认空对象）
   const { path, query = {}, meta } = route;
@@ -74,7 +72,6 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
 
   // 返回 tab id
   return id;
-  // getTabIdByRoute 函数结束
 }
 
 /**
@@ -82,7 +79,7 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
  *
  * @param route
  */
-// 由路由生成 Tab 对象（中文说明：提取 meta 标题/i18n/图标，并生成 Tab 基础信息）
+// 由路由生成 Tab 对象（提取 meta 标题/i18n/图标，并生成 Tab 基础信息）
 export function getTabByRoute(route: App.Global.TabRoute) {
   // 解构路由字段（fullPath 不存在时使用 path）
   const { name, path, fullPath = path, meta } = route;
@@ -122,7 +119,6 @@ export function getTabByRoute(route: App.Global.TabRoute) {
 
   // 返回 Tab 对象
   return tab;
-  // getTabByRoute 函数结束
 }
 
 /**
@@ -131,7 +127,7 @@ export function getTabByRoute(route: App.Global.TabRoute) {
  *
  * @param route
  */
-// 获取路由图标信息（中文说明：从 matched 中取当前路由的 meta.icon/localIcon，避免被父级 meta 覆盖）
+// 获取路由图标信息（从 matched 中取当前路由的 meta.icon/localIcon，避免被父级 meta 覆盖）
 export function getRouteIcons(route: App.Global.TabRoute) {
   // Set default value for icon at the beginning
   // 默认 icon：优先用 route.meta.icon，否则用环境变量默认菜单图标
@@ -155,7 +151,6 @@ export function getRouteIcons(route: App.Global.TabRoute) {
 
   // 返回图标信息
   return { icon, localIcon };
-  // getRouteIcons 函数结束
 }
 
 /**
@@ -164,7 +159,7 @@ export function getRouteIcons(route: App.Global.TabRoute) {
  * @param router
  * @param homeRouteName routeHome in useRouteStore
  */
-// 获取默认首页 Tab（中文说明：根据 routeHome 生成基础 Tab，并尽量用路由表中的实际路由覆盖）
+// 获取默认首页 Tab（根据 routeHome 生成基础 Tab，并尽量用路由表中的实际路由覆盖）
 export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteKey) {
   // 获取首页路由 path
   const homeRoutePath = getRoutePath(homeRouteName);
@@ -199,7 +194,6 @@ export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteK
 
   // 返回首页 Tab
   return homeTab;
-  // getDefaultHomeTab 函数结束
 }
 
 /**
@@ -208,11 +202,10 @@ export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteK
  * @param tab
  * @param tabs
  */
-// 判断 Tab 是否已存在于 tabs 中（中文说明：通过 id 精确匹配）
+// 判断 Tab 是否已存在于 tabs 中（通过 id 精确匹配）
 export function isTabInTabs(tabId: string, tabs: App.Global.Tab[]) {
   // 返回是否命中任意 tab.id
   return tabs.some(tab => tab.id === tabId);
-  // isTabInTabs 函数结束
 }
 
 /**
@@ -221,11 +214,10 @@ export function isTabInTabs(tabId: string, tabs: App.Global.Tab[]) {
  * @param tabId
  * @param tabs
  */
-// 按 id 过滤 Tabs（中文说明：移除指定 id 的 tab）
+// 按 id 过滤 Tabs（移除指定 id 的 tab）
 export function filterTabsById(tabId: string, tabs: App.Global.Tab[]) {
   // 返回不等于 tabId 的 tab 列表
   return tabs.filter(tab => tab.id !== tabId);
-  // filterTabsById 函数结束
 }
 
 /**
@@ -234,11 +226,10 @@ export function filterTabsById(tabId: string, tabs: App.Global.Tab[]) {
  * @param tabIds
  * @param tabs
  */
-// 按 id 列表过滤 Tabs（中文说明：移除 tabIds 中包含的所有 tab）
+// 按 id 列表过滤 Tabs（移除 tabIds 中包含的所有 tab）
 export function filterTabsByIds(tabIds: string[], tabs: App.Global.Tab[]) {
   // 返回不在 tabIds 中的 tab 列表
   return tabs.filter(tab => !tabIds.includes(tab.id));
-  // filterTabsByIds 函数结束
 }
 
 /**
@@ -247,7 +238,7 @@ export function filterTabsByIds(tabIds: string[], tabs: App.Global.Tab[]) {
  * @param router
  * @param tabs
  */
-// 根据路由表过滤 Tabs（中文说明：移除不存在于当前路由表中的 tab，避免无效 tab）
+// 根据路由表过滤 Tabs（移除不存在于当前路由表中的 tab，避免无效 tab）
 export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
   // 获取路由表
   const routes = router.getRoutes();
@@ -257,7 +248,6 @@ export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
 
   // 只保留 routeKey 存在于路由表的 tabs
   return tabs.filter(tab => routeNames.includes(tab.routeKey));
-  // extractTabsByAllRoutes 函数结束
 }
 
 /**
@@ -265,11 +255,10 @@ export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
  *
  * @param tabs
  */
-// 获取固定 Tabs（中文说明：fixedIndex 存在的 tabs）
+// 获取固定 Tabs（fixedIndex 存在的 tabs）
 export function getFixedTabs(tabs: App.Global.Tab[]) {
   // 返回 fixed tabs
   return tabs.filter(isFixedTab);
-  // getFixedTabs 函数结束
 }
 
 /**
@@ -277,14 +266,13 @@ export function getFixedTabs(tabs: App.Global.Tab[]) {
  *
  * @param tabs
  */
-// 获取固定 Tab 的 id 列表（中文说明：用于清理/保留策略）
+// 获取固定 Tab 的 id 列表（用于清理/保留策略）
 export function getFixedTabIds(tabs: App.Global.Tab[]) {
   // 获取固定 tabs
   const fixedTabs = getFixedTabs(tabs);
 
   // 返回固定 tab 的 id 列表
   return fixedTabs.map(tab => tab.id);
-  // getFixedTabIds 函数结束
 }
 
 /**
@@ -292,7 +280,7 @@ export function getFixedTabIds(tabs: App.Global.Tab[]) {
  *
  * @param tabs
  */
-// 重新排序固定 Tabs 的 fixedIndex（中文说明：按当前 fixed tabs 顺序重写 fixedIndex）
+// 重新排序固定 Tabs 的 fixedIndex（按当前 fixed tabs 顺序重写 fixedIndex）
 export function reorderFixedTabs(tabs: App.Global.Tab[]) {
   // 获取固定 tabs
   const fixedTabs = getFixedTabs(tabs);
@@ -302,7 +290,6 @@ export function reorderFixedTabs(tabs: App.Global.Tab[]) {
     t.fixedIndex = i;
     // forEach 单次迭代结束
   });
-  // reorderFixedTabs 函数结束
 }
 
 /**
@@ -310,7 +297,7 @@ export function reorderFixedTabs(tabs: App.Global.Tab[]) {
  *
  * @param tabs
  */
-// 更新 Tabs 的 label（中文说明：优先 newLabel，其次 oldLabel，最后使用原 label）
+// 更新 Tabs 的 label（优先 newLabel，其次 oldLabel，最后使用原 label）
 function updateTabsLabel(tabs: App.Global.Tab[]) {
   // 生成更新后的 tabs 列表
   const updated = tabs.map(tab => ({
@@ -323,7 +310,6 @@ function updateTabsLabel(tabs: App.Global.Tab[]) {
 
   // 返回更新后的列表
   return updated;
-  // updateTabsLabel 函数结束
 }
 
 /**
@@ -331,7 +317,7 @@ function updateTabsLabel(tabs: App.Global.Tab[]) {
  *
  * @param tab
  */
-// 根据 i18nKey 更新单个 Tab 文案（中文说明：有 i18nKey 则翻译，否则保持原 label）
+// 根据 i18nKey 更新单个 Tab 文案（有 i18nKey 则翻译，否则保持原 label）
 export function updateTabByI18nKey(tab: App.Global.Tab) {
   // 解构 tab 的 i18nKey 与 label
   const { i18nKey, label } = tab;
@@ -344,7 +330,6 @@ export function updateTabByI18nKey(tab: App.Global.Tab) {
     label: i18nKey ? $t(i18nKey) : label
     // 返回对象结束
   };
-  // updateTabByI18nKey 函数结束
 }
 
 /**
@@ -352,11 +337,10 @@ export function updateTabByI18nKey(tab: App.Global.Tab) {
  *
  * @param tabs
  */
-// 批量按 i18nKey 更新 Tabs 文案（中文说明：对每个 tab 应用 updateTabByI18nKey）
+// 批量按 i18nKey 更新 Tabs 文案（对每个 tab 应用 updateTabByI18nKey）
 export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {
   // 返回映射后的 tabs
   return tabs.map(tab => updateTabByI18nKey(tab));
-  // updateTabsByI18nKey 函数结束
 }
 
 /**
@@ -365,7 +349,7 @@ export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {
  * @param name
  * @param tabs
  */
-// 根据路由名称查找 Tab（中文说明：兼容 multiTab，匹配 id 等于 routePath 或以 routePath? 开头）
+// 根据路由名称查找 Tab（兼容 multiTab，匹配 id 等于 routePath 或以 routePath? 开头）
 export function findTabByRouteName(name: RouteKey, tabs: App.Global.Tab[]) {
   // 获取路由 path
   const routePath = getRoutePath(name);
@@ -377,5 +361,4 @@ export function findTabByRouteName(name: RouteKey, tabs: App.Global.Tab[]) {
 
   // 返回匹配的 tab
   return tabs.find(tab => tab.id === tabId || tab.id.startsWith(multiTabId));
-  // findTabByRouteName 函数结束
 }

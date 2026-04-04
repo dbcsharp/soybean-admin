@@ -79,10 +79,9 @@ export function setupLoading() {
     app.innerHTML = loading;
     // if 分支结束
   }
-  // setupLoading 函数结束
 }
 
-// 获取 Logo SVG 字符串（中文说明：SVG 内部通过 CSS 变量控制渐变颜色）
+// 获取 Logo SVG 字符串（SVG 内部通过 CSS 变量控制渐变颜色）
 function getLogoSvg() {
   // Logo SVG 模板字符串
   const logoSvg = `<svg
@@ -235,5 +234,4 @@ function getLogoSvg() {
 
   // 返回 SVG 字符串
   return logoSvg;
-  // getLogoSvg 函数结束
 }

@@ -9,7 +9,7 @@ defineOptions({
   name: 'AdminLayout'
 });
 
-// 声明 props 并设置默认值（中文说明：提供常用布局默认参数）
+// 声明 props 并设置默认值（提供常用布局默认参数）
 const props = withDefaults(defineProps<AdminLayoutProps>(), {
   mode: 'vertical',
   scrollMode: 'content',
@@ -41,7 +41,7 @@ const emit = defineEmits<Emits>();
 // 插槽函数类型
 type SlotFn = (props?: Record<string, unknown>) => any;
 
-// 插槽类型定义（中文说明：布局按区域暴露 header/tab/sider/footer 插槽）
+// 插槽类型定义（布局按区域暴露 header/tab/sider/footer 插槽）
 type Slots = {
   /** Main */
   default?: SlotFn;
@@ -60,7 +60,7 @@ const slots = defineSlots<Slots>();
 // CSS 变量：基于布局 props 计算（高度/z-index 等）
 const cssVars = computed(() => createLayoutCssVars(props));
 
-// 区域显隐控制（中文说明：仅在对应插槽存在且 visible=true 时显示）
+// 区域显隐控制（仅在对应插槽存在且 visible=true 时显示）
 const showHeader = computed(() => Boolean(slots.header) && props.headerVisible);
 const showTab = computed(() => Boolean(slots.tab) && props.tabVisible);
 const showSider = computed(() => !props.isMobile && Boolean(slots.sider) && props.siderVisible);
@@ -75,10 +75,10 @@ const isContentScroll = computed(() => props.scrollMode === 'content');
 const isVertical = computed(() => props.mode === 'vertical');
 const isHorizontal = computed(() => props.mode === 'horizontal');
 
-// 头部与标签页是否固定（中文说明：fixedTop=true 或水平布局+wrapperScroll 时固定）
+// 头部与标签页是否固定（fixedTop=true 或水平布局+wrapperScroll 时固定）
 const fixedHeaderAndTab = computed(() => props.fixedTop || (isHorizontal.value && isWrapperScroll.value));
 
-// 左侧空隙 class（中文说明：用于让内容区避开侧边栏宽度）
+// 左侧空隙 class（用于让内容区避开侧边栏宽度）
 const leftGapClass = computed(() => {
   if (!props.fullContent && showSider.value) {
     return props.siderCollapse ? style['left-gap_collapsed'] : style['left-gap'];
@@ -89,7 +89,7 @@ const leftGapClass = computed(() => {
 
 const headerLeftGapClass = computed(() => (isVertical.value ? leftGapClass.value : ''));
 
-// 底部左侧空隙（中文说明：按布局/滚动/右侧底部等条件决定是否需要避开侧边栏）
+// 底部左侧空隙（按布局/滚动/右侧底部等条件决定是否需要避开侧边栏）
 const footerLeftGapClass = computed(() => {
   const condition1 = isVertical.value;
   const condition2 = isHorizontal.value && isWrapperScroll.value && !props.fixedFooter;

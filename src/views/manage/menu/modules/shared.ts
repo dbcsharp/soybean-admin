@@ -2,10 +2,10 @@
 const LAYOUT_PREFIX = 'layout.';
 // 路由组件标识前缀：页面组件
 const VIEW_PREFIX = 'view.';
-// 一级路由组件分隔符（中文说明：layout 与 view 用 '$' 分隔）
+// 一级路由组件分隔符（layout 与 view 用 '$' 分隔）
 const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
 
-// 解析 component 字符串并返回 layout/page（中文说明：支持 'layout.base$view.xxx'、'layout.base'、'view.xxx' 三种形式）
+// 解析 component 字符串并返回 layout/page（支持 'layout.base$view.xxx'、'layout.base'、'view.xxx' 三种形式）
 export function getLayoutAndPage(component?: string | null) {
   // 布局名称
   let layout = '';
@@ -24,17 +24,17 @@ export function getLayoutAndPage(component?: string | null) {
   return { layout, page };
 }
 
-// 从字符串中提取布局名称（中文说明：仅当以 layout. 开头时返回去前缀后的值）
+// 从字符串中提取布局名称（仅当以 layout. 开头时返回去前缀后的值）
 function getLayout(layout: string) {
   return layout.startsWith(LAYOUT_PREFIX) ? layout.replace(LAYOUT_PREFIX, '') : '';
 }
 
-// 从字符串中提取页面名称（中文说明：仅当以 view. 开头时返回去前缀后的值）
+// 从字符串中提取页面名称（仅当以 view. 开头时返回去前缀后的值）
 function getPage(page: string) {
   return page.startsWith(VIEW_PREFIX) ? page.replace(VIEW_PREFIX, '') : '';
 }
 
-// 将 layout/page 反向拼装为 component 字符串（中文说明：用于回填路由组件标识）
+// 将 layout/page 反向拼装为 component 字符串（用于回填路由组件标识）
 export function transformLayoutAndPageToComponent(layout: string, page: string) {
   // 是否存在布局
   const hasLayout = Boolean(layout);
@@ -65,7 +65,7 @@ export function transformLayoutAndPageToComponent(layout: string, page: string) 
  *
  * @param routeName
  */
-// 根据路由 name 生成路由 path（中文说明：将 '_' 分隔转换为 '/' 分隔）
+// 根据路由 name 生成路由 path（将 '_' 分隔转换为 '/' 分隔）
 export function getRoutePathByRouteName(routeName: string) {
   // 路由 name 使用 '_' 分隔层级，这里转换为 '/' 分隔的 path
   return `/${routeName.replace(/_/g, '/')}`;
@@ -76,7 +76,7 @@ export function getRoutePathByRouteName(routeName: string) {
  *
  * @param routePath route path
  */
-// 从路由 path 中提取动态参数（中文说明：将 '/xxx/:id' 解析为 { path, param }）
+// 从路由 path 中提取动态参数（将 '/xxx/:id' 解析为 { path, param }）
 export function getPathParamFromRoutePath(routePath: string) {
   // 将 '/a/b/:id' 拆分为 path 与 param
   const [path, param = ''] = routePath.split('/:');
@@ -94,7 +94,7 @@ export function getPathParamFromRoutePath(routePath: string) {
  * @param routePath route path
  * @param param path param
  */
-// 为路由 path 拼接动态参数（中文说明：param 非空时追加 '/:param'）
+// 为路由 path 拼接动态参数（param 非空时追加 '/:param'）
 export function getRoutePathWithParam(routePath: string, param: string) {
   // param 非空时追加 '/:param'
   if (param.trim()) {

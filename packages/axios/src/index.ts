@@ -14,7 +14,7 @@ import type {
   ResponseType
 } from './type';
 
-// 创建通用请求实例（中文说明：统一创建 axios 实例、注册 retry/拦截器，并提供 cancelAllRequest）
+// 创建通用请求实例（统一创建 axios 实例、注册 retry/拦截器，并提供 cancelAllRequest）
 function createCommonRequest<
   ResponseData,
   ApiData = ResponseData,
@@ -100,7 +100,7 @@ function createCommonRequest<
     }
   );
 
-  // 取消全部请求（中文说明：对所有 AbortController 执行 abort 并清空缓存）
+  // 取消全部请求（对所有 AbortController 执行 abort 并清空缓存）
   function cancelAllRequest() {
     abortControllerMap.forEach(abortController => {
       abortController.abort();
@@ -122,7 +122,7 @@ function createCommonRequest<
  * @param axiosConfig axios 配置
  * @param options 请求选项
  */
-// 创建“返回业务数据”的请求实例（中文说明：json 响应时返回 transform 结果，非 json 透出原 data）
+// 创建“返回业务数据”的请求实例（json 响应时返回 transform 结果，非 json 透出原 data）
 export function createRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
   options?: Partial<RequestOption<ResponseData, ApiData, State>>
@@ -167,7 +167,7 @@ export function createRequest<ResponseData, ApiData, State extends Record<string
  * @param axiosConfig axios 配置
  * @param options 请求选项
  */
-// 创建“扁平返回值”的请求实例（中文说明：永不 throw，返回 { data, error, response }）
+// 创建“扁平返回值”的请求实例（永不 throw，返回 { data, error, response }）
 export function createFlatRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
   options?: Partial<RequestOption<ResponseData, ApiData, State>>

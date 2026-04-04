@@ -4,14 +4,14 @@ import { useCountDown, useLoading } from '@sa/hooks';
 import { REG_PHONE } from '@/constants/reg';
 import { $t } from '@/locales';
 
-// 获取验证码能力（中文说明：提供按钮 label 计算、倒计时控制与 getCaptcha 方法）
+// 获取验证码能力（提供按钮 label 计算、倒计时控制与 getCaptcha 方法）
 export function useCaptcha() {
   // Loading 状态与控制方法（用于获取验证码时的加载态）
   const { loading, startLoading, endLoading } = useLoading();
   // 倒计时能力（用于控制“重新获取”文案与禁用状态）
   const { count, start, stop, isCounting } = useCountDown(10);
 
-  // 获取按钮文案（中文说明：根据 loading/isCounting 计算展示文本）
+  // 获取按钮文案（根据 loading/isCounting 计算展示文本）
   const label = computed(() => {
     // 默认文案：获取验证码
     let text = $t('page.login.codeLogin.getCode');
@@ -38,7 +38,7 @@ export function useCaptcha() {
     // label 计算回调结束
   });
 
-  // 校验手机号是否合法（中文说明：非空且满足手机号正则）
+  // 校验手机号是否合法（非空且满足手机号正则）
   function isPhoneValid(phone: string) {
     // 去除空白后为空时提示必填
     if (phone.trim() === '') {
@@ -62,10 +62,9 @@ export function useCaptcha() {
 
     // 校验通过
     return true;
-    // isPhoneValid 函数结束
   }
 
-  // 获取验证码（中文说明：先校验手机号，再模拟请求并启动倒计时）
+  // 获取验证码（先校验手机号，再模拟请求并启动倒计时）
   async function getCaptcha(phone: string) {
     // 执行手机号校验
     const valid = isPhoneValid(phone);
@@ -96,7 +95,6 @@ export function useCaptcha() {
 
     // 结束加载
     endLoading();
-    // getCaptcha 函数结束
   }
 
   // 对外暴露按钮文案与倒计时/加载/获取验证码方法
@@ -115,5 +113,4 @@ export function useCaptcha() {
     getCaptcha
     // 返回对象定义结束
   };
-  // useCaptcha 函数结束
 }

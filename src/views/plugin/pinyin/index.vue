@@ -3,12 +3,12 @@ import { onMounted, ref } from 'vue';
 import { html } from 'pinyin-pro';
 import domPurify from 'dompurify';
 
-// 三个渲染容器引用（中文说明：分别展示常规/无音调/自定义样式）
+// 三个渲染容器引用（分别展示常规/无音调/自定义样式）
 const domRef = ref<HTMLElement | null>(null);
 const domRef2 = ref<HTMLElement | null>(null);
 const domRef3 = ref<HTMLElement | null>(null);
 
-// 渲染拼音 HTML（中文说明：使用 pinyin-pro 生成 html，并用 domPurify 进行 XSS 清洗）
+// 渲染拼音 HTML（使用 pinyin-pro 生成 html，并用 domPurify 进行 XSS 清洗）
 function renderHtml() {
   if (!domRef.value || !domRef2.value || !domRef3.value) return;
 

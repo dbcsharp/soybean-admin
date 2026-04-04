@@ -7,7 +7,6 @@ const handleAutoRequestSend = async () => {
   accessAction(/^autoRequest/, async ({ send }) => {
     await send();
   });
-  // handleAutoRequestSend 函数结束
 };
 </script>
 

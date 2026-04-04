@@ -12,7 +12,7 @@ const vditor = ref<Vditor>();
 // 编辑器挂载容器 DOM 引用
 const domRef = ref<HTMLElement>();
 
-// 渲染 Vditor（中文说明：创建实例并设置基础配置）
+// 渲染 Vditor（创建实例并设置基础配置）
 function renderVditor() {
   if (!domRef.value) return;
   vditor.value = new Vditor(domRef.value, {

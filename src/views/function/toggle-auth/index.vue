@@ -24,7 +24,7 @@ const { loading, startLoading, endLoading } = useLoading();
 // 账号 key 类型
 type AccountKey = 'super' | 'admin' | 'user';
 
-// 账号结构（中文说明：用于一键切换账号）
+// 账号结构（用于一键切换账号）
 interface Account {
   // 账号标识
   key: AccountKey;
@@ -37,7 +37,7 @@ interface Account {
   // Account 接口定义结束
 }
 
-// 账号列表（中文说明：演示用账号）
+// 账号列表（演示用账号）
 const accounts = computed<Account[]>(() => [
   {
     key: 'super',
@@ -62,7 +62,7 @@ const accounts = computed<Account[]>(() => [
 // 当前登录账号 key（用于控制按钮 loading/disabled）
 const loginAccount = ref<AccountKey>('super');
 
-// 切换账号（中文说明：重新登录、重建 Tabs，并刷新页面以应用新权限）
+// 切换账号（重新登录、重建 Tabs，并刷新页面以应用新权限）
 async function handleToggleAccount(account: Account) {
   // 写入当前选择的账号 key
   loginAccount.value = account.key;
@@ -77,7 +77,6 @@ async function handleToggleAccount(account: Account) {
   endLoading();
   // 刷新页面（重置路由缓存并重新挂载）
   appStore.reloadPage();
-  // handleToggleAccount 函数结束
 }
 </script>
 

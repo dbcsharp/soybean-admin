@@ -29,7 +29,7 @@ const naiveDateLocale = computed(() => {
   return naiveDateLocales[appStore.locale];
 });
 
-// 水印配置（中文说明：内容来自 themeStore.watermarkContent，其他参数为展示样式）
+// 水印配置（内容来自 themeStore.watermarkContent，其他参数为展示样式）
 const watermarkProps = computed<WatermarkProps>(() => {
   return {
     content: themeStore.watermarkContent,

@@ -6,7 +6,7 @@ import { createProSearchForm } from 'pro-naive-ui';
 import { $t } from '@/locales';
 import ConfigProvider from '../../ConfigProvider.vue';
 
-// 查询表单数据结构（中文说明：用于示例字段定义）
+// 查询表单数据结构（用于示例字段定义）
 interface Info {
   appName: string;
   appStatus: string;
@@ -22,7 +22,7 @@ const loading2 = ref(false);
 // Naive UI message 实例
 const message = useMessage();
 
-// 搜索表单实例 1（中文说明：基础示例）
+// 搜索表单实例 1（基础示例）
 const form = createProSearchForm<Partial<Info>>({
   onReset: () => {
     message.success('reset success');
@@ -35,7 +35,7 @@ const form = createProSearchForm<Partial<Info>>({
   }
 });
 
-// 搜索表单实例 2（中文说明：默认折叠 + 更多字段）
+// 搜索表单实例 2（默认折叠 + 更多字段）
 const form2 = createProSearchForm<Partial<Info>>({
   defaultCollapsed: true,
   onReset: () => {
@@ -49,7 +49,7 @@ const form2 = createProSearchForm<Partial<Info>>({
   }
 });
 
-// 搜索列配置 1（中文说明：常见输入/日期/日期时间字段）
+// 搜索列配置 1（常见输入/日期/日期时间字段）
 const columns = computed<ProSearchFormColumns<Info>>(() => {
   return [
     {
@@ -78,7 +78,7 @@ const columns = computed<ProSearchFormColumns<Info>>(() => {
   ];
 });
 
-// 搜索列配置 2（中文说明：批量生成 20 个字段）
+// 搜索列配置 2（批量生成 20 个字段）
 const columns2 = computed(() => {
   return Array.from({ length: 20 }, (_, i) => ({
     title: `${$t('page.proNaive.form.query.field')}${i}`,
@@ -86,7 +86,7 @@ const columns2 = computed(() => {
   }));
 });
 
-// 延迟工具（中文说明：模拟请求耗时）
+// 延迟工具（模拟请求耗时）
 function delay(time: number) {
   return new Promise<void>(resolve => {
     setTimeout(resolve, time);

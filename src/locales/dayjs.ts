@@ -8,7 +8,7 @@ import { localStg } from '@/utils/storage';
  *
  * @param lang
  */
-// 设置 Dayjs 语言（中文说明：支持传入 LangType；未传时从本地缓存读取）
+// 设置 Dayjs 语言（支持传入 LangType；未传时从本地缓存读取）
 export function setDayjsLocale(lang: App.I18n.LangType = 'zh-CN') {
   // LangType -> Dayjs locale key 映射
   const localMap = {
@@ -24,5 +24,4 @@ export function setDayjsLocale(lang: App.I18n.LangType = 'zh-CN') {
 
   // 设置 Dayjs locale
   locale(localMap[l]);
-  // setDayjsLocale 函数结束
 }

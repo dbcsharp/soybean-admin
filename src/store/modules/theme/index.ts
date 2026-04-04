@@ -17,7 +17,7 @@ import {
 } from './shared';
 
 /** Theme store */
-// 创建主题 Store（中文说明：内部使用 setup 语法，配合 resetSetupStore 插件支持 $reset）
+// 创建主题 Store（内部使用 setup 语法，配合 resetSetupStore 插件支持 $reset）
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   // 创建独立的副作用作用域，便于统一停止 watch
   const scope = effectScope();
@@ -27,19 +27,19 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const authStore = useAuthStore();
 
   /** Theme settings */
-  // 主题设置（中文说明：初始化时从本地缓存/默认配置加载）
+  // 主题设置（初始化时从本地缓存/默认配置加载）
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
   /** Optional NaiveUI theme overrides from preset */
-  // NaiveUI 主题覆盖项（中文说明：由预设主题注入，允许覆盖自动生成主题）
+  // NaiveUI 主题覆盖项（由预设主题注入，允许覆盖自动生成主题）
   const naiveThemeOverrides: Ref<App.Theme.NaiveUIThemeOverride | undefined> = ref(undefined);
 
   /** Watermark time instance with controls */
-  // 水印时间实例（中文说明：带 pause/resume 控制，用于只在需要时更新）
+  // 水印时间实例（带 pause/resume 控制，用于只在需要时更新）
   const { now: watermarkTime, pause: pauseWatermarkTime, resume: resumeWatermarkTime } = useNow({ controls: true });
 
   /** Dark mode */
-  // 是否暗黑模式（中文说明：auto 跟随系统，否则按 themeScheme 固定）
+  // 是否暗黑模式（auto 跟随系统，否则按 themeScheme 固定）
   const darkMode = computed(() => {
     // auto 模式跟随系统主题
     if (settings.value.themeScheme === 'auto') {
@@ -53,15 +53,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** grayscale mode */
-  // 灰度模式开关（中文说明：用于全站灰度显示）
+  // 灰度模式开关（用于全站灰度显示）
   const grayscaleMode = computed(() => settings.value.grayscale);
 
   /** colourWeakness mode */
-  // 色弱模式开关（中文说明：用于辅助色弱用户）
+  // 色弱模式开关（用于辅助色弱用户）
   const colourWeaknessMode = computed(() => settings.value.colourWeakness);
 
   /** Theme colors */
-  // 主题颜色集合（中文说明：primary + 其他色；info 可跟随 primary）
+  // 主题颜色集合（primary + 其他色；info 可跟随 primary）
   const themeColors = computed(() => {
     // 解构主题色配置
     const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
@@ -81,7 +81,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** Naive theme */
-  // NaiveUI 主题配置（中文说明：根据主题色与 settings 自动生成，并合并 overrides）
+  // NaiveUI 主题配置（根据主题色与 settings 自动生成，并合并 overrides）
   const naiveTheme = computed(() => getNaiveTheme(themeColors.value, settings.value, naiveThemeOverrides.value));
 
   /**
@@ -89,11 +89,11 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * It is for copy settings
    */
-  // settings 的 JSON 字符串（中文说明：用于复制主题设置）
+  // settings 的 JSON 字符串（用于复制主题设置）
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
   /** Watermark time date formatter */
-  // 水印时间格式化字符串（中文说明：按 watermark.timeFormat 格式化）
+  // 水印时间格式化字符串（按 watermark.timeFormat 格式化）
   const formattedWatermarkTime = computed(() => {
     // 读取 watermark 配置
     const { watermark } = settings.value;
@@ -105,7 +105,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** Watermark content */
-  // 水印内容（中文说明：优先用户名，其次时间，否则使用自定义文本）
+  // 水印内容（优先用户名，其次时间，否则使用自定义文本）
   const watermarkContent = computed(() => {
     // 读取 watermark 配置
     const { watermark } = settings.value;
@@ -130,14 +130,13 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** Reset store */
-  // 重置主题 Store（中文说明：调用自身 $reset，恢复默认主题设置）
+  // 重置主题 Store（调用自身 $reset，恢复默认主题设置）
   function resetStore() {
     // 获取自身 store 实例（用于 $reset）
     const themeStore = useThemeStore();
 
     // 重置 store 状态
     themeStore.$reset();
-    // resetStore 函数结束
   }
 
   /**
@@ -145,11 +144,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param themeScheme
    */
-  // 设置主题模式（中文说明：light/dark/auto）
+  // 设置主题模式（light/dark/auto）
   function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
     // 写入主题模式
     settings.value.themeScheme = themeScheme;
-    // setThemeScheme 函数结束
   }
 
   /**
@@ -157,11 +155,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param isGrayscale
    */
-  // 设置灰度模式（中文说明：true 开启全站灰度）
+  // 设置灰度模式（true 开启全站灰度）
   function setGrayscale(isGrayscale: boolean) {
     // 写入灰度开关
     settings.value.grayscale = isGrayscale;
-    // setGrayscale 函数结束
   }
 
   /**
@@ -169,15 +166,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param isColourWeakness
    */
-  // 设置色弱模式（中文说明：true 开启色弱辅助）
+  // 设置色弱模式（true 开启色弱辅助）
   function setColourWeakness(isColourWeakness: boolean) {
     // 写入色弱开关
     settings.value.colourWeakness = isColourWeakness;
-    // setColourWeakness 函数结束
   }
 
   /** Toggle theme scheme */
-  // 切换主题模式（中文说明：在 light/dark/auto 之间循环切换）
+  // 切换主题模式（在 light/dark/auto 之间循环切换）
   function toggleThemeScheme() {
     // 主题模式候选列表
     const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
@@ -193,7 +189,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
     // 设置新的主题模式
     setThemeScheme(nextThemeScheme);
-    // toggleThemeScheme 函数结束
   }
 
   /**
@@ -202,7 +197,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * @param key Theme color key
    * @param color Theme color
    */
-  // 更新主题颜色（中文说明：recommendColor 开启时会用调色板推荐色替换）
+  // 更新主题颜色（recommendColor 开启时会用调色板推荐色替换）
   function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
     // 默认使用传入 color
     let colorValue = color;
@@ -225,7 +220,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       settings.value.otherColor[key] = colorValue;
       // key 分支结束
     }
-    // updateThemeColors 函数结束
   }
 
   /**
@@ -233,15 +227,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param mode Theme layout mode
    */
-  // 设置布局模式（中文说明：vertical/horizontal/vertical-mix 等）
+  // 设置布局模式（vertical/horizontal/vertical-mix 等）
   function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
     // 写入布局模式
     settings.value.layout.mode = mode;
-    // setThemeLayout 函数结束
   }
 
   /** Setup theme vars to global */
-  // 将主题 Token 写入全局 CSS 变量（中文说明：生成亮/暗 Token，并注入到 style 标签）
+  // 将主题 Token 写入全局 CSS 变量（生成亮/暗 Token，并注入到 style 标签）
   function setupThemeVarsToGlobal() {
     // 根据主题色与 token 配置生成亮/暗主题 Token
     const { themeTokens, darkThemeTokens } = createThemeToken(
@@ -255,7 +248,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
     // 将 Token 注入到全局 CSS 变量
     addThemeVarsToGlobal(themeTokens, darkThemeTokens);
-    // setupThemeVarsToGlobal 函数结束
   }
 
   /**
@@ -263,7 +255,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param enable Whether to enable user name watermark
    */
-  // 设置水印显示用户名（中文说明：开启用户名时会自动关闭时间水印）
+  // 设置水印显示用户名（开启用户名时会自动关闭时间水印）
   function setWatermarkEnableUserName(enable: boolean) {
     // 写入用户名水印开关
     settings.value.watermark.enableUserName = enable;
@@ -274,7 +266,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       settings.value.watermark.enableTime = false;
       // enable 分支结束
     }
-    // setWatermarkEnableUserName 函数结束
   }
 
   /**
@@ -282,7 +273,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param enable Whether to enable time watermark
    */
-  // 设置水印显示时间（中文说明：开启时间时会自动关闭用户名水印）
+  // 设置水印显示时间（开启时间时会自动关闭用户名水印）
   function setWatermarkEnableTime(enable: boolean) {
     // 写入时间水印开关
     settings.value.watermark.enableTime = enable;
@@ -293,7 +284,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       settings.value.watermark.enableUserName = false;
       // enable 分支结束
     }
-    // setWatermarkEnableTime 函数结束
   }
 
   /**
@@ -301,15 +291,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    *
    * @param overrides NaiveUI theme overrides or undefined to clear
    */
-  // 设置 NaiveUI 主题覆盖项（中文说明：传 undefined 可清空覆盖）
+  // 设置 NaiveUI 主题覆盖项（传 undefined 可清空覆盖）
   function setNaiveThemeOverrides(overrides?: App.Theme.NaiveUIThemeOverride) {
     // 写入覆盖项
     naiveThemeOverrides.value = overrides;
-    // setNaiveThemeOverrides 函数结束
   }
 
   /** Only run timer when watermark is visible and time display is enabled */
-  // 控制水印时间计时器（中文说明：仅当水印可见且启用时间时才恢复计时，否则暂停）
+  // 控制水印时间计时器（仅当水印可见且启用时间时才恢复计时，否则暂停）
   function updateWatermarkTimer() {
     // 读取 watermark 配置
     const { watermark } = settings.value;
@@ -325,11 +314,10 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       pauseWatermarkTime();
       // shouldRunTimer 分支结束
     }
-    // updateWatermarkTimer 函数结束
   }
 
   /** Cache theme settings */
-  // 缓存主题设置（中文说明：仅生产环境缓存到 localStorage）
+  // 缓存主题设置（仅生产环境缓存到 localStorage）
   function cacheThemeSettings() {
     // 判断是否生产环境
     const isProd = import.meta.env.PROD;
@@ -339,7 +327,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
     // 写入主题设置到本地缓存
     localStg.set('themeSettings', settings.value);
-    // cacheThemeSettings 函数结束
   }
 
   // cache theme settings when page is closed or refreshed
@@ -351,7 +338,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   // watch store
-  // 在独立 scope 内注册 watch（中文说明：同步暗黑模式/辅助模式/主题色 CSS 变量/水印计时器）
+  // 在独立 scope 内注册 watch（同步暗黑模式/辅助模式/主题色 CSS 变量/水印计时器）
   scope.run(() => {
     // watch dark mode
     // 监听暗黑模式：切换 html class，并缓存 darkMode
@@ -423,7 +410,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   });
 
   /** On scope dispose */
-  // 作用域销毁时停止 scope（中文说明：清理所有 watch）
+  // 作用域销毁时停止 scope（清理所有 watch）
   onScopeDispose(() => {
     // 停止 scope 内创建的所有副作用
     scope.stop();

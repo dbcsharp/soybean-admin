@@ -13,5 +13,4 @@ export function useSvgIcon() {
     SvgIconVNode
     // 返回对象定义结束
   };
-  // useSvgIcon 函数结束
 }

@@ -6,7 +6,7 @@
 
 import type { GeneratedRoute } from '@elegant-router/types';
 
-// 生成路由数组（中文说明：可与自定义路由合并后用于生成静态模式路由集合）
+// 生成路由数组（可与自定义路由合并后用于生成静态模式路由集合）
 export const generatedRoutes: GeneratedRoute[] = [
   {
     name: '403',

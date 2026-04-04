@@ -26,10 +26,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   // 登录 loading 状态与控制方法
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  // token（中文说明：内存态 token，实际请求头 token 存在 localStorage）
+  // token（内存态 token，实际请求头 token 存在 localStorage）
   const token = ref('');
 
-  // 用户信息（中文说明：使用 reactive，便于直接 Object.assign 更新）
+  // 用户信息（使用 reactive，便于直接 Object.assign 更新）
   const userInfo: Api.Auth.UserInfo = reactive({
     // 用户 ID
     userId: '',
@@ -43,7 +43,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   });
 
   /** is super role in static route */
-  // 静态路由模式下是否为超级角色（中文说明：用于决定是否加载全部静态权限路由）
+  // 静态路由模式下是否为超级角色（用于决定是否加载全部静态权限路由）
   const isStaticSuper = computed(() => {
     // 读取鉴权路由模式与静态超级角色标识
     const { VITE_AUTH_ROUTE_MODE, VITE_STATIC_SUPER_ROLE } = import.meta.env;
@@ -54,11 +54,11 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   });
 
   /** Is login */
-  // 是否已登录（中文说明：token 存在即视为已登录）
+  // 是否已登录（token 存在即视为已登录）
   const isLogin = computed(() => Boolean(token.value));
 
   /** Reset auth store */
-  // 重置鉴权状态（中文说明：记录上次用户、清理缓存、重置 store，并按路由情况跳转登录）
+  // 重置鉴权状态（记录上次用户、清理缓存、重置 store，并按路由情况跳转登录）
   async function resetStore() {
     // 记录本次会话的用户 ID，用于下次登录对比
     recordUserId();
@@ -80,11 +80,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     tabStore.cacheTabs();
     // 重置路由 Store（会重置权限路由等状态）
     routeStore.resetStore();
-    // resetStore 函数结束
   }
 
   /** Record the user ID of the previous login session Used to compare with the current user ID on next login */
-  // 记录上一次登录用户 ID（中文说明：用于对比是否切换账号，必要时清空 Tabs）
+  // 记录上一次登录用户 ID（用于对比是否切换账号，必要时清空 Tabs）
   function recordUserId() {
     // 没有 userId 时不记录
     if (!userInfo.userId) {
@@ -96,7 +95,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     // Store current user ID locally for next login comparison
     // 将当前用户 ID 写入本地缓存，供下一次登录对比
     localStg.set('lastLoginUserId', userInfo.userId);
-    // recordUserId 函数结束
   }
 
   /**
@@ -104,7 +102,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
    *
    * @returns {boolean} Whether to clear all tabs
    */
-  // 检查是否需要清空 Tabs（中文说明：若本次登录用户与上次不同，则清空全局 Tabs）
+  // 检查是否需要清空 Tabs（若本次登录用户与上次不同，则清空全局 Tabs）
   function checkTabClear(): boolean {
     // 没有 userId 时无需清空
     if (!userInfo.userId) {
@@ -135,7 +133,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     localStg.remove('lastLoginUserId');
     // 返回不清空
     return false;
-    // checkTabClear 函数结束
   }
 
   /**
@@ -145,7 +142,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
    * @param password Password
    * @param [redirect=true] Whether to redirect after login. Default is `true`
    */
-  // 登录（中文说明：请求登录接口获取 token，再拉取用户信息，最后按需重定向并提示）
+  // 登录（请求登录接口获取 token，再拉取用户信息，最后按需重定向并提示）
   async function login(userName: string, password: string, redirect = true) {
     // 开始 loading
     startLoading();
@@ -196,10 +193,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     // 结束 loading
     endLoading();
-    // login 函数结束
   }
 
-  // 通过 token 完成登录（中文说明：写入 token/refreshToken，并拉取用户信息以确认登录有效）
+  // 通过 token 完成登录（写入 token/refreshToken，并拉取用户信息以确认登录有效）
   async function loginByToken(loginToken: Api.Auth.LoginToken) {
     // 1. stored in the localStorage, the later requests need it in headers
     // 写入 token 到本地缓存（后续请求会从本地读取并带到请求头）
@@ -223,10 +219,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     // 返回登录失败
     return false;
-    // loginByToken 函数结束
   }
 
-  // 拉取用户信息（中文说明：请求用户信息接口并写入 userInfo）
+  // 拉取用户信息（请求用户信息接口并写入 userInfo）
   async function getUserInfo() {
     // 请求用户信息接口
     const { data: info, error } = await fetchGetUserInfo();
@@ -244,10 +239,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     // 返回失败
     return false;
-    // getUserInfo 函数结束
   }
 
-  // 初始化用户信息（中文说明：页面刷新后从本地恢复 token，并尝试拉取用户信息）
+  // 初始化用户信息（页面刷新后从本地恢复 token，并尝试拉取用户信息）
   async function initUserInfo() {
     // 从本地获取可能存在的 token
     const maybeToken = getToken();
@@ -267,7 +261,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       }
       // maybeToken 分支结束
     }
-    // initUserInfo 函数结束
   }
 
   // 对外暴露鉴权状态与方法

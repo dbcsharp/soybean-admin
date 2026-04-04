@@ -265,7 +265,7 @@ function handleCreateButton() {
   return buttonItem;
 }
 
-// 组装提交参数（中文说明：把 layout/page 合成 component，把 pathParam 合成 routePath）
+// 组装提交参数（把 layout/page 合成 component，把 pathParam 合成 routePath）
 function getSubmitParams() {
   const { layout, page, pathParam, ...params } = model.value;
 
@@ -278,7 +278,7 @@ function getSubmitParams() {
   return params;
 }
 
-// 提交表单（中文说明：校验通过后组装参数并提交，成功后关闭并触发 submitted）
+// 提交表单（校验通过后组装参数并提交，成功后关闭并触发 submitted）
 async function handleSubmit() {
   await validate();
 

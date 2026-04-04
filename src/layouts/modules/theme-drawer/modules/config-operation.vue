@@ -15,7 +15,7 @@ const themeStore = useThemeStore();
 // 触发复制的 DOM 引用（Clipboard 绑定到该节点）
 const domRef = ref<HTMLElement | null>(null);
 
-// 初始化剪贴板（中文说明：绑定复制按钮，并监听成功提示）
+// 初始化剪贴板（绑定复制按钮，并监听成功提示）
 function initClipboard() {
   if (!domRef.value) return;
 
@@ -26,7 +26,7 @@ function initClipboard() {
   });
 }
 
-// 获取复制文本（中文说明：去掉 JSON key 的双引号，便于粘贴到配置文件）
+// 获取复制文本（去掉 JSON key 的双引号，便于粘贴到配置文件）
 function getClipboardText() {
   const reg = /"\w+":/g;
 
@@ -35,7 +35,7 @@ function getClipboardText() {
   return json.replace(reg, match => match.replace(/"/g, ''));
 }
 
-// 重置配置（中文说明：恢复默认主题设置）
+// 重置配置（恢复默认主题设置）
 function handleReset() {
   themeStore.resetStore();
 

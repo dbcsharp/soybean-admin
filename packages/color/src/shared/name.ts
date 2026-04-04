@@ -2,7 +2,7 @@ import { colorNames } from '../constant';
 import { getHex, getHsl, getRgb } from './colord';
 
 /**
- * 获取颜色名称（中文说明：优先精确匹配 hex，否则按 RGB/HSL 距离找最接近的名称）
+ * 获取颜色名称（优先精确匹配 hex，否则按 RGB/HSL 距离找最接近的名称）
  *
  * @param color 输入颜色
  */

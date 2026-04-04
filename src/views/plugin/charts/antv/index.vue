@@ -34,7 +34,7 @@ const behaviors: CustomBehaviorOption[] = [
 // 是否已存在新节点 NN（用于切换“添加/删除新节点”按钮）
 const hasNodeN = computed(() => flowData.value.nodes.some(node => node.id === 'NN'));
 
-// 添加新节点并连线（中文说明：向 Node5 添加一个新后继节点）
+// 添加新节点并连线（向 Node5 添加一个新后继节点）
 function addNode() {
   const { nodes, edges } = flowData.value;
 
@@ -43,7 +43,7 @@ function addNode() {
   flowData.value = { nodes, edges };
 }
 
-// 删除节点（中文说明：删除节点的同时删除与其相连的边）
+// 删除节点（删除节点的同时删除与其相连的边）
 function removeNode(id: string) {
   const { nodes, edges } = flowData.value;
   // 删除node的同时，也需要删除包含NX的edge

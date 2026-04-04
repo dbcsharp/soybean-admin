@@ -81,7 +81,7 @@ export function useFormRules() {
   // 默认必填规则：用于没有单独文案时的通用必填提示
   const defaultRequiredRule = createRequiredRule($t('form.required'));
 
-  // 创建必填规则（中文说明：生成 required=true 的校验规则）
+  // 创建必填规则（生成 required=true 的校验规则）
   function createRequiredRule(message: string): App.Global.FormRule {
     // 返回符合 NaiveUI 规则结构的必填规则对象
     return {
@@ -91,11 +91,10 @@ export function useFormRules() {
       message
       // 规则对象结束
     };
-    // createRequiredRule 函数结束
   }
 
   /** create a rule for confirming the password */
-  // 创建确认密码规则（中文说明：要求必填，且必须与传入 pwd 一致）
+  // 创建确认密码规则（要求必填，且必须与传入 pwd 一致）
   function createConfirmPwdRule(pwd: string | Ref<string> | ComputedRef<string>) {
     // 定义确认密码的规则数组（必填 + 自定义异步校验）
     const confirmPwdRule: App.Global.FormRule[] = [
@@ -124,7 +123,6 @@ export function useFormRules() {
     ];
     // 返回确认密码规则数组
     return confirmPwdRule;
-    // createConfirmPwdRule 函数结束
   }
 
   // 对外暴露规则集合与规则工厂方法
@@ -141,7 +139,6 @@ export function useFormRules() {
     createConfirmPwdRule
     // 返回对象定义结束
   };
-  // useFormRules 函数结束
 }
 
 // NaiveUI Form 组合式 Hook：封装 FormInst 引用与校验相关方法
@@ -149,18 +146,16 @@ export function useNaiveForm() {
   // 表单实例引用（由组件通过 ref 绑定到 n-form）
   const formRef = ref<FormInst | null>(null);
 
-  // 执行表单校验（中文说明：调用 NaiveUI 的 validate）
+  // 执行表单校验（调用 NaiveUI 的 validate）
   async function validate() {
     // 触发表单校验（formRef 为空时会安全跳过）
     await formRef.value?.validate();
-    // validate 函数结束
   }
 
-  // 恢复校验状态（中文说明：清除校验错误与校验状态）
+  // 恢复校验状态（清除校验错误与校验状态）
   async function restoreValidation() {
     // 恢复表单校验状态（formRef 为空时会安全跳过）
     formRef.value?.restoreValidation();
-    // restoreValidation 函数结束
   }
 
   // 对外暴露表单实例引用与方法
@@ -173,5 +168,4 @@ export function useNaiveForm() {
     restoreValidation
     // 返回对象定义结束
   };
-  // useNaiveForm 函数结束
 }

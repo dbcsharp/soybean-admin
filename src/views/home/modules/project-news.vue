@@ -7,7 +7,7 @@ defineOptions({
   name: 'ProjectNews'
 });
 
-// 项目动态结构（中文说明：用于列表渲染）
+// 项目动态结构（用于列表渲染）
 interface NewsItem {
   // 唯一 id（用于 v-for key）
   id: number;
@@ -18,7 +18,7 @@ interface NewsItem {
   // NewsItem 接口定义结束
 }
 
-// 项目动态列表（中文说明：演示用静态数据，可替换为接口返回）
+// 项目动态列表（演示用静态数据，可替换为接口返回）
 const newses = computed<NewsItem[]>(() => [
   { id: 1, content: $t('page.home.projectNews.desc1'), time: '2021-05-28 22:22:22' },
   { id: 2, content: $t('page.home.projectNews.desc2'), time: '2021-10-27 10:24:54' },

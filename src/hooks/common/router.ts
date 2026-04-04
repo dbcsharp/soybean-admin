@@ -5,12 +5,12 @@ import type { RouteKey } from '@elegant-router/types';
 import { router as globalRouter } from '@/router';
 
 /**
- * 路由跳转封装（中文说明：统一 setup/非 setup 两种使用场景，避免在 setup 外误用 useRouter）
+ * 路由跳转封装（统一 setup/非 setup 两种使用场景，避免在 setup 外误用 useRouter）
  * Router push
  *
  * Jump to the specified route, it can replace function router.push
  *
- * @param inSetup 中文说明：是否在 Vue script setup / setup 上下文中使用（默认 true）
+ * @param inSetup 是否在 Vue script setup / setup 上下文中使用（默认 true）
  * @param inSetup Whether is in vue script setup
  */
 export function useRouterPush(inSetup = true) {
@@ -25,7 +25,7 @@ export function useRouterPush(inSetup = true) {
   // 缓存 back 方法，便于对外直接暴露
   const routerBack = router.back;
 
-  // 通过 RouteKey 跳转（中文说明：支持传入 query 与 params 组装 RouteLocationRaw）
+  // 通过 RouteKey 跳转（支持传入 query 与 params 组装 RouteLocationRaw）
   async function routerPushByKey(key: RouteKey, options?: App.Global.RouterPushOptions) {
     // 读取 query 与 params（未传 options 时使用空对象兜底）
     const { query, params } = options || {};
@@ -53,7 +53,6 @@ export function useRouterPush(inSetup = true) {
 
     // 执行实际跳转并返回 Promise
     return routerPush(routeLocation);
-    // routerPushByKey 函数结束
   }
 
   // 通过 RouteKey 跳转，并自动把目标路由 meta.query 写入到 query 中
@@ -75,23 +74,21 @@ export function useRouterPush(inSetup = true) {
 
     // 携带组装后的 query 执行跳转
     return routerPushByKey(key, { query });
-    // routerPushByKeyWithMetaQuery 函数结束
   }
 
-  // 跳转到首页（中文说明：封装 root 路由的快捷入口）
+  // 跳转到首页（封装 root 路由的快捷入口）
   async function toHome() {
     // 通过 root RouteKey 跳转到首页
     return routerPushByKey('root');
-    // toHome 函数结束
   }
 
   /**
-   * 跳转到登录页（中文说明：可指定登录模块，并可携带 redirect 回跳地址）
+   * 跳转到登录页（可指定登录模块，并可携带 redirect 回跳地址）
    * Navigate to login page
    *
-   * @param loginModule 中文说明：登录模块（不传则默认 pwd-login）
+   * @param loginModule 登录模块（不传则默认 pwd-login）
    * @param loginModule The login module
-   * @param redirectUrl 中文说明：回跳地址（不传则使用当前路由 fullPath）
+   * @param redirectUrl 回跳地址（不传则使用当前路由 fullPath）
    * @param redirectUrl The redirect url, if not specified, it will be the current route fullPath
    */
   async function toLogin(loginModule?: UnionKey.LoginModule, redirectUrl?: string) {
@@ -121,11 +118,10 @@ export function useRouterPush(inSetup = true) {
 
     // 执行跳转到 login 路由
     return routerPushByKey('login', options);
-    // toLogin 函数结束
   }
 
   /**
-   * 切换登录模块（中文说明：保留当前 query，并覆盖 params.module）
+   * 切换登录模块（保留当前 query，并覆盖 params.module）
    * Toggle login module
    *
    * @param module
@@ -136,14 +132,13 @@ export function useRouterPush(inSetup = true) {
 
     // 携带当前 query 与新的 module params 跳转到 login
     return routerPushByKey('login', { query, params: { module } });
-    // toggleLoginModule 函数结束
   }
 
   /**
-   * 登录后重定向（中文说明：优先按 query.redirect 回跳，否则跳转首页）
+   * 登录后重定向（优先按 query.redirect 回跳，否则跳转首页）
    * Redirect from login
    *
-   * @param [needRedirect=true] 中文说明：是否需要重定向（默认 true）
+   * @param [needRedirect=true] 是否需要重定向（默认 true）
    * @param [needRedirect=true] Whether to redirect after login. Default is `true`
    */
   async function redirectFromLogin(needRedirect = true) {
@@ -159,7 +154,6 @@ export function useRouterPush(inSetup = true) {
       await toHome();
       // needRedirect 条件分支结束
     }
-    // redirectFromLogin 函数结束
   }
 
   // 对外暴露常用路由操作方法
@@ -180,5 +174,4 @@ export function useRouterPush(inSetup = true) {
     redirectFromLogin
     // 返回对象定义结束
   };
-  // useRouterPush 函数结束
 }

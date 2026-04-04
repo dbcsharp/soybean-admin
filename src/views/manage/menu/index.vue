@@ -27,7 +27,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
   api: () => fetchGetMenuList(),
   // 数据转换：统一转换为 table 需要的结构
   transform: response => defaultTransform(response),
-  // 列配置（中文说明：包含选择列/字段列/状态 Tag/是否隐藏/操作列）
+  // 列配置（包含选择列/字段列/状态 Tag/是否隐藏/操作列）
   columns: () => [
     {
       type: 'selection',
@@ -202,7 +202,7 @@ function handleAdd() {
   openModal();
 }
 
-// 批量删除（中文说明：示例占位，真实项目应调用批量删除接口）
+// 批量删除（示例占位，真实项目应调用批量删除接口）
 async function handleBatchDelete() {
   // request
   console.log(checkedRowKeys.value);
@@ -210,7 +210,7 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-// 单条删除（中文说明：示例占位，真实项目应调用删除接口）
+// 单条删除（示例占位，真实项目应调用删除接口）
 function handleDelete(id: number) {
   // request
   console.log(id);
@@ -219,7 +219,7 @@ function handleDelete(id: number) {
 }
 
 /** the edit menu data or the parent menu data when adding a child menu */
-// 当前编辑数据（中文说明：编辑时为当前菜单；新增子菜单时为父菜单）
+// 当前编辑数据（编辑时为当前菜单；新增子菜单时为父菜单）
 const editingData: Ref<Api.SystemManage.Menu | null> = ref(null);
 
 // 打开编辑弹窗
@@ -239,7 +239,7 @@ function handleAddChildMenu(item: Api.SystemManage.Menu) {
   openModal();
 }
 
-// 所有页面路径（中文说明：用于菜单页面组件选择）
+// 所有页面路径（用于菜单页面组件选择）
 const allPages = ref<string[]>([]);
 
 // 拉取所有页面路径
@@ -248,7 +248,7 @@ async function getAllPages() {
   allPages.value = pages || [];
 }
 
-// 初始化（中文说明：预加载页面路径数据）
+// 初始化（预加载页面路径数据）
 function init() {
   getAllPages();
 }

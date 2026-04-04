@@ -8,5 +8,4 @@ export function isPC() {
 
   // PC 环境即非移动端环境
   return !isMobile;
-  // isPC 函数结束
 }

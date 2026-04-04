@@ -39,7 +39,7 @@ type ButtonConfig = {
 // 按钮树数据
 const tree = shallowRef<ButtonConfig[]>([]);
 
-// 获取所有按钮（中文说明：示例占位，实际应请求后端接口）
+// 获取所有按钮（示例占位，实际应请求后端接口）
 async function getAllButtons() {
   // request
   tree.value = [
@@ -59,7 +59,7 @@ async function getAllButtons() {
 // 当前勾选的按钮 id 列表
 const checks = shallowRef<number[]>([]);
 
-// 获取当前角色已授权的按钮 id（中文说明：示例占位，实际应请求后端接口）
+// 获取当前角色已授权的按钮 id（示例占位，实际应请求后端接口）
 async function getChecks() {
   console.log(props.roleId);
   // request

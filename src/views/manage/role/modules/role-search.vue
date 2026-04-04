@@ -21,10 +21,10 @@ const emit = defineEmits<Emits>();
 // 搜索表单模型（使用 v-model 由父组件传入并双向绑定）
 const model = defineModel<Api.SystemManage.RoleSearchParams>('model', { required: true });
 
-// 默认表单模型快照（中文说明：用于重置）
+// 默认表单模型快照（用于重置）
 const defaultModel = jsonClone(toRaw(model.value));
 
-// 重置模型数据（中文说明：回填默认值）
+// 重置模型数据（回填默认值）
 function resetModel() {
   Object.assign(model.value, defaultModel);
 }

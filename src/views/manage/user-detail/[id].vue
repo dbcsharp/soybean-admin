@@ -6,7 +6,7 @@ interface Props {
   // Props 接口定义结束
 }
 
-// 声明 props（中文说明：当前页面为占位，使用 void 读取避免未使用告警）
+// 声明 props（当前页面为占位，使用 void 读取避免未使用告警）
 const props = defineProps<Props>();
 void props.id;
 </script>

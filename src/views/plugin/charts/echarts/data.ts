@@ -297,7 +297,7 @@ export function getPictorialBarOption(): ECOption {
     lineData.push(d + b);
   }
 
-  // 象形柱图配置（中文说明：背景为深色，包含 line/bar/渐变叠加与点阵）
+  // 象形柱图配置（背景为深色，包含 line/bar/渐变叠加与点阵）
   const options: ECOption = {
     backgroundColor: '#0f375f',
     tooltip: {

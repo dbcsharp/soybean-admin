@@ -2,7 +2,7 @@ import { h } from 'vue';
 import type { Component } from 'vue';
 
 /**
- * SvgIcon 渲染 Hook（中文说明：生成可用于 NaiveUI 等场景的图标渲染函数）
+ * SvgIcon 渲染 Hook（生成可用于 NaiveUI 等场景的图标渲染函数）
  *
  * @param SvgIcon SvgIcon 组件
  */

@@ -756,7 +756,7 @@ function initVTableGantt() {
   );
 }
 
-// 根据暗黑模式调整 option（中文说明：切换 taskListTable.theme 与背景色）
+// 根据暗黑模式调整 option（切换 taskListTable.theme 与背景色）
 function getOption(option: VTableGantt.GanttConstructorOptions) {
   const isDark = theme.darkMode;
   if (isDark) {

@@ -11,7 +11,7 @@ import type { LocationQueryRaw, RouteLocationNormalized, RouteLocationRaw, Route
  *
  * @param router router instance
  */
-// 创建路由守卫（中文说明：beforeEach 中做路由初始化与登录/权限判断）
+// 创建路由守卫（beforeEach 中做路由初始化与登录/权限判断）
 export function createRouteGuard(router: Router) {
   // 注册全局 beforeEach 守卫
   router.beforeEach(async (to, from) => {
@@ -35,16 +35,16 @@ export function createRouteGuard(router: Router) {
     // 无权限路由 key
     const noAuthorizationRoute: RouteKey = '403';
 
-    // 是否已登录（中文说明：以本地 token 存在为准）
+    // 是否已登录（以本地 token 存在为准）
     const isLogin = Boolean(localStg.get('token'));
-    // 是否需要登录（中文说明：非 constant 路由需要登录）
+    // 是否需要登录（非 constant 路由需要登录）
     const needLogin = !to.meta.constant;
     // 当前路由允许访问的角色列表
     const routeRoles = to.meta.roles || [];
 
-    // 是否命中路由角色（中文说明：用户 roles 与路由 roles 交集不为空）
+    // 是否命中路由角色（用户 roles 与路由 roles 交集不为空）
     const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role));
-    // 是否有权限（中文说明：超级角色或路由无 roles 限制或命中角色）
+    // 是否有权限（超级角色或路由无 roles 限制或命中角色）
     const hasAuth = authStore.isStaticSuper || !routeRoles.length || hasRole;
 
     // if it is login route when logged in, then switch to the root page
@@ -85,7 +85,6 @@ export function createRouteGuard(router: Router) {
     return handleRouteSwitch(to, from);
     // beforeEach 回调结束
   });
-  // createRouteGuard 函数结束
 }
 
 /**
@@ -93,7 +92,7 @@ export function createRouteGuard(router: Router) {
  *
  * @param to to route
  */
-// 初始化路由（中文说明：确保常量/权限路由完成初始化，并处理 not-found 捕获的重定向）
+// 初始化路由（确保常量/权限路由完成初始化，并处理 not-found 捕获的重定向）
 async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw | null> {
   // 获取路由 Store（用于初始化路由与判断路由是否存在）
   const routeStore = useRouteStore();
@@ -131,7 +130,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
     // if 分支结束
   }
 
-  // 是否已登录（中文说明：以本地 token 存在为准）
+  // 是否已登录（以本地 token 存在为准）
   const isLogin = Boolean(localStg.get('token'));
 
   // 未登录分支：只允许访问常量路由，其余跳转登录
@@ -236,10 +235,9 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
   // 路由不存在则继续走 not-found（返回 null 表示不处理）
   return null;
-  // initRoute 函数结束
 }
 
-// 处理路由切换中的特殊逻辑（中文说明：支持 meta.href 外链打开，并回退到来源路由）
+// 处理路由切换中的特殊逻辑（支持 meta.href 外链打开，并回退到来源路由）
 function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNormalized) {
   // route with href
   // 存在 href 时用新窗口打开外链，并阻止当前路由跳转
@@ -251,10 +249,9 @@ function handleRouteSwitch(to: RouteLocationNormalized, from: RouteLocationNorma
     return { path: from.fullPath, replace: true, query: from.query, hash: to.hash };
     // if 分支结束
   }
-  // handleRouteSwitch 函数结束
 }
 
-// 生成登录页 query（中文说明：按当前目标路由生成 redirect，并处理首页带 query 的特殊情况）
+// 生成登录页 query（按当前目标路由生成 redirect，并处理首页带 query 的特殊情况）
 function getRouteQueryOfLoginRoute(to: RouteLocationNormalized, routeHome: RouteKey) {
   // 登录路由 key
   const loginRoute: RouteKey = 'login';
@@ -280,5 +277,4 @@ function getRouteQueryOfLoginRoute(to: RouteLocationNormalized, routeHome: Route
 
   // 返回登录页 query
   return query;
-  // getRouteQueryOfLoginRoute 函数结束
 }

@@ -11,7 +11,7 @@ import { $t } from '@/locales';
 // 获取应用状态（用于判断移动端并切换表格 flex-height）
 const appStore = useAppStore();
 
-// 查询参数（中文说明：一次性拉取较多数据用于导出）
+// 查询参数（一次性拉取较多数据用于导出）
 const searchParams: Api.SystemManage.UserSearchParams = reactive({
   current: 1,
   size: 999,
@@ -37,7 +37,7 @@ const { columns, data, loading } = useNaiveTable({
 
     return [];
   },
-  // 列配置（中文说明：与用户管理页类似，用于展示并作为导出列来源）
+  // 列配置（与用户管理页类似，用于展示并作为导出列来源）
   columns: () => [
     {
       type: 'selection',
@@ -118,7 +118,7 @@ const { columns, data, loading } = useNaiveTable({
   ]
 });
 
-// 导出 Excel（中文说明：从表格列与数据生成 sheet，并写入文件）
+// 导出 Excel（从表格列与数据生成 sheet，并写入文件）
 function exportExcel() {
   // 导出列：跳过 selection/index 两列
   const exportColumns = columns.value.slice(2);
@@ -150,7 +150,7 @@ function exportExcel() {
   writeFile(workBook, '用户数据.xlsx');
 }
 
-// 获取表格单元格值（中文说明：处理 roles/status/gender 等展示型字段）
+// 获取表格单元格值（处理 roles/status/gender 等展示型字段）
 function getTableValue(col: NaiveUI.TableColumn<Api.SystemManage.User>, item: Api.SystemManage.User) {
   if (!isTableColumnHasKey(col)) {
     return null;
@@ -174,7 +174,7 @@ function getTableValue(col: NaiveUI.TableColumn<Api.SystemManage.User>, item: Ap
   return item[key] || null;
 }
 
-// 判断列是否包含 title（中文说明：用于提取表头文本）
+// 判断列是否包含 title（用于提取表头文本）
 function isTableColumnHasTitle<T>(column: NaiveUI.TableColumn<T>): column is NaiveUI.TableColumnWithKey<T> & {
   title: string;
 } {

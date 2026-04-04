@@ -34,7 +34,7 @@ const handleSearch = useDebounceFn(search, 300);
 // 弹窗显隐（v-model:show）
 const visible = defineModel<boolean>('show', { required: true });
 
-// 执行搜索（中文说明：按关键字在 menu 标题中匹配）
+// 执行搜索（按关键字在 menu 标题中匹配）
 function search() {
   resultOptions.value = routeStore.searchMenus.filter(menu => {
     const trimKeyword = keyword.value.toLocaleLowerCase().trim();
@@ -44,7 +44,7 @@ function search() {
   activePath.value = resultOptions.value[0]?.routePath ?? '';
 }
 
-// 关闭弹窗并清空状态（中文说明：延迟处理以避免用户看到清空过程）
+// 关闭弹窗并清空状态（延迟处理以避免用户看到清空过程）
 function handleClose() {
   // handle with setTimeout to prevent user from seeing some operations
   setTimeout(() => {

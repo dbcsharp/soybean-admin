@@ -64,7 +64,7 @@ export function mixColor(firstColor: AnyColor, secondColor: AnyColor, ratio: num
 }
 
 /**
- * 将带透明度的颜色转换为近似的不透明颜色（中文说明：按背景色反推混合结果）
+ * 将带透明度的颜色转换为近似的不透明颜色（按背景色反推混合结果）
  *
  * @param color 颜色
  * @param alpha 透明度（0~1）

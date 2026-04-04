@@ -14,7 +14,7 @@ defineOptions({
   name: 'PageTab'
 });
 
-// 声明 props 并设置默认值（中文说明：mode 默认 chrome，默认可关闭）
+// 声明 props 并设置默认值（mode 默认 chrome，默认可关闭）
 const props = withDefaults(defineProps<PageTabProps>(), {
   mode: 'chrome',
   commonClass: 'transition-all-300',
@@ -30,7 +30,7 @@ interface Emits {
 // 声明 emits
 const emit = defineEmits<Emits>();
 
-// 当前使用的标签组件与对应 class（中文说明：根据 mode 映射到 chrome/button/slider 组件）
+// 当前使用的标签组件与对应 class（根据 mode 映射到 chrome/button/slider 组件）
 const activeTabComponent = computed(() => {
   const { mode, chromeClass, buttonClass, sliderClass } = props;
 
@@ -55,7 +55,7 @@ const activeTabComponent = computed(() => {
 // CSS 变量：基于 activeColor 生成不同透明度/混合色（用于不同 Tab 样式共享）
 const cssVars = computed(() => createTabCssVars(props.activeColor));
 
-// 透传给子 Tab 组件的 props（中文说明：剔除 class props，避免无意义透传）
+// 透传给子 Tab 组件的 props（剔除 class props，避免无意义透传）
 const bindProps = computed(() => {
   const { chromeClass: _chromeCls, buttonClass: _btnCls, sliderClass: _sliderCls, ...rest } = props;
 

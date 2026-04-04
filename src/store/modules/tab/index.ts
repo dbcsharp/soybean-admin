@@ -24,7 +24,7 @@ import {
   updateTabsByI18nKey
 } from './shared';
 
-// 创建标签页 Store（中文说明：内部使用 setup 语法，配合 resetSetupStore 插件支持 $reset）
+// 创建标签页 Store（内部使用 setup 语法，配合 resetSetupStore 插件支持 $reset）
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   // 获取路由 Store（用于重置路由缓存与获取首页路由 key）
   const routeStore = useRouteStore();
@@ -34,23 +34,22 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   const { routerPush } = useRouterPush(false);
 
   /** Tabs */
-  // Tabs 列表（中文说明：不包含 homeTab；homeTab 单独维护）
+  // Tabs 列表（不包含 homeTab；homeTab 单独维护）
   const tabs = ref<App.Global.Tab[]>([]);
 
   /** Get active tab */
-  // 首页 Tab（中文说明：由 routeHome 生成，默认置顶）
+  // 首页 Tab（由 routeHome 生成，默认置顶）
   const homeTab = ref<App.Global.Tab>();
 
   /** Init home tab */
-  // 初始化首页 Tab（中文说明：根据 routeHome 与路由表生成 homeTab）
+  // 初始化首页 Tab（根据 routeHome 与路由表生成 homeTab）
   function initHomeTab() {
     // 计算并写入 homeTab
     homeTab.value = getDefaultHomeTab(router, routeStore.routeHome);
-    // initHomeTab 函数结束
   }
 
   /** Get all tabs */
-  // 所有 Tabs（中文说明：组合 homeTab + 固定 Tabs + 其他 Tabs）
+  // 所有 Tabs（组合 homeTab + 固定 Tabs + 其他 Tabs）
   const allTabs = computed(() => getAllTabs(tabs.value, homeTab.value));
 
   /** Active tab id */
@@ -62,11 +61,10 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param id Tab id
    */
-  // 设置当前激活 Tab（中文说明：只更新 activeTabId）
+  // 设置当前激活 Tab（只更新 activeTabId）
   function setActiveTabId(id: string) {
     // 更新激活 id
     activeTabId.value = id;
-    // setActiveTabId 函数结束
   }
 
   /**
@@ -74,7 +72,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param currentRoute Current route
    */
-  // 初始化标签页 Store（中文说明：从缓存恢复 Tabs，并把当前路由加入 Tabs）
+  // 初始化标签页 Store（从缓存恢复 Tabs，并把当前路由加入 Tabs）
   function initTabStore(currentRoute: App.Global.TabRoute) {
     // 从本地缓存读取 Tabs
     const storageTabs = localStg.get('globalTabs');
@@ -90,7 +88,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 将当前路由加入 Tabs（默认激活）
     addTab(currentRoute);
-    // initTabStore 函数结束
   }
 
   /**
@@ -99,7 +96,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param route Tab route
    * @param active Whether to activate the added tab
    */
-  // 添加 Tab（中文说明：非首页且不存在时才 push；active 为 true 时会激活）
+  // 添加 Tab（非首页且不存在时才 push；active 为 true 时会激活）
   function addTab(route: App.Global.TabRoute, active = true) {
     // 由路由生成 Tab 信息
     const tab = getTabByRoute(route);
@@ -120,7 +117,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       setActiveTabId(tab.id);
       // active 分支结束
     }
-    // addTab 函数结束
   }
 
   /**
@@ -128,7 +124,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId Tab id
    */
-  // 移除指定 Tab（中文说明：移除后如移除的是当前激活 Tab，则切换到相邻 Tab 或首页）
+  // 移除指定 Tab（移除后如移除的是当前激活 Tab，则切换到相邻 Tab 或首页）
   async function removeTab(tabId: string) {
     // 查找要移除的 tab 下标
     const removeTabIndex = tabs.value.findIndex(tab => tab.id === tabId);
@@ -159,15 +155,13 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     // reset route cache
     // 重置被移除 Tab 的路由缓存
     routeStore.resetRouteCache(removedTabRouteKey);
-    // removeTab 函数结束
   }
 
   /** remove active tab */
-  // 移除当前激活 Tab（中文说明：等价于 removeTab(activeTabId)）
+  // 移除当前激活 Tab（等价于 removeTab(activeTabId)）
   async function removeActiveTab() {
     // 移除激活 tab
     await removeTab(activeTabId.value);
-    // removeActiveTab 函数结束
   }
 
   /**
@@ -175,7 +169,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param routeName route name
    */
-  // 按路由名称移除 Tab（中文说明：兼容 multiTab，可能匹配多个实例）
+  // 按路由名称移除 Tab（兼容 multiTab，可能匹配多个实例）
   async function removeTabByRouteName(routeName: RouteKey) {
     // 在 tabs 中查找匹配路由的 tab
     const tab = findTabByRouteName(routeName, tabs.value);
@@ -184,7 +178,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 移除找到的 tab
     await removeTab(tab.id);
-    // removeTabByRouteName 函数结束
   }
 
   /**
@@ -192,7 +185,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param excludes Exclude tab ids
    */
-  // 清空 Tabs（中文说明：保留固定 Tabs 与 excludes 指定 Tabs；必要时切换路由并重置缓存）
+  // 清空 Tabs（保留固定 Tabs 与 excludes 指定 Tabs；必要时切换路由并重置缓存）
   async function clearTabs(excludes: string[] = []) {
     // 需要保留的 tab id 列表：固定 tabs + excludes
     const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
@@ -231,7 +224,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     function update() {
       // 写入更新后的 tabs
       tabs.value = updatedTabs;
-      // update 函数结束
     }
 
     // 若激活 tab 未被移除，直接更新列表
@@ -262,10 +254,9 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       routeStore.resetRouteCache(routeKey);
       // for..of 单次迭代结束
     }
-    // clearTabs 函数结束
   }
 
-  // 在 setup 场景下使用 useRouterPush（中文说明：用于 replaceTab 的路由跳转）
+  // 在 setup 场景下使用 useRouterPush（用于 replaceTab 的路由跳转）
   const { routerPushByKey } = useRouterPush();
   /**
    * Replace tab
@@ -273,7 +264,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param key Route key
    * @param options Router push options
    */
-  // 替换当前 Tab（中文说明：先跳转新路由，再删除旧 tab（非首页/非固定））
+  // 替换当前 Tab（先跳转新路由，再删除旧 tab（非首页/非固定））
   async function replaceTab(key: RouteKey, options?: App.Global.RouterPushOptions) {
     // 记录旧 tab id
     const oldTabId = activeTabId.value;
@@ -289,7 +280,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       await removeTab(oldTabId);
       // if 分支结束
     }
-    // replaceTab 函数结束
   }
 
   /**
@@ -297,7 +287,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tab
    */
-  // 根据 Tab 切换路由（中文说明：routerPush 成功后同步 activeTabId）
+  // 根据 Tab 切换路由（routerPush 成功后同步 activeTabId）
   async function switchRouteByTab(tab: App.Global.Tab) {
     // 推送到 tab.fullPath（返回值含义由 useRouterPush 实现决定）
     const fail = await routerPush(tab.fullPath);
@@ -307,7 +297,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       setActiveTabId(tab.id);
       // if 分支结束
     }
-    // switchRouteByTab 函数结束
   }
 
   /**
@@ -315,7 +304,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId
    */
-  // 清除指定 Tab 左侧的 Tabs（中文说明：保留该 tab 及其右侧）
+  // 清除指定 Tab 左侧的 Tabs（保留该 tab 及其右侧）
   async function clearLeftTabs(tabId: string) {
     // 提取当前 tabs 的 id 列表
     const tabIds = tabs.value.map(tab => tab.id);
@@ -328,7 +317,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const excludes = tabIds.slice(index);
     // 清理 tabs
     await clearTabs(excludes);
-    // clearLeftTabs 函数结束
   }
 
   /**
@@ -336,7 +324,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId
    */
-  // 清除指定 Tab 右侧的 Tabs（中文说明：首页特殊处理，清右侧等价于清空非固定 tabs）
+  // 清除指定 Tab 右侧的 Tabs（首页特殊处理，清右侧等价于清空非固定 tabs）
   async function clearRightTabs(tabId: string) {
     // 判断是否为首页 tab
     const isHomeTab = tabId === homeTab.value?.id;
@@ -360,7 +348,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const excludes = tabIds.slice(0, index + 1);
     // 清理 tabs
     await clearTabs(excludes);
-    // clearRightTabs 函数结束
   }
 
   /**
@@ -368,7 +355,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId
    */
-  // 固定 Tab（中文说明：设置 fixedIndex，并把该 tab 插入到固定区末尾）
+  // 固定 Tab（设置 fixedIndex，并把该 tab 插入到固定区末尾）
   function fixTab(tabId: string) {
     // 查找 tab 下标
     const tabIndex = tabs.value.findIndex(t => t.id === tabId);
@@ -393,7 +380,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 重排固定 tabs 的 fixedIndex，保证连续
     reorderFixedTabs(tabs.value);
-    // fixTab 函数结束
   }
 
   /**
@@ -401,7 +387,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId
    */
-  // 取消固定 Tab（中文说明：清空 fixedIndex，并按固定区末尾位置调整顺序）
+  // 取消固定 Tab（清空 fixedIndex，并按固定区末尾位置调整顺序）
   function unfixTab(tabId: string) {
     // 查找 tab 下标
     const tabIndex = tabs.value.findIndex(t => t.id === tabId);
@@ -426,7 +412,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 重排固定 tabs 的 fixedIndex，保证连续
     reorderFixedTabs(tabs.value);
-    // unfixTab 函数结束
   }
 
   /**
@@ -436,7 +421,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param label New tab label
    * @param tabId Tab id
    */
-  // 设置 Tab 自定义文案（中文说明：保存 oldLabel 并写入 newLabel）
+  // 设置 Tab 自定义文案（保存 oldLabel 并写入 newLabel）
   function setTabLabel(label: string, tabId?: string) {
     // 计算目标 tab id（默认使用 activeTabId）
     const id = tabId || activeTabId.value;
@@ -450,7 +435,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     tab.oldLabel = tab.label;
     // 写入新文案
     tab.newLabel = label;
-    // setTabLabel 函数结束
   }
 
   /**
@@ -459,7 +443,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @default activeTabId
    * @param tabId Tab id
    */
-  // 重置 Tab 自定义文案（中文说明：清空 newLabel，展示逻辑会回退到 oldLabel/label）
+  // 重置 Tab 自定义文案（清空 newLabel，展示逻辑会回退到 oldLabel/label）
   function resetTabLabel(tabId?: string) {
     // 计算目标 tab id（默认使用 activeTabId）
     const id = tabId || activeTabId.value;
@@ -471,7 +455,6 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 清空新文案
     tab.newLabel = undefined;
-    // resetTabLabel 函数结束
   }
 
   /**
@@ -479,7 +462,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    *
    * @param tabId
    */
-  // 判断 Tab 是否需要保留（中文说明：首页或固定 tabs 必须保留）
+  // 判断 Tab 是否需要保留（首页或固定 tabs 必须保留）
   function isTabRetain(tabId: string) {
     // 首页 tab 必须保留
     if (tabId === homeTab.value?.id) return true;
@@ -489,11 +472,10 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     // 返回是否为固定 tab
     return fixedTabIds.includes(tabId);
-    // isTabRetain 函数结束
   }
 
   /** Update tabs by locale */
-  // 按语言更新 Tabs 文案（中文说明：根据 i18nKey 重新翻译 label）
+  // 按语言更新 Tabs 文案（根据 i18nKey 重新翻译 label）
   function updateTabsByLocale() {
     // 更新 tabs 文案
     tabs.value = updateTabsByI18nKey(tabs.value);
@@ -504,18 +486,16 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
       homeTab.value = updateTabByI18nKey(homeTab.value);
       // if 分支结束
     }
-    // updateTabsByLocale 函数结束
   }
 
   /** Cache tabs */
-  // 缓存 Tabs（中文说明：主题开启缓存时写入 localStg.globalTabs）
+  // 缓存 Tabs（主题开启缓存时写入 localStg.globalTabs）
   function cacheTabs() {
     // 未开启缓存时直接返回
     if (!themeStore.tab.cache) return;
 
     // 写入本地缓存
     localStg.set('globalTabs', tabs.value);
-    // cacheTabs 函数结束
   }
 
   // cache tabs when page is closed or refreshed

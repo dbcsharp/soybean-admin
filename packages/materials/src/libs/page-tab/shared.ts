@@ -18,7 +18,7 @@ function createCssVars(props: PageTabCssVarsProps) {
   return cssVars;
 }
 
-// 创建标签页 CSS 变量（中文说明：根据主色生成不同透明度/不同背景下的混合色）
+// 创建标签页 CSS 变量（根据主色生成不同透明度/不同背景下的混合色）
 export function createTabCssVars(primaryColor: string) {
   const cssProps: PageTabCssVarsProps = {
     primaryColor,

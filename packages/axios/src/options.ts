@@ -4,7 +4,7 @@ import { stringify } from 'qs';
 import { isHttpSuccess } from './shared';
 import type { RequestOption } from './type';
 
-// 创建默认请求 options（中文说明：提供默认 transform/onRequest/onError 等钩子，并合并外部传入配置）
+// 创建默认请求 options（提供默认 transform/onRequest/onError 等钩子，并合并外部传入配置）
 export function createDefaultOptions<
   ResponseData,
   ApiData = ResponseData,
@@ -42,7 +42,7 @@ export function createDefaultOptions<
   return opts;
 }
 
-// 创建 axios-retry 配置（中文说明：默认 retries=0，可通过 axiosConfig 覆盖）
+// 创建 axios-retry 配置（默认 retries=0，可通过 axiosConfig 覆盖）
 export function createRetryOptions(config?: Partial<CreateAxiosDefaults>) {
   // 默认重试配置
   const retryConfig: IAxiosRetryConfig = {
@@ -56,7 +56,7 @@ export function createRetryOptions(config?: Partial<CreateAxiosDefaults>) {
   return retryConfig;
 }
 
-// 创建 axios 基础配置（中文说明：包含超时、默认 JSON header、状态码校验与 params 序列化）
+// 创建 axios 基础配置（包含超时、默认 JSON header、状态码校验与 params 序列化）
 export function createAxiosConfig(config?: Partial<CreateAxiosDefaults>) {
   // 默认超时：10 秒
   const TEN_SECONDS = 10 * 1000;

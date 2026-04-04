@@ -43,16 +43,16 @@ const {
 // 菜单上下文：当前选中 key
 const { selectedKey } = useMenu();
 
-// 菜单是否反色（中文说明：亮色模式且 sider.inverted=true 时反色）
+// 菜单是否反色（亮色模式且 sider.inverted=true 时反色）
 const inverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 
 // 是否有二级菜单
 const hasChildMenus = computed(() => secondLevelMenus.value.length > 0);
 
-// 是否显示二级菜单抽屉（中文说明：有子菜单且（已打开或固定））
+// 是否显示二级菜单抽屉（有子菜单且（已打开或固定））
 const showDrawer = computed(() => hasChildMenus.value && (drawerVisible.value || appStore.mixSiderFixed));
 
-// 选择一级菜单（中文说明：选择后若有子菜单则打开抽屉）
+// 选择一级菜单（选择后若有子菜单则打开抽屉）
 function handleSelectMenu(key: RouteKey) {
   handleSelectFirstLevelMenu(key);
 
@@ -73,7 +73,7 @@ function handleResetActiveMenu() {
 // 展开菜单 key 列表（用于二级 NMenu）
 const expandedKeys = ref<string[]>([]);
 
-// 更新展开项（中文说明：折叠状态或无选中项时清空，否则展开选中路径）
+// 更新展开项（折叠状态或无选中项时清空，否则展开选中路径）
 function updateExpandedKeys() {
   if (appStore.siderCollapse || !selectedKey.value) {
     expandedKeys.value = [];

@@ -1,4 +1,4 @@
-// 颜色名称表（中文说明：用于根据输入颜色匹配最接近的英文颜色名）
+// 颜色名称表（用于根据输入颜色匹配最接近的英文颜色名）
 export const colorNames: [hex: string, name: string][] = [
   ['#000000', 'Black'],
   ['#000080', 'Navy Blue'],

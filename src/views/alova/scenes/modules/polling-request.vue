@@ -26,7 +26,7 @@ const { loading, data } = useAutoRequest(getLastTime, {
   }
 });
 
-// 切换暂停状态（中文说明：暂停后不再执行 next）
+// 切换暂停状态（暂停后不再执行 next）
 const toggleStop = () => {
   isStop.value = !isStop.value;
 };

@@ -60,7 +60,7 @@ const options = computed(() => {
   return opts;
 });
 
-// 退出登录（中文说明：弹出确认对话框，确认后清空 authStore）
+// 退出登录（弹出确认对话框，确认后清空 authStore）
 function logout() {
   window.$dialog?.info({
     title: $t('common.tip'),

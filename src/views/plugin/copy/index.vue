@@ -8,7 +8,7 @@ const { copy, isSupported } = useClipboard();
 // 需要复制的文本内容
 const source = ref('');
 
-// 执行复制（中文说明：先做兼容性与输入校验，再调用 copy）
+// 执行复制（先做兼容性与输入校验，再调用 copy）
 async function handleCopy() {
   if (!isSupported) {
     window.$message?.error('您的浏览器不支持Clipboard API');

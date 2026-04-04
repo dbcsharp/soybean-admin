@@ -17,7 +17,7 @@ const authStore = useAuthStore();
 // 栅格间距：移动端不留横向间距，非移动端使用 16
 const gap = computed(() => (appStore.isMobile ? 0 : 16));
 
-// 统计数据结构（中文说明：用于顶部右侧 NStatistic）
+// 统计数据结构（用于顶部右侧 NStatistic）
 interface StatisticData {
   // 唯一 id（用于 v-for key）
   id: number;
@@ -28,7 +28,7 @@ interface StatisticData {
   // StatisticData 接口定义结束
 }
 
-// 顶部统计数据（中文说明：演示用静态数据，可替换为接口返回）
+// 顶部统计数据（演示用静态数据，可替换为接口返回）
 const statisticData = computed<StatisticData[]>(() => [
   {
     id: 0,

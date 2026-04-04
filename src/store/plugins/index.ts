@@ -28,5 +28,4 @@ export function resetSetupStore(context: PiniaPluginContext) {
     };
     // if 分支结束
   }
-  // resetSetupStore 函数结束
 }

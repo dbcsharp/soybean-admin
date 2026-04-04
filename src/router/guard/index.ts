@@ -9,7 +9,7 @@ import { createDocumentTitleGuard } from './title';
  *
  * @param router - Router instance
  */
-// 注册所有路由守卫（中文说明：按顺序挂载进度条、路由权限与标题守卫）
+// 注册所有路由守卫（按顺序挂载进度条、路由权限与标题守卫）
 export function createRouterGuard(router: Router) {
   // 注册路由切换进度条守卫
   createProgressGuard(router);
@@ -17,5 +17,4 @@ export function createRouterGuard(router: Router) {
   createRouteGuard(router);
   // 注册文档标题更新守卫
   createDocumentTitleGuard(router);
-  // createRouterGuard 函数结束
 }

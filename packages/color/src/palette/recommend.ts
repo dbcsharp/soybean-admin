@@ -9,7 +9,7 @@ import type {
 } from '../types';
 
 /**
- * 获取推荐调色板（中文说明：根据输入颜色计算最接近的色板家族，并调整色相/饱和度生成梯度）
+ * 获取推荐调色板（根据输入颜色计算最接近的色板家族，并调整色相/饱和度生成梯度）
  *
  * @param color 输入颜色（hex）
  */
@@ -58,7 +58,7 @@ export function getRecommendedPaletteColorByNumber(color: string, number: ColorP
 }
 
 /**
- * 获取推荐色板家族（中文说明：在预置色板中寻找最接近颜色，并按输入色调整整套梯度）
+ * 获取推荐色板家族（在预置色板中寻找最接近颜色，并按输入色调整整套梯度）
  *
  * @param color 输入颜色（hex）
  */
@@ -127,7 +127,7 @@ export function getRecommendedColorPaletteFamily(color: string) {
 }
 
 /**
- * 获取最接近的色板家族（中文说明：先按 deltaE 找最近家族，再按亮度 l 找最近梯度）
+ * 获取最接近的色板家族（先按 deltaE 找最近家族，再按亮度 l 找最近梯度）
  *
  * @param color 输入颜色
  * @param families 预置色板家族

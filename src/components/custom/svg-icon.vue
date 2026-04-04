@@ -42,7 +42,7 @@ const symbolId = computed(() => {
 });
 
 /** If localIcon is passed, render localIcon first */
-// 是否优先渲染本地 svg（中文说明：传了 localIcon 或未传 icon 时优先本地）
+// 是否优先渲染本地 svg（传了 localIcon 或未传 icon 时优先本地）
 const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 </script>
 

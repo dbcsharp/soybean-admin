@@ -8,7 +8,7 @@ const domRef = ref<HTMLElement>();
 // 播放器实例引用
 const player = ref<Player>();
 
-// 渲染视频播放器（中文说明：创建 xgplayer 实例并设置播放地址与倍速）
+// 渲染视频播放器（创建 xgplayer 实例并设置播放地址与倍速）
 function renderXgPlayer() {
   if (!domRef.value) return;
   const url = 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4';
@@ -18,7 +18,7 @@ function renderXgPlayer() {
     playbackRate: [0.5, 0.75, 1, 1.5, 2]
   });
 }
-// 销毁播放器（中文说明：组件卸载时释放资源）
+// 销毁播放器（组件卸载时释放资源）
 function destroyXgPlayer() {
   player.value?.destroy();
 }

@@ -45,7 +45,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   } = useBoolean(localStg.get('mixSiderFixed') === 'Y');
 
   /** Is mobile layout */
-  // 是否移动端布局（中文说明：小于 sm 断点时为移动端）
+  // 是否移动端布局（小于 sm 断点时为移动端）
   const isMobile = breakpoints.smaller('sm');
 
   /**
@@ -53,7 +53,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
    *
    * @param duration Duration time
    */
-  // 触发页面重载（中文说明：先关闭 reloadFlag，再按动画配置延迟后重新打开，并重置路由缓存）
+  // 触发页面重载（先关闭 reloadFlag，再按动画配置延迟后重新打开，并重置路由缓存）
   async function reloadPage(duration = 300) {
     // 先关闭重载标记，让页面卸载
     setReloadFlag(false);
@@ -65,17 +65,15 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     await new Promise(resolve => {
       // 使用 setTimeout 实现延迟
       setTimeout(resolve, d);
-      // Promise executor 结束
     });
 
     // 重新开启重载标记，让页面重新挂载
     setReloadFlag(true);
     // 重置当前路由缓存（用于 keep-alive 场景刷新）
     routeStore.resetRouteCache();
-    // reloadPage 函数结束
   }
 
-  // 当前语言（中文说明：从本地读取 lang，不存在则默认 zh-CN）
+  // 当前语言（从本地读取 lang，不存在则默认 zh-CN）
   const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
 
   // 语言选项列表（用于语言切换下拉）
@@ -99,7 +97,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     // localeOptions 数组结束
   ];
 
-  // 切换语言（中文说明：更新 locale、更新 i18n、并写入本地缓存）
+  // 切换语言（更新 locale、更新 i18n、并写入本地缓存）
   function changeLocale(lang: App.I18n.LangType) {
     // 更新响应式语言值
     locale.value = lang;
@@ -107,11 +105,10 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     setLocale(lang);
     // 缓存语言选择
     localStg.set('lang', lang);
-    // changeLocale 函数结束
   }
 
   /** Update document title by locale */
-  // 根据语言更新浏览器标题（中文说明：优先使用 i18nKey 翻译，否则使用路由 meta.title）
+  // 根据语言更新浏览器标题（优先使用 i18nKey 翻译，否则使用路由 meta.title）
   function updateDocumentTitleByLocale() {
     // 从当前路由 meta 中读取 i18nKey 与 title
     const { i18nKey, title } = router.currentRoute.value.meta;
@@ -121,18 +118,16 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
 
     // 设置浏览器标题
     useTitle(documentTitle);
-    // updateDocumentTitleByLocale 函数结束
   }
 
-  // 初始化应用状态（中文说明：设置 dayjs 的语言）
+  // 初始化应用状态（设置 dayjs 的语言）
   function init() {
     // 设置 dayjs 语言
     setDayjsLocale(locale.value);
-    // init 函数结束
   }
 
   // watch store
-  // 在独立 scope 内注册 watch（中文说明：监听移动端变化与语言变化）
+  // 在独立 scope 内注册 watch（监听移动端变化与语言变化）
   scope.run(() => {
     // watch isMobile, if is mobile, collapse sider
     // 监听 isMobile：进入移动端时备份布局并强制切换为竖向布局且折叠侧边栏；退出移动端时恢复备份
@@ -210,7 +205,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   });
 
   // cache mixSiderFixed
-  // 页面关闭/刷新前缓存 mixSiderFixed 状态（中文说明：写入本地存储）
+  // 页面关闭/刷新前缓存 mixSiderFixed 状态（写入本地存储）
   useEventListener(window, 'beforeunload', () => {
     // 将布尔值转换为 Y/N 写入缓存
     localStg.set('mixSiderFixed', mixSiderFixed.value ? 'Y' : 'N');
@@ -218,7 +213,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   });
 
   /** On scope dispose */
-  // 作用域销毁时停止 scope（中文说明：清理所有 watch）
+  // 作用域销毁时停止 scope（清理所有 watch）
   onScopeDispose(() => {
     // 停止 scope 内创建的所有副作用
     scope.stop();
