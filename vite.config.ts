@@ -87,10 +87,9 @@ export default defineConfig(configEnv => {
           // 删除 debugger 等语句
           drop_debugger: true
         },
-        // 格式化选项
         format: {
-          // 删除所有注释
-          comments: false // 完全删除所有注释
+          // 删除 js 所有注释
+          comments: false
         }
       }
     }

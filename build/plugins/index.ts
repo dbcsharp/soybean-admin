@@ -15,7 +15,15 @@ export function setupVitePlugins(viteEnv: Env.ImportMeta, buildTime: string) {
   // 插件数组（PluginOption 可为 Plugin 或 Plugin[]）
   const plugins: PluginOption = [
     // Vue SFC 支持
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // 删除 Vue 模板中的注释
+          // 注意：这会删除所有注释，包括行内注释
+          comments: false
+        }
+      }
+    }),
     // Vue JSX 支持
     vueJsx(),
     // Vue Devtools 插件（按环境决定 editor）
