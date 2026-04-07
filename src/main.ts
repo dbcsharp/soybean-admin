@@ -13,6 +13,8 @@ import { setupStore } from './store';
 import { setupRouter } from './router';
 import { getLocale, setupI18n } from './locales';
 import App from './App.vue';
+// custom directives
+import directives from '@/directives/index';
 
 // 应用启动入口：按顺序初始化加载页、进度条、图标、Dayjs、Pinia、Router、i18n 与版本更新提示
 async function setupApp() {
@@ -52,6 +54,8 @@ async function setupApp() {
     lang: getLocale() === 'zh-CN' ? 'zh' : 'en'
     // 配置对象结束
   });
+  // 安装自定义指令
+  app.use(directives);
 
   // 挂载应用到 #app
   app.mount('#app');

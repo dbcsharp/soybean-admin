@@ -7,6 +7,7 @@ const { copy, isSupported } = useClipboard();
 
 // 需要复制的文本内容
 const source = ref('');
+const sourceTest = ref('');
 
 // 执行复制（先做兼容性与输入校验，再调用 copy）
 async function handleCopy() {
@@ -34,6 +35,17 @@ async function handleCopy() {
         <NInput v-model:value="source" placeholder="请输入要复制的内容吧" />
         <NButton type="primary" @click="handleCopy">复制</NButton>
       </NInputGroup>
+      <!-- 输入 + 复制按钮 -->
+      <NInputGroup>
+        <NInput v-model:value="sourceTest" placeholder="请输入要复制的内容吧" />
+        <NButton v-copy="sourceTest" type="primary">复制 v-copy</NButton>
+      </NInputGroup>
+      <NTooltip content="复制">
+        <template #trigger>
+          <icon-mynaui:copy class="operate-shadow operate-item" tootip="复制" />
+        </template>
+        <span>I wish they all could be California girls</span>
+      </NTooltip>
     </NCard>
   </div>
 </template>

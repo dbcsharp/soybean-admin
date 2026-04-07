@@ -33,3 +33,6 @@ package-lock.json
 yarn.lock
 
 .VSCodeCounter
+
+# Generated typings
+src/typings/components.generated.d.ts
